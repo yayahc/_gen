@@ -13,6 +13,10 @@ dependencies:
 
 
 scripts:
-  gen: "dart generator.dart"
+  gen: "dart g_transaction_types.dart && dart g_operators.dart && dart g_users.dart && dart g_accounts.dart"
+  gen-a: "dart g_accounts.dart"
+  gen-u: "dart g_users.dart"
+  gen-t: "dart g_transaction_types.dart"  
   prisma-push: "npx prisma db push"
   prisma-gen: "npx prisma generate && dart run build_runner build"
+  prisma-pg: "npx prisma db push && npx prisma generate && dart run build_runner build"
