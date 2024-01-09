@@ -16,7 +16,7 @@ UserWhereInput _$UserWhereInputFromJson(Map<String, dynamic> json) =>
           ?.map((e) => UserWhereInput.fromJson(e as Map<String, dynamic>)),
       id: json['id'] == null
           ? null
-          : StringFilter.fromJson(json['id'] as Map<String, dynamic>),
+          : IntFilter.fromJson(json['id'] as Map<String, dynamic>),
       firstName: json['firstName'] == null
           ? null
           : StringFilter.fromJson(json['firstName'] as Map<String, dynamic>),
@@ -110,7 +110,7 @@ const _$SortOrderEnumMap = {
 UserWhereUniqueInput _$UserWhereUniqueInputFromJson(
         Map<String, dynamic> json) =>
     UserWhereUniqueInput(
-      id: json['id'] as String?,
+      id: json['id'] as int?,
       AND: (json['AND'] as List<dynamic>?)
           ?.map((e) => UserWhereInput.fromJson(e as Map<String, dynamic>)),
       OR: (json['OR'] as List<dynamic>?)
@@ -180,6 +180,10 @@ UserOrderByWithAggregationInput _$UserOrderByWithAggregationInputFromJson(
           ? null
           : UserCountOrderByAggregateInput.fromJson(
               json['_count'] as Map<String, dynamic>),
+      $avg: json['_avg'] == null
+          ? null
+          : UserAvgOrderByAggregateInput.fromJson(
+              json['_avg'] as Map<String, dynamic>),
       $max: json['_max'] == null
           ? null
           : UserMaxOrderByAggregateInput.fromJson(
@@ -188,6 +192,10 @@ UserOrderByWithAggregationInput _$UserOrderByWithAggregationInputFromJson(
           ? null
           : UserMinOrderByAggregateInput.fromJson(
               json['_min'] as Map<String, dynamic>),
+      $sum: json['_sum'] == null
+          ? null
+          : UserSumOrderByAggregateInput.fromJson(
+              json['_sum'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserOrderByWithAggregationInputToJson(
@@ -208,8 +216,10 @@ Map<String, dynamic> _$UserOrderByWithAggregationInputToJson(
   writeNotNull('birthday', _$SortOrderEnumMap[instance.birthday]);
   writeNotNull('birthCity', _$SortOrderEnumMap[instance.birthCity]);
   writeNotNull('_count', instance.$count?.toJson());
+  writeNotNull('_avg', instance.$avg?.toJson());
   writeNotNull('_max', instance.$max?.toJson());
   writeNotNull('_min', instance.$min?.toJson());
+  writeNotNull('_sum', instance.$sum?.toJson());
   return val;
 }
 
@@ -227,7 +237,7 @@ UserScalarWhereWithAggregatesInput _$UserScalarWhereWithAggregatesInputFromJson(
               e as Map<String, dynamic>)),
       id: json['id'] == null
           ? null
-          : StringWithAggregatesFilter.fromJson(
+          : IntWithAggregatesFilter.fromJson(
               json['id'] as Map<String, dynamic>),
       firstName: json['firstName'] == null
           ? null
@@ -299,7 +309,7 @@ AccountWhereInput _$AccountWhereInputFromJson(Map<String, dynamic> json) =>
               json['closingDate'] as Map<String, dynamic>),
       userId: json['userId'] == null
           ? null
-          : StringFilter.fromJson(json['userId'] as Map<String, dynamic>),
+          : IntFilter.fromJson(json['userId'] as Map<String, dynamic>),
       transactions: json['transactions'] == null
           ? null
           : TransactionListRelationFilter.fromJson(
@@ -370,7 +380,7 @@ AccountWhereUniqueInput _$AccountWhereUniqueInputFromJson(
         Map<String, dynamic> json) =>
     AccountWhereUniqueInput(
       id: json['id'] as int?,
-      userId: json['userId'] as String?,
+      userId: json['userId'] as int?,
       AND: (json['AND'] as List<dynamic>?)
           ?.map((e) => AccountWhereInput.fromJson(e as Map<String, dynamic>)),
       OR: (json['OR'] as List<dynamic>?)
@@ -494,7 +504,7 @@ AccountScalarWhereWithAggregatesInput
                   json['closingDate'] as Map<String, dynamic>),
           userId: json['userId'] == null
               ? null
-              : StringWithAggregatesFilter.fromJson(
+              : IntWithAggregatesFilter.fromJson(
                   json['userId'] as Map<String, dynamic>),
         );
 
@@ -713,6 +723,9 @@ TransactionWhereInput _$TransactionWhereInputFromJson(
           ? null
           : DateTimeFilter.fromJson(
               json['transactionDate'] as Map<String, dynamic>),
+      receverId: json['receverId'] == null
+          ? null
+          : IntFilter.fromJson(json['receverId'] as Map<String, dynamic>),
       accountId: json['accountId'] == null
           ? null
           : IntFilter.fromJson(json['accountId'] as Map<String, dynamic>),
@@ -738,6 +751,7 @@ Map<String, dynamic> _$TransactionWhereInputToJson(
   writeNotNull('id', instance.id?.toJson());
   writeNotNull('price', instance.price?.toJson());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
+  writeNotNull('receverId', instance.receverId?.toJson());
   writeNotNull('accountId', instance.accountId?.toJson());
   writeNotNull('account', instance.account?.toJson());
   return val;
@@ -750,6 +764,7 @@ TransactionOrderByWithRelationInput
           price: $enumDecodeNullable(_$SortOrderEnumMap, json['price']),
           transactionDate:
               $enumDecodeNullable(_$SortOrderEnumMap, json['transactionDate']),
+          receverId: $enumDecodeNullable(_$SortOrderEnumMap, json['receverId']),
           accountId: $enumDecodeNullable(_$SortOrderEnumMap, json['accountId']),
           account: json['account'] == null
               ? null
@@ -770,6 +785,7 @@ Map<String, dynamic> _$TransactionOrderByWithRelationInputToJson(
   writeNotNull('id', _$SortOrderEnumMap[instance.id]);
   writeNotNull('price', _$SortOrderEnumMap[instance.price]);
   writeNotNull('transactionDate', _$SortOrderEnumMap[instance.transactionDate]);
+  writeNotNull('receverId', _$SortOrderEnumMap[instance.receverId]);
   writeNotNull('accountId', _$SortOrderEnumMap[instance.accountId]);
   writeNotNull('account', instance.account?.toJson());
   return val;
@@ -790,6 +806,9 @@ TransactionWhereUniqueInput _$TransactionWhereUniqueInputFromJson(
           ? null
           : DateTimeFilter.fromJson(
               json['transactionDate'] as Map<String, dynamic>),
+      receverId: json['receverId'] == null
+          ? null
+          : IntFilter.fromJson(json['receverId'] as Map<String, dynamic>),
       accountId: json['accountId'] == null
           ? null
           : IntFilter.fromJson(json['accountId'] as Map<String, dynamic>),
@@ -815,6 +834,7 @@ Map<String, dynamic> _$TransactionWhereUniqueInputToJson(
   writeNotNull('OR', instance.OR?.map((e) => e.toJson()).toList());
   writeNotNull('NOT', instance.NOT?.map((e) => e.toJson()).toList());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
+  writeNotNull('receverId', instance.receverId?.toJson());
   writeNotNull('accountId', instance.accountId?.toJson());
   writeNotNull('account', instance.account?.toJson());
   return val;
@@ -828,6 +848,7 @@ TransactionOrderByWithAggregationInput
           price: $enumDecodeNullable(_$SortOrderEnumMap, json['price']),
           transactionDate:
               $enumDecodeNullable(_$SortOrderEnumMap, json['transactionDate']),
+          receverId: $enumDecodeNullable(_$SortOrderEnumMap, json['receverId']),
           accountId: $enumDecodeNullable(_$SortOrderEnumMap, json['accountId']),
           $count: json['_count'] == null
               ? null
@@ -864,6 +885,7 @@ Map<String, dynamic> _$TransactionOrderByWithAggregationInputToJson(
   writeNotNull('id', _$SortOrderEnumMap[instance.id]);
   writeNotNull('price', _$SortOrderEnumMap[instance.price]);
   writeNotNull('transactionDate', _$SortOrderEnumMap[instance.transactionDate]);
+  writeNotNull('receverId', _$SortOrderEnumMap[instance.receverId]);
   writeNotNull('accountId', _$SortOrderEnumMap[instance.accountId]);
   writeNotNull('_count', instance.$count?.toJson());
   writeNotNull('_avg', instance.$avg?.toJson());
@@ -898,6 +920,10 @@ TransactionScalarWhereWithAggregatesInput
               ? null
               : DateTimeWithAggregatesFilter.fromJson(
                   json['transactionDate'] as Map<String, dynamic>),
+          receverId: json['receverId'] == null
+              ? null
+              : IntWithAggregatesFilter.fromJson(
+                  json['receverId'] as Map<String, dynamic>),
           accountId: json['accountId'] == null
               ? null
               : IntWithAggregatesFilter.fromJson(
@@ -920,6 +946,7 @@ Map<String, dynamic> _$TransactionScalarWhereWithAggregatesInputToJson(
   writeNotNull('id', instance.id?.toJson());
   writeNotNull('price', instance.price?.toJson());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
+  writeNotNull('receverId', instance.receverId?.toJson());
   writeNotNull('accountId', instance.accountId?.toJson());
   return val;
 }
@@ -1106,7 +1133,6 @@ Map<String, dynamic> _$TransactionTypeScalarWhereWithAggregatesInputToJson(
 
 UserCreateInput _$UserCreateInputFromJson(Map<String, dynamic> json) =>
     UserCreateInput(
-      id: json['id'] as String,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       gender: json['gender'] as String,
@@ -1122,7 +1148,6 @@ UserCreateInput _$UserCreateInputFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UserCreateInputToJson(UserCreateInput instance) {
   final val = <String, dynamic>{
-    'id': instance.id,
     'firstName': instance.firstName,
     'lastName': instance.lastName,
     'gender': instance.gender,
@@ -1159,7 +1184,7 @@ Json? _$JsonConverterToJson<Json, Value>(
 UserUncheckedCreateInput _$UserUncheckedCreateInputFromJson(
         Map<String, dynamic> json) =>
     UserUncheckedCreateInput(
-      id: json['id'] as String,
+      id: json['id'] as int?,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       gender: json['gender'] as String,
@@ -1175,13 +1200,7 @@ UserUncheckedCreateInput _$UserUncheckedCreateInputFromJson(
 
 Map<String, dynamic> _$UserUncheckedCreateInputToJson(
     UserUncheckedCreateInput instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'firstName': instance.firstName,
-    'lastName': instance.lastName,
-    'gender': instance.gender,
-    'identityCode': instance.identityCode,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -1189,6 +1208,11 @@ Map<String, dynamic> _$UserUncheckedCreateInputToJson(
     }
   }
 
+  writeNotNull('id', instance.id);
+  val['firstName'] = instance.firstName;
+  val['lastName'] = instance.lastName;
+  val['gender'] = instance.gender;
+  val['identityCode'] = instance.identityCode;
   writeNotNull(
       'birthday',
       _$JsonConverterToJson<String, DateTime>(
@@ -1200,10 +1224,6 @@ Map<String, dynamic> _$UserUncheckedCreateInputToJson(
 
 UserUpdateInput _$UserUpdateInputFromJson(Map<String, dynamic> json) =>
     UserUpdateInput(
-      id: json['id'] == null
-          ? null
-          : StringFieldUpdateOperationsInput.fromJson(
-              json['id'] as Map<String, dynamic>),
       firstName: json['firstName'] == null
           ? null
           : StringFieldUpdateOperationsInput.fromJson(
@@ -1243,7 +1263,6 @@ Map<String, dynamic> _$UserUpdateInputToJson(UserUpdateInput instance) {
     }
   }
 
-  writeNotNull('id', instance.id?.toJson());
   writeNotNull('firstName', instance.firstName?.toJson());
   writeNotNull('lastName', instance.lastName?.toJson());
   writeNotNull('gender', instance.gender?.toJson());
@@ -1259,7 +1278,7 @@ UserUncheckedUpdateInput _$UserUncheckedUpdateInputFromJson(
     UserUncheckedUpdateInput(
       id: json['id'] == null
           ? null
-          : StringFieldUpdateOperationsInput.fromJson(
+          : IntFieldUpdateOperationsInput.fromJson(
               json['id'] as Map<String, dynamic>),
       firstName: json['firstName'] == null
           ? null
@@ -1314,7 +1333,7 @@ Map<String, dynamic> _$UserUncheckedUpdateInputToJson(
 
 UserCreateManyInput _$UserCreateManyInputFromJson(Map<String, dynamic> json) =>
     UserCreateManyInput(
-      id: json['id'] as String,
+      id: json['id'] as int?,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       gender: json['gender'] as String,
@@ -1325,13 +1344,7 @@ UserCreateManyInput _$UserCreateManyInputFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$UserCreateManyInputToJson(UserCreateManyInput instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'firstName': instance.firstName,
-    'lastName': instance.lastName,
-    'gender': instance.gender,
-    'identityCode': instance.identityCode,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -1339,6 +1352,11 @@ Map<String, dynamic> _$UserCreateManyInputToJson(UserCreateManyInput instance) {
     }
   }
 
+  writeNotNull('id', instance.id);
+  val['firstName'] = instance.firstName;
+  val['lastName'] = instance.lastName;
+  val['gender'] = instance.gender;
+  val['identityCode'] = instance.identityCode;
   writeNotNull(
       'birthday',
       _$JsonConverterToJson<String, DateTime>(
@@ -1350,10 +1368,6 @@ Map<String, dynamic> _$UserCreateManyInputToJson(UserCreateManyInput instance) {
 UserUpdateManyMutationInput _$UserUpdateManyMutationInputFromJson(
         Map<String, dynamic> json) =>
     UserUpdateManyMutationInput(
-      id: json['id'] == null
-          ? null
-          : StringFieldUpdateOperationsInput.fromJson(
-              json['id'] as Map<String, dynamic>),
       firstName: json['firstName'] == null
           ? null
           : StringFieldUpdateOperationsInput.fromJson(
@@ -1390,7 +1404,6 @@ Map<String, dynamic> _$UserUpdateManyMutationInputToJson(
     }
   }
 
-  writeNotNull('id', instance.id?.toJson());
   writeNotNull('firstName', instance.firstName?.toJson());
   writeNotNull('lastName', instance.lastName?.toJson());
   writeNotNull('gender', instance.gender?.toJson());
@@ -1405,7 +1418,7 @@ UserUncheckedUpdateManyInput _$UserUncheckedUpdateManyInputFromJson(
     UserUncheckedUpdateManyInput(
       id: json['id'] == null
           ? null
-          : StringFieldUpdateOperationsInput.fromJson(
+          : IntFieldUpdateOperationsInput.fromJson(
               json['id'] as Map<String, dynamic>),
       firstName: json['firstName'] == null
           ? null
@@ -1497,7 +1510,7 @@ AccountUncheckedCreateInput _$AccountUncheckedCreateInputFromJson(
           json['openingDate'], const DateTimeJsonConverter().fromJson),
       closingDate: _$JsonConverterFromJson<String, DateTime>(
           json['closingDate'], const DateTimeJsonConverter().fromJson),
-      userId: json['userId'] as String,
+      userId: json['userId'] as int,
       transactions: json['transactions'] == null
           ? null
           : TransactionUncheckedCreateNestedManyWithoutAccountInput.fromJson(
@@ -1581,7 +1594,7 @@ AccountUncheckedUpdateInput _$AccountUncheckedUpdateInputFromJson(
               json['closingDate'] as Map<String, dynamic>),
       userId: json['userId'] == null
           ? null
-          : StringFieldUpdateOperationsInput.fromJson(
+          : IntFieldUpdateOperationsInput.fromJson(
               json['userId'] as Map<String, dynamic>),
       transactions: json['transactions'] == null
           ? null
@@ -1615,7 +1628,7 @@ AccountCreateManyInput _$AccountCreateManyInputFromJson(
           json['openingDate'], const DateTimeJsonConverter().fromJson),
       closingDate: _$JsonConverterFromJson<String, DateTime>(
           json['closingDate'], const DateTimeJsonConverter().fromJson),
-      userId: json['userId'] as String,
+      userId: json['userId'] as int,
     );
 
 Map<String, dynamic> _$AccountCreateManyInputToJson(
@@ -1686,7 +1699,7 @@ AccountUncheckedUpdateManyInput _$AccountUncheckedUpdateManyInputFromJson(
               json['closingDate'] as Map<String, dynamic>),
       userId: json['userId'] == null
           ? null
-          : StringFieldUpdateOperationsInput.fromJson(
+          : IntFieldUpdateOperationsInput.fromJson(
               json['userId'] as Map<String, dynamic>),
     );
 
@@ -1868,6 +1881,7 @@ TransactionCreateInput _$TransactionCreateInputFromJson(
       price: json['price'] as int,
       transactionDate: _$JsonConverterFromJson<String, DateTime>(
           json['transactionDate'], const DateTimeJsonConverter().fromJson),
+      receverId: json['receverId'] as int,
       account: AccountCreateNestedOneWithoutTransactionsInput.fromJson(
           json['account'] as Map<String, dynamic>),
     );
@@ -1888,6 +1902,7 @@ Map<String, dynamic> _$TransactionCreateInputToJson(
       'transactionDate',
       _$JsonConverterToJson<String, DateTime>(
           instance.transactionDate, const DateTimeJsonConverter().toJson));
+  val['receverId'] = instance.receverId;
   val['account'] = instance.account.toJson();
   return val;
 }
@@ -1899,6 +1914,7 @@ TransactionUncheckedCreateInput _$TransactionUncheckedCreateInputFromJson(
       price: json['price'] as int,
       transactionDate: _$JsonConverterFromJson<String, DateTime>(
           json['transactionDate'], const DateTimeJsonConverter().fromJson),
+      receverId: json['receverId'] as int,
       accountId: json['accountId'] as int,
     );
 
@@ -1918,6 +1934,7 @@ Map<String, dynamic> _$TransactionUncheckedCreateInputToJson(
       'transactionDate',
       _$JsonConverterToJson<String, DateTime>(
           instance.transactionDate, const DateTimeJsonConverter().toJson));
+  val['receverId'] = instance.receverId;
   val['accountId'] = instance.accountId;
   return val;
 }
@@ -1933,6 +1950,10 @@ TransactionUpdateInput _$TransactionUpdateInputFromJson(
           ? null
           : DateTimeFieldUpdateOperationsInput.fromJson(
               json['transactionDate'] as Map<String, dynamic>),
+      receverId: json['receverId'] == null
+          ? null
+          : IntFieldUpdateOperationsInput.fromJson(
+              json['receverId'] as Map<String, dynamic>),
       account: json['account'] == null
           ? null
           : AccountUpdateOneRequiredWithoutTransactionsNestedInput.fromJson(
@@ -1951,6 +1972,7 @@ Map<String, dynamic> _$TransactionUpdateInputToJson(
 
   writeNotNull('price', instance.price?.toJson());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
+  writeNotNull('receverId', instance.receverId?.toJson());
   writeNotNull('account', instance.account?.toJson());
   return val;
 }
@@ -1970,6 +1992,10 @@ TransactionUncheckedUpdateInput _$TransactionUncheckedUpdateInputFromJson(
           ? null
           : DateTimeFieldUpdateOperationsInput.fromJson(
               json['transactionDate'] as Map<String, dynamic>),
+      receverId: json['receverId'] == null
+          ? null
+          : IntFieldUpdateOperationsInput.fromJson(
+              json['receverId'] as Map<String, dynamic>),
       accountId: json['accountId'] == null
           ? null
           : IntFieldUpdateOperationsInput.fromJson(
@@ -1989,6 +2015,7 @@ Map<String, dynamic> _$TransactionUncheckedUpdateInputToJson(
   writeNotNull('id', instance.id?.toJson());
   writeNotNull('price', instance.price?.toJson());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
+  writeNotNull('receverId', instance.receverId?.toJson());
   writeNotNull('accountId', instance.accountId?.toJson());
   return val;
 }
@@ -2000,6 +2027,7 @@ TransactionCreateManyInput _$TransactionCreateManyInputFromJson(
       price: json['price'] as int,
       transactionDate: _$JsonConverterFromJson<String, DateTime>(
           json['transactionDate'], const DateTimeJsonConverter().fromJson),
+      receverId: json['receverId'] as int,
       accountId: json['accountId'] as int,
     );
 
@@ -2019,6 +2047,7 @@ Map<String, dynamic> _$TransactionCreateManyInputToJson(
       'transactionDate',
       _$JsonConverterToJson<String, DateTime>(
           instance.transactionDate, const DateTimeJsonConverter().toJson));
+  val['receverId'] = instance.receverId;
   val['accountId'] = instance.accountId;
   return val;
 }
@@ -2034,6 +2063,10 @@ TransactionUpdateManyMutationInput _$TransactionUpdateManyMutationInputFromJson(
           ? null
           : DateTimeFieldUpdateOperationsInput.fromJson(
               json['transactionDate'] as Map<String, dynamic>),
+      receverId: json['receverId'] == null
+          ? null
+          : IntFieldUpdateOperationsInput.fromJson(
+              json['receverId'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$TransactionUpdateManyMutationInputToJson(
@@ -2048,6 +2081,7 @@ Map<String, dynamic> _$TransactionUpdateManyMutationInputToJson(
 
   writeNotNull('price', instance.price?.toJson());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
+  writeNotNull('receverId', instance.receverId?.toJson());
   return val;
 }
 
@@ -2066,6 +2100,10 @@ TransactionUncheckedUpdateManyInput
               ? null
               : DateTimeFieldUpdateOperationsInput.fromJson(
                   json['transactionDate'] as Map<String, dynamic>),
+          receverId: json['receverId'] == null
+              ? null
+              : IntFieldUpdateOperationsInput.fromJson(
+                  json['receverId'] as Map<String, dynamic>),
           accountId: json['accountId'] == null
               ? null
               : IntFieldUpdateOperationsInput.fromJson(
@@ -2085,6 +2123,7 @@ Map<String, dynamic> _$TransactionUncheckedUpdateManyInputToJson(
   writeNotNull('id', instance.id?.toJson());
   writeNotNull('price', instance.price?.toJson());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
+  writeNotNull('receverId', instance.receverId?.toJson());
   writeNotNull('accountId', instance.accountId?.toJson());
   return val;
 }
@@ -2249,6 +2288,39 @@ Map<String, dynamic> _$TransactionTypeUncheckedUpdateManyInputToJson(
   return val;
 }
 
+IntFilter _$IntFilterFromJson(Map<String, dynamic> json) => IntFilter(
+      equals: json['equals'] as int?,
+      $in: (json['in'] as List<dynamic>?)?.map((e) => e as int),
+      notIn: (json['notIn'] as List<dynamic>?)?.map((e) => e as int),
+      lt: json['lt'] as int?,
+      lte: json['lte'] as int?,
+      gt: json['gt'] as int?,
+      gte: json['gte'] as int?,
+      not: json['not'] == null
+          ? null
+          : NestedIntFilter.fromJson(json['not'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$IntFilterToJson(IntFilter instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('equals', instance.equals);
+  writeNotNull('in', instance.$in?.toList());
+  writeNotNull('notIn', instance.notIn?.toList());
+  writeNotNull('lt', instance.lt);
+  writeNotNull('lte', instance.lte);
+  writeNotNull('gt', instance.gt);
+  writeNotNull('gte', instance.gte);
+  writeNotNull('not', instance.not?.toJson());
+  return val;
+}
+
 StringFilter _$StringFilterFromJson(Map<String, dynamic> json) => StringFilter(
       equals: json['equals'] as String?,
       $in: (json['in'] as List<dynamic>?)?.map((e) => e as String),
@@ -2405,6 +2477,26 @@ Map<String, dynamic> _$UserCountOrderByAggregateInputToJson(
   return val;
 }
 
+UserAvgOrderByAggregateInput _$UserAvgOrderByAggregateInputFromJson(
+        Map<String, dynamic> json) =>
+    UserAvgOrderByAggregateInput(
+      id: $enumDecodeNullable(_$SortOrderEnumMap, json['id']),
+    );
+
+Map<String, dynamic> _$UserAvgOrderByAggregateInputToJson(
+    UserAvgOrderByAggregateInput instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', _$SortOrderEnumMap[instance.id]);
+  return val;
+}
+
 UserMaxOrderByAggregateInput _$UserMaxOrderByAggregateInputFromJson(
         Map<String, dynamic> json) =>
     UserMaxOrderByAggregateInput(
@@ -2468,6 +2560,83 @@ Map<String, dynamic> _$UserMinOrderByAggregateInputToJson(
   writeNotNull('identityCode', _$SortOrderEnumMap[instance.identityCode]);
   writeNotNull('birthday', _$SortOrderEnumMap[instance.birthday]);
   writeNotNull('birthCity', _$SortOrderEnumMap[instance.birthCity]);
+  return val;
+}
+
+UserSumOrderByAggregateInput _$UserSumOrderByAggregateInputFromJson(
+        Map<String, dynamic> json) =>
+    UserSumOrderByAggregateInput(
+      id: $enumDecodeNullable(_$SortOrderEnumMap, json['id']),
+    );
+
+Map<String, dynamic> _$UserSumOrderByAggregateInputToJson(
+    UserSumOrderByAggregateInput instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', _$SortOrderEnumMap[instance.id]);
+  return val;
+}
+
+IntWithAggregatesFilter _$IntWithAggregatesFilterFromJson(
+        Map<String, dynamic> json) =>
+    IntWithAggregatesFilter(
+      equals: json['equals'] as int?,
+      $in: (json['in'] as List<dynamic>?)?.map((e) => e as int),
+      notIn: (json['notIn'] as List<dynamic>?)?.map((e) => e as int),
+      lt: json['lt'] as int?,
+      lte: json['lte'] as int?,
+      gt: json['gt'] as int?,
+      gte: json['gte'] as int?,
+      not: json['not'] == null
+          ? null
+          : NestedIntWithAggregatesFilter.fromJson(
+              json['not'] as Map<String, dynamic>),
+      $count: json['_count'] == null
+          ? null
+          : NestedIntFilter.fromJson(json['_count'] as Map<String, dynamic>),
+      $avg: json['_avg'] == null
+          ? null
+          : NestedFloatFilter.fromJson(json['_avg'] as Map<String, dynamic>),
+      $sum: json['_sum'] == null
+          ? null
+          : NestedIntFilter.fromJson(json['_sum'] as Map<String, dynamic>),
+      $min: json['_min'] == null
+          ? null
+          : NestedIntFilter.fromJson(json['_min'] as Map<String, dynamic>),
+      $max: json['_max'] == null
+          ? null
+          : NestedIntFilter.fromJson(json['_max'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$IntWithAggregatesFilterToJson(
+    IntWithAggregatesFilter instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('equals', instance.equals);
+  writeNotNull('in', instance.$in?.toList());
+  writeNotNull('notIn', instance.notIn?.toList());
+  writeNotNull('lt', instance.lt);
+  writeNotNull('lte', instance.lte);
+  writeNotNull('gt', instance.gt);
+  writeNotNull('gte', instance.gte);
+  writeNotNull('not', instance.not?.toJson());
+  writeNotNull('_count', instance.$count?.toJson());
+  writeNotNull('_avg', instance.$avg?.toJson());
+  writeNotNull('_sum', instance.$sum?.toJson());
+  writeNotNull('_min', instance.$min?.toJson());
+  writeNotNull('_max', instance.$max?.toJson());
   return val;
 }
 
@@ -2599,39 +2768,6 @@ Map<String, dynamic> _$DateTimeWithAggregatesFilterToJson(
   return val;
 }
 
-IntFilter _$IntFilterFromJson(Map<String, dynamic> json) => IntFilter(
-      equals: json['equals'] as int?,
-      $in: (json['in'] as List<dynamic>?)?.map((e) => e as int),
-      notIn: (json['notIn'] as List<dynamic>?)?.map((e) => e as int),
-      lt: json['lt'] as int?,
-      lte: json['lte'] as int?,
-      gt: json['gt'] as int?,
-      gte: json['gte'] as int?,
-      not: json['not'] == null
-          ? null
-          : NestedIntFilter.fromJson(json['not'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$IntFilterToJson(IntFilter instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('equals', instance.equals);
-  writeNotNull('in', instance.$in?.toList());
-  writeNotNull('notIn', instance.notIn?.toList());
-  writeNotNull('lt', instance.lt);
-  writeNotNull('lte', instance.lte);
-  writeNotNull('gt', instance.gt);
-  writeNotNull('gte', instance.gte);
-  writeNotNull('not', instance.not?.toJson());
-  return val;
-}
-
 TransactionListRelationFilter _$TransactionListRelationFilterFromJson(
         Map<String, dynamic> json) =>
     TransactionListRelationFilter(
@@ -2740,6 +2876,7 @@ AccountAvgOrderByAggregateInput _$AccountAvgOrderByAggregateInputFromJson(
         Map<String, dynamic> json) =>
     AccountAvgOrderByAggregateInput(
       id: $enumDecodeNullable(_$SortOrderEnumMap, json['id']),
+      userId: $enumDecodeNullable(_$SortOrderEnumMap, json['userId']),
     );
 
 Map<String, dynamic> _$AccountAvgOrderByAggregateInputToJson(
@@ -2753,6 +2890,7 @@ Map<String, dynamic> _$AccountAvgOrderByAggregateInputToJson(
   }
 
   writeNotNull('id', _$SortOrderEnumMap[instance.id]);
+  writeNotNull('userId', _$SortOrderEnumMap[instance.userId]);
   return val;
 }
 
@@ -2812,6 +2950,7 @@ AccountSumOrderByAggregateInput _$AccountSumOrderByAggregateInputFromJson(
         Map<String, dynamic> json) =>
     AccountSumOrderByAggregateInput(
       id: $enumDecodeNullable(_$SortOrderEnumMap, json['id']),
+      userId: $enumDecodeNullable(_$SortOrderEnumMap, json['userId']),
     );
 
 Map<String, dynamic> _$AccountSumOrderByAggregateInputToJson(
@@ -2825,63 +2964,7 @@ Map<String, dynamic> _$AccountSumOrderByAggregateInputToJson(
   }
 
   writeNotNull('id', _$SortOrderEnumMap[instance.id]);
-  return val;
-}
-
-IntWithAggregatesFilter _$IntWithAggregatesFilterFromJson(
-        Map<String, dynamic> json) =>
-    IntWithAggregatesFilter(
-      equals: json['equals'] as int?,
-      $in: (json['in'] as List<dynamic>?)?.map((e) => e as int),
-      notIn: (json['notIn'] as List<dynamic>?)?.map((e) => e as int),
-      lt: json['lt'] as int?,
-      lte: json['lte'] as int?,
-      gt: json['gt'] as int?,
-      gte: json['gte'] as int?,
-      not: json['not'] == null
-          ? null
-          : NestedIntWithAggregatesFilter.fromJson(
-              json['not'] as Map<String, dynamic>),
-      $count: json['_count'] == null
-          ? null
-          : NestedIntFilter.fromJson(json['_count'] as Map<String, dynamic>),
-      $avg: json['_avg'] == null
-          ? null
-          : NestedFloatFilter.fromJson(json['_avg'] as Map<String, dynamic>),
-      $sum: json['_sum'] == null
-          ? null
-          : NestedIntFilter.fromJson(json['_sum'] as Map<String, dynamic>),
-      $min: json['_min'] == null
-          ? null
-          : NestedIntFilter.fromJson(json['_min'] as Map<String, dynamic>),
-      $max: json['_max'] == null
-          ? null
-          : NestedIntFilter.fromJson(json['_max'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$IntWithAggregatesFilterToJson(
-    IntWithAggregatesFilter instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('equals', instance.equals);
-  writeNotNull('in', instance.$in?.toList());
-  writeNotNull('notIn', instance.notIn?.toList());
-  writeNotNull('lt', instance.lt);
-  writeNotNull('lte', instance.lte);
-  writeNotNull('gt', instance.gt);
-  writeNotNull('gte', instance.gte);
-  writeNotNull('not', instance.not?.toJson());
-  writeNotNull('_count', instance.$count?.toJson());
-  writeNotNull('_avg', instance.$avg?.toJson());
-  writeNotNull('_sum', instance.$sum?.toJson());
-  writeNotNull('_min', instance.$min?.toJson());
-  writeNotNull('_max', instance.$max?.toJson());
+  writeNotNull('userId', _$SortOrderEnumMap[instance.userId]);
   return val;
 }
 
@@ -3025,6 +3108,7 @@ TransactionCountOrderByAggregateInput
           price: $enumDecodeNullable(_$SortOrderEnumMap, json['price']),
           transactionDate:
               $enumDecodeNullable(_$SortOrderEnumMap, json['transactionDate']),
+          receverId: $enumDecodeNullable(_$SortOrderEnumMap, json['receverId']),
           accountId: $enumDecodeNullable(_$SortOrderEnumMap, json['accountId']),
         );
 
@@ -3041,6 +3125,7 @@ Map<String, dynamic> _$TransactionCountOrderByAggregateInputToJson(
   writeNotNull('id', _$SortOrderEnumMap[instance.id]);
   writeNotNull('price', _$SortOrderEnumMap[instance.price]);
   writeNotNull('transactionDate', _$SortOrderEnumMap[instance.transactionDate]);
+  writeNotNull('receverId', _$SortOrderEnumMap[instance.receverId]);
   writeNotNull('accountId', _$SortOrderEnumMap[instance.accountId]);
   return val;
 }
@@ -3050,6 +3135,7 @@ TransactionAvgOrderByAggregateInput
         TransactionAvgOrderByAggregateInput(
           id: $enumDecodeNullable(_$SortOrderEnumMap, json['id']),
           price: $enumDecodeNullable(_$SortOrderEnumMap, json['price']),
+          receverId: $enumDecodeNullable(_$SortOrderEnumMap, json['receverId']),
           accountId: $enumDecodeNullable(_$SortOrderEnumMap, json['accountId']),
         );
 
@@ -3065,6 +3151,7 @@ Map<String, dynamic> _$TransactionAvgOrderByAggregateInputToJson(
 
   writeNotNull('id', _$SortOrderEnumMap[instance.id]);
   writeNotNull('price', _$SortOrderEnumMap[instance.price]);
+  writeNotNull('receverId', _$SortOrderEnumMap[instance.receverId]);
   writeNotNull('accountId', _$SortOrderEnumMap[instance.accountId]);
   return val;
 }
@@ -3076,6 +3163,7 @@ TransactionMaxOrderByAggregateInput
           price: $enumDecodeNullable(_$SortOrderEnumMap, json['price']),
           transactionDate:
               $enumDecodeNullable(_$SortOrderEnumMap, json['transactionDate']),
+          receverId: $enumDecodeNullable(_$SortOrderEnumMap, json['receverId']),
           accountId: $enumDecodeNullable(_$SortOrderEnumMap, json['accountId']),
         );
 
@@ -3092,6 +3180,7 @@ Map<String, dynamic> _$TransactionMaxOrderByAggregateInputToJson(
   writeNotNull('id', _$SortOrderEnumMap[instance.id]);
   writeNotNull('price', _$SortOrderEnumMap[instance.price]);
   writeNotNull('transactionDate', _$SortOrderEnumMap[instance.transactionDate]);
+  writeNotNull('receverId', _$SortOrderEnumMap[instance.receverId]);
   writeNotNull('accountId', _$SortOrderEnumMap[instance.accountId]);
   return val;
 }
@@ -3103,6 +3192,7 @@ TransactionMinOrderByAggregateInput
           price: $enumDecodeNullable(_$SortOrderEnumMap, json['price']),
           transactionDate:
               $enumDecodeNullable(_$SortOrderEnumMap, json['transactionDate']),
+          receverId: $enumDecodeNullable(_$SortOrderEnumMap, json['receverId']),
           accountId: $enumDecodeNullable(_$SortOrderEnumMap, json['accountId']),
         );
 
@@ -3119,6 +3209,7 @@ Map<String, dynamic> _$TransactionMinOrderByAggregateInputToJson(
   writeNotNull('id', _$SortOrderEnumMap[instance.id]);
   writeNotNull('price', _$SortOrderEnumMap[instance.price]);
   writeNotNull('transactionDate', _$SortOrderEnumMap[instance.transactionDate]);
+  writeNotNull('receverId', _$SortOrderEnumMap[instance.receverId]);
   writeNotNull('accountId', _$SortOrderEnumMap[instance.accountId]);
   return val;
 }
@@ -3128,6 +3219,7 @@ TransactionSumOrderByAggregateInput
         TransactionSumOrderByAggregateInput(
           id: $enumDecodeNullable(_$SortOrderEnumMap, json['id']),
           price: $enumDecodeNullable(_$SortOrderEnumMap, json['price']),
+          receverId: $enumDecodeNullable(_$SortOrderEnumMap, json['receverId']),
           accountId: $enumDecodeNullable(_$SortOrderEnumMap, json['accountId']),
         );
 
@@ -3143,6 +3235,7 @@ Map<String, dynamic> _$TransactionSumOrderByAggregateInputToJson(
 
   writeNotNull('id', _$SortOrderEnumMap[instance.id]);
   writeNotNull('price', _$SortOrderEnumMap[instance.price]);
+  writeNotNull('receverId', _$SortOrderEnumMap[instance.receverId]);
   writeNotNull('accountId', _$SortOrderEnumMap[instance.accountId]);
   return val;
 }
@@ -3424,6 +3517,34 @@ Map<String, dynamic> _$AccountUpdateOneWithoutUserNestedInputToJson(
   return val;
 }
 
+IntFieldUpdateOperationsInput _$IntFieldUpdateOperationsInputFromJson(
+        Map<String, dynamic> json) =>
+    IntFieldUpdateOperationsInput(
+      set: json['set'] as int?,
+      increment: json['increment'] as int?,
+      decrement: json['decrement'] as int?,
+      multiply: json['multiply'] as int?,
+      divide: json['divide'] as int?,
+    );
+
+Map<String, dynamic> _$IntFieldUpdateOperationsInputToJson(
+    IntFieldUpdateOperationsInput instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('set', instance.set);
+  writeNotNull('increment', instance.increment);
+  writeNotNull('decrement', instance.decrement);
+  writeNotNull('multiply', instance.multiply);
+  writeNotNull('divide', instance.divide);
+  return val;
+}
+
 AccountUncheckedUpdateOneWithoutUserNestedInput
     _$AccountUncheckedUpdateOneWithoutUserNestedInputFromJson(
             Map<String, dynamic> json) =>
@@ -3692,34 +3813,6 @@ Map<String, dynamic> _$UserUpdateOneRequiredWithoutAccountNestedInputToJson(
   return val;
 }
 
-IntFieldUpdateOperationsInput _$IntFieldUpdateOperationsInputFromJson(
-        Map<String, dynamic> json) =>
-    IntFieldUpdateOperationsInput(
-      set: json['set'] as int?,
-      increment: json['increment'] as int?,
-      decrement: json['decrement'] as int?,
-      multiply: json['multiply'] as int?,
-      divide: json['divide'] as int?,
-    );
-
-Map<String, dynamic> _$IntFieldUpdateOperationsInputToJson(
-    IntFieldUpdateOperationsInput instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('set', instance.set);
-  writeNotNull('increment', instance.increment);
-  writeNotNull('decrement', instance.decrement);
-  writeNotNull('multiply', instance.multiply);
-  writeNotNull('divide', instance.divide);
-  return val;
-}
-
 TransactionUncheckedUpdateManyWithoutAccountNestedInput
     _$TransactionUncheckedUpdateManyWithoutAccountNestedInputFromJson(
             Map<String, dynamic> json) =>
@@ -3863,6 +3956,40 @@ Map<String, dynamic>
   return val;
 }
 
+NestedIntFilter _$NestedIntFilterFromJson(Map<String, dynamic> json) =>
+    NestedIntFilter(
+      equals: json['equals'] as int?,
+      $in: (json['in'] as List<dynamic>?)?.map((e) => e as int),
+      notIn: (json['notIn'] as List<dynamic>?)?.map((e) => e as int),
+      lt: json['lt'] as int?,
+      lte: json['lte'] as int?,
+      gt: json['gt'] as int?,
+      gte: json['gte'] as int?,
+      not: json['not'] == null
+          ? null
+          : NestedIntFilter.fromJson(json['not'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$NestedIntFilterToJson(NestedIntFilter instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('equals', instance.equals);
+  writeNotNull('in', instance.$in?.toList());
+  writeNotNull('notIn', instance.notIn?.toList());
+  writeNotNull('lt', instance.lt);
+  writeNotNull('lte', instance.lte);
+  writeNotNull('gt', instance.gt);
+  writeNotNull('gte', instance.gte);
+  writeNotNull('not', instance.not?.toJson());
+  return val;
+}
+
 NestedStringFilter _$NestedStringFilterFromJson(Map<String, dynamic> json) =>
     NestedStringFilter(
       equals: json['equals'] as String?,
@@ -3963,168 +4090,6 @@ Map<String, dynamic> _$NestedDateTimeFilterToJson(
   return val;
 }
 
-NestedStringWithAggregatesFilter _$NestedStringWithAggregatesFilterFromJson(
-        Map<String, dynamic> json) =>
-    NestedStringWithAggregatesFilter(
-      equals: json['equals'] as String?,
-      $in: (json['in'] as List<dynamic>?)?.map((e) => e as String),
-      notIn: (json['notIn'] as List<dynamic>?)?.map((e) => e as String),
-      lt: json['lt'] as String?,
-      lte: json['lte'] as String?,
-      gt: json['gt'] as String?,
-      gte: json['gte'] as String?,
-      contains: json['contains'] as String?,
-      startsWith: json['startsWith'] as String?,
-      endsWith: json['endsWith'] as String?,
-      not: json['not'] == null
-          ? null
-          : NestedStringWithAggregatesFilter.fromJson(
-              json['not'] as Map<String, dynamic>),
-      $count: json['_count'] == null
-          ? null
-          : NestedIntFilter.fromJson(json['_count'] as Map<String, dynamic>),
-      $min: json['_min'] == null
-          ? null
-          : NestedStringFilter.fromJson(json['_min'] as Map<String, dynamic>),
-      $max: json['_max'] == null
-          ? null
-          : NestedStringFilter.fromJson(json['_max'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$NestedStringWithAggregatesFilterToJson(
-    NestedStringWithAggregatesFilter instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('equals', instance.equals);
-  writeNotNull('in', instance.$in?.toList());
-  writeNotNull('notIn', instance.notIn?.toList());
-  writeNotNull('lt', instance.lt);
-  writeNotNull('lte', instance.lte);
-  writeNotNull('gt', instance.gt);
-  writeNotNull('gte', instance.gte);
-  writeNotNull('contains', instance.contains);
-  writeNotNull('startsWith', instance.startsWith);
-  writeNotNull('endsWith', instance.endsWith);
-  writeNotNull('not', instance.not?.toJson());
-  writeNotNull('_count', instance.$count?.toJson());
-  writeNotNull('_min', instance.$min?.toJson());
-  writeNotNull('_max', instance.$max?.toJson());
-  return val;
-}
-
-NestedIntFilter _$NestedIntFilterFromJson(Map<String, dynamic> json) =>
-    NestedIntFilter(
-      equals: json['equals'] as int?,
-      $in: (json['in'] as List<dynamic>?)?.map((e) => e as int),
-      notIn: (json['notIn'] as List<dynamic>?)?.map((e) => e as int),
-      lt: json['lt'] as int?,
-      lte: json['lte'] as int?,
-      gt: json['gt'] as int?,
-      gte: json['gte'] as int?,
-      not: json['not'] == null
-          ? null
-          : NestedIntFilter.fromJson(json['not'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$NestedIntFilterToJson(NestedIntFilter instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('equals', instance.equals);
-  writeNotNull('in', instance.$in?.toList());
-  writeNotNull('notIn', instance.notIn?.toList());
-  writeNotNull('lt', instance.lt);
-  writeNotNull('lte', instance.lte);
-  writeNotNull('gt', instance.gt);
-  writeNotNull('gte', instance.gte);
-  writeNotNull('not', instance.not?.toJson());
-  return val;
-}
-
-NestedDateTimeWithAggregatesFilter _$NestedDateTimeWithAggregatesFilterFromJson(
-        Map<String, dynamic> json) =>
-    NestedDateTimeWithAggregatesFilter(
-      equals: _$JsonConverterFromJson<String, DateTime>(
-          json['equals'], const DateTimeJsonConverter().fromJson),
-      $in: (json['in'] as List<dynamic>?)
-          ?.map((e) => const DateTimeJsonConverter().fromJson(e as String)),
-      notIn: (json['notIn'] as List<dynamic>?)
-          ?.map((e) => const DateTimeJsonConverter().fromJson(e as String)),
-      lt: _$JsonConverterFromJson<String, DateTime>(
-          json['lt'], const DateTimeJsonConverter().fromJson),
-      lte: _$JsonConverterFromJson<String, DateTime>(
-          json['lte'], const DateTimeJsonConverter().fromJson),
-      gt: _$JsonConverterFromJson<String, DateTime>(
-          json['gt'], const DateTimeJsonConverter().fromJson),
-      gte: _$JsonConverterFromJson<String, DateTime>(
-          json['gte'], const DateTimeJsonConverter().fromJson),
-      not: json['not'] == null
-          ? null
-          : NestedDateTimeWithAggregatesFilter.fromJson(
-              json['not'] as Map<String, dynamic>),
-      $count: json['_count'] == null
-          ? null
-          : NestedIntFilter.fromJson(json['_count'] as Map<String, dynamic>),
-      $min: json['_min'] == null
-          ? null
-          : NestedDateTimeFilter.fromJson(json['_min'] as Map<String, dynamic>),
-      $max: json['_max'] == null
-          ? null
-          : NestedDateTimeFilter.fromJson(json['_max'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$NestedDateTimeWithAggregatesFilterToJson(
-    NestedDateTimeWithAggregatesFilter instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'equals',
-      _$JsonConverterToJson<String, DateTime>(
-          instance.equals, const DateTimeJsonConverter().toJson));
-  writeNotNull(
-      'in', instance.$in?.map(const DateTimeJsonConverter().toJson).toList());
-  writeNotNull('notIn',
-      instance.notIn?.map(const DateTimeJsonConverter().toJson).toList());
-  writeNotNull(
-      'lt',
-      _$JsonConverterToJson<String, DateTime>(
-          instance.lt, const DateTimeJsonConverter().toJson));
-  writeNotNull(
-      'lte',
-      _$JsonConverterToJson<String, DateTime>(
-          instance.lte, const DateTimeJsonConverter().toJson));
-  writeNotNull(
-      'gt',
-      _$JsonConverterToJson<String, DateTime>(
-          instance.gt, const DateTimeJsonConverter().toJson));
-  writeNotNull(
-      'gte',
-      _$JsonConverterToJson<String, DateTime>(
-          instance.gte, const DateTimeJsonConverter().toJson));
-  writeNotNull('not', instance.not?.toJson());
-  writeNotNull('_count', instance.$count?.toJson());
-  writeNotNull('_min', instance.$min?.toJson());
-  writeNotNull('_max', instance.$max?.toJson());
-  return val;
-}
-
 NestedIntWithAggregatesFilter _$NestedIntWithAggregatesFilterFromJson(
         Map<String, dynamic> json) =>
     NestedIntWithAggregatesFilter(
@@ -4214,6 +4179,134 @@ Map<String, dynamic> _$NestedFloatFilterToJson(NestedFloatFilter instance) {
   writeNotNull('gt', instance.gt);
   writeNotNull('gte', instance.gte);
   writeNotNull('not', instance.not?.toJson());
+  return val;
+}
+
+NestedStringWithAggregatesFilter _$NestedStringWithAggregatesFilterFromJson(
+        Map<String, dynamic> json) =>
+    NestedStringWithAggregatesFilter(
+      equals: json['equals'] as String?,
+      $in: (json['in'] as List<dynamic>?)?.map((e) => e as String),
+      notIn: (json['notIn'] as List<dynamic>?)?.map((e) => e as String),
+      lt: json['lt'] as String?,
+      lte: json['lte'] as String?,
+      gt: json['gt'] as String?,
+      gte: json['gte'] as String?,
+      contains: json['contains'] as String?,
+      startsWith: json['startsWith'] as String?,
+      endsWith: json['endsWith'] as String?,
+      not: json['not'] == null
+          ? null
+          : NestedStringWithAggregatesFilter.fromJson(
+              json['not'] as Map<String, dynamic>),
+      $count: json['_count'] == null
+          ? null
+          : NestedIntFilter.fromJson(json['_count'] as Map<String, dynamic>),
+      $min: json['_min'] == null
+          ? null
+          : NestedStringFilter.fromJson(json['_min'] as Map<String, dynamic>),
+      $max: json['_max'] == null
+          ? null
+          : NestedStringFilter.fromJson(json['_max'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$NestedStringWithAggregatesFilterToJson(
+    NestedStringWithAggregatesFilter instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('equals', instance.equals);
+  writeNotNull('in', instance.$in?.toList());
+  writeNotNull('notIn', instance.notIn?.toList());
+  writeNotNull('lt', instance.lt);
+  writeNotNull('lte', instance.lte);
+  writeNotNull('gt', instance.gt);
+  writeNotNull('gte', instance.gte);
+  writeNotNull('contains', instance.contains);
+  writeNotNull('startsWith', instance.startsWith);
+  writeNotNull('endsWith', instance.endsWith);
+  writeNotNull('not', instance.not?.toJson());
+  writeNotNull('_count', instance.$count?.toJson());
+  writeNotNull('_min', instance.$min?.toJson());
+  writeNotNull('_max', instance.$max?.toJson());
+  return val;
+}
+
+NestedDateTimeWithAggregatesFilter _$NestedDateTimeWithAggregatesFilterFromJson(
+        Map<String, dynamic> json) =>
+    NestedDateTimeWithAggregatesFilter(
+      equals: _$JsonConverterFromJson<String, DateTime>(
+          json['equals'], const DateTimeJsonConverter().fromJson),
+      $in: (json['in'] as List<dynamic>?)
+          ?.map((e) => const DateTimeJsonConverter().fromJson(e as String)),
+      notIn: (json['notIn'] as List<dynamic>?)
+          ?.map((e) => const DateTimeJsonConverter().fromJson(e as String)),
+      lt: _$JsonConverterFromJson<String, DateTime>(
+          json['lt'], const DateTimeJsonConverter().fromJson),
+      lte: _$JsonConverterFromJson<String, DateTime>(
+          json['lte'], const DateTimeJsonConverter().fromJson),
+      gt: _$JsonConverterFromJson<String, DateTime>(
+          json['gt'], const DateTimeJsonConverter().fromJson),
+      gte: _$JsonConverterFromJson<String, DateTime>(
+          json['gte'], const DateTimeJsonConverter().fromJson),
+      not: json['not'] == null
+          ? null
+          : NestedDateTimeWithAggregatesFilter.fromJson(
+              json['not'] as Map<String, dynamic>),
+      $count: json['_count'] == null
+          ? null
+          : NestedIntFilter.fromJson(json['_count'] as Map<String, dynamic>),
+      $min: json['_min'] == null
+          ? null
+          : NestedDateTimeFilter.fromJson(json['_min'] as Map<String, dynamic>),
+      $max: json['_max'] == null
+          ? null
+          : NestedDateTimeFilter.fromJson(json['_max'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$NestedDateTimeWithAggregatesFilterToJson(
+    NestedDateTimeWithAggregatesFilter instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'equals',
+      _$JsonConverterToJson<String, DateTime>(
+          instance.equals, const DateTimeJsonConverter().toJson));
+  writeNotNull(
+      'in', instance.$in?.map(const DateTimeJsonConverter().toJson).toList());
+  writeNotNull('notIn',
+      instance.notIn?.map(const DateTimeJsonConverter().toJson).toList());
+  writeNotNull(
+      'lt',
+      _$JsonConverterToJson<String, DateTime>(
+          instance.lt, const DateTimeJsonConverter().toJson));
+  writeNotNull(
+      'lte',
+      _$JsonConverterToJson<String, DateTime>(
+          instance.lte, const DateTimeJsonConverter().toJson));
+  writeNotNull(
+      'gt',
+      _$JsonConverterToJson<String, DateTime>(
+          instance.gt, const DateTimeJsonConverter().toJson));
+  writeNotNull(
+      'gte',
+      _$JsonConverterToJson<String, DateTime>(
+          instance.gte, const DateTimeJsonConverter().toJson));
+  writeNotNull('not', instance.not?.toJson());
+  writeNotNull('_count', instance.$count?.toJson());
+  writeNotNull('_min', instance.$min?.toJson());
+  writeNotNull('_max', instance.$max?.toJson());
   return val;
 }
 
@@ -4441,6 +4534,7 @@ TransactionCreateWithoutAccountInput
           price: json['price'] as int,
           transactionDate: _$JsonConverterFromJson<String, DateTime>(
               json['transactionDate'], const DateTimeJsonConverter().fromJson),
+          receverId: json['receverId'] as int,
         );
 
 Map<String, dynamic> _$TransactionCreateWithoutAccountInputToJson(
@@ -4459,6 +4553,7 @@ Map<String, dynamic> _$TransactionCreateWithoutAccountInputToJson(
       'transactionDate',
       _$JsonConverterToJson<String, DateTime>(
           instance.transactionDate, const DateTimeJsonConverter().toJson));
+  val['receverId'] = instance.receverId;
   return val;
 }
 
@@ -4470,6 +4565,7 @@ TransactionUncheckedCreateWithoutAccountInput
           price: json['price'] as int,
           transactionDate: _$JsonConverterFromJson<String, DateTime>(
               json['transactionDate'], const DateTimeJsonConverter().fromJson),
+          receverId: json['receverId'] as int,
         );
 
 Map<String, dynamic> _$TransactionUncheckedCreateWithoutAccountInputToJson(
@@ -4488,6 +4584,7 @@ Map<String, dynamic> _$TransactionUncheckedCreateWithoutAccountInputToJson(
       'transactionDate',
       _$JsonConverterToJson<String, DateTime>(
           instance.transactionDate, const DateTimeJsonConverter().toJson));
+  val['receverId'] = instance.receverId;
   return val;
 }
 
@@ -4537,7 +4634,6 @@ Map<String, dynamic> _$TransactionCreateManyAccountInputEnvelopeToJson(
 UserCreateWithoutAccountInput _$UserCreateWithoutAccountInputFromJson(
         Map<String, dynamic> json) =>
     UserCreateWithoutAccountInput(
-      id: json['id'] as String,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       gender: json['gender'] as String,
@@ -4550,7 +4646,6 @@ UserCreateWithoutAccountInput _$UserCreateWithoutAccountInputFromJson(
 Map<String, dynamic> _$UserCreateWithoutAccountInputToJson(
     UserCreateWithoutAccountInput instance) {
   final val = <String, dynamic>{
-    'id': instance.id,
     'firstName': instance.firstName,
     'lastName': instance.lastName,
     'gender': instance.gender,
@@ -4575,7 +4670,7 @@ UserUncheckedCreateWithoutAccountInput
     _$UserUncheckedCreateWithoutAccountInputFromJson(
             Map<String, dynamic> json) =>
         UserUncheckedCreateWithoutAccountInput(
-          id: json['id'] as String,
+          id: json['id'] as int?,
           firstName: json['firstName'] as String,
           lastName: json['lastName'] as String,
           gender: json['gender'] as String,
@@ -4587,13 +4682,7 @@ UserUncheckedCreateWithoutAccountInput
 
 Map<String, dynamic> _$UserUncheckedCreateWithoutAccountInputToJson(
     UserUncheckedCreateWithoutAccountInput instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'firstName': instance.firstName,
-    'lastName': instance.lastName,
-    'gender': instance.gender,
-    'identityCode': instance.identityCode,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -4601,6 +4690,11 @@ Map<String, dynamic> _$UserUncheckedCreateWithoutAccountInputToJson(
     }
   }
 
+  writeNotNull('id', instance.id);
+  val['firstName'] = instance.firstName;
+  val['lastName'] = instance.lastName;
+  val['gender'] = instance.gender;
+  val['identityCode'] = instance.identityCode;
   writeNotNull(
       'birthday',
       _$JsonConverterToJson<String, DateTime>(
@@ -4701,6 +4795,9 @@ TransactionScalarWhereInput _$TransactionScalarWhereInputFromJson(
           ? null
           : DateTimeFilter.fromJson(
               json['transactionDate'] as Map<String, dynamic>),
+      receverId: json['receverId'] == null
+          ? null
+          : IntFilter.fromJson(json['receverId'] as Map<String, dynamic>),
       accountId: json['accountId'] == null
           ? null
           : IntFilter.fromJson(json['accountId'] as Map<String, dynamic>),
@@ -4722,6 +4819,7 @@ Map<String, dynamic> _$TransactionScalarWhereInputToJson(
   writeNotNull('id', instance.id?.toJson());
   writeNotNull('price', instance.price?.toJson());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
+  writeNotNull('receverId', instance.receverId?.toJson());
   writeNotNull('accountId', instance.accountId?.toJson());
   return val;
 }
@@ -4784,10 +4882,6 @@ Map<String, dynamic> _$UserUpdateToOneWithWhereWithoutAccountInputToJson(
 UserUpdateWithoutAccountInput _$UserUpdateWithoutAccountInputFromJson(
         Map<String, dynamic> json) =>
     UserUpdateWithoutAccountInput(
-      id: json['id'] == null
-          ? null
-          : StringFieldUpdateOperationsInput.fromJson(
-              json['id'] as Map<String, dynamic>),
       firstName: json['firstName'] == null
           ? null
           : StringFieldUpdateOperationsInput.fromJson(
@@ -4824,7 +4918,6 @@ Map<String, dynamic> _$UserUpdateWithoutAccountInputToJson(
     }
   }
 
-  writeNotNull('id', instance.id?.toJson());
   writeNotNull('firstName', instance.firstName?.toJson());
   writeNotNull('lastName', instance.lastName?.toJson());
   writeNotNull('gender', instance.gender?.toJson());
@@ -4840,7 +4933,7 @@ UserUncheckedUpdateWithoutAccountInput
         UserUncheckedUpdateWithoutAccountInput(
           id: json['id'] == null
               ? null
-              : StringFieldUpdateOperationsInput.fromJson(
+              : IntFieldUpdateOperationsInput.fromJson(
                   json['id'] as Map<String, dynamic>),
           firstName: json['firstName'] == null
               ? null
@@ -4931,7 +5024,7 @@ AccountUncheckedCreateWithoutTransactionsInput
               json['openingDate'], const DateTimeJsonConverter().fromJson),
           closingDate: _$JsonConverterFromJson<String, DateTime>(
               json['closingDate'], const DateTimeJsonConverter().fromJson),
-          userId: json['userId'] as String,
+          userId: json['userId'] as int,
         );
 
 Map<String, dynamic> _$AccountUncheckedCreateWithoutTransactionsInputToJson(
@@ -5085,7 +5178,7 @@ AccountUncheckedUpdateWithoutTransactionsInput
                   json['closingDate'] as Map<String, dynamic>),
           userId: json['userId'] == null
               ? null
-              : StringFieldUpdateOperationsInput.fromJson(
+              : IntFieldUpdateOperationsInput.fromJson(
                   json['userId'] as Map<String, dynamic>),
         );
 
@@ -5113,6 +5206,7 @@ TransactionCreateManyAccountInput _$TransactionCreateManyAccountInputFromJson(
       price: json['price'] as int,
       transactionDate: _$JsonConverterFromJson<String, DateTime>(
           json['transactionDate'], const DateTimeJsonConverter().fromJson),
+      receverId: json['receverId'] as int,
     );
 
 Map<String, dynamic> _$TransactionCreateManyAccountInputToJson(
@@ -5131,6 +5225,7 @@ Map<String, dynamic> _$TransactionCreateManyAccountInputToJson(
       'transactionDate',
       _$JsonConverterToJson<String, DateTime>(
           instance.transactionDate, const DateTimeJsonConverter().toJson));
+  val['receverId'] = instance.receverId;
   return val;
 }
 
@@ -5145,6 +5240,10 @@ TransactionUpdateWithoutAccountInput
               ? null
               : DateTimeFieldUpdateOperationsInput.fromJson(
                   json['transactionDate'] as Map<String, dynamic>),
+          receverId: json['receverId'] == null
+              ? null
+              : IntFieldUpdateOperationsInput.fromJson(
+                  json['receverId'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic> _$TransactionUpdateWithoutAccountInputToJson(
@@ -5159,6 +5258,7 @@ Map<String, dynamic> _$TransactionUpdateWithoutAccountInputToJson(
 
   writeNotNull('price', instance.price?.toJson());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
+  writeNotNull('receverId', instance.receverId?.toJson());
   return val;
 }
 
@@ -5178,6 +5278,10 @@ TransactionUncheckedUpdateWithoutAccountInput
               ? null
               : DateTimeFieldUpdateOperationsInput.fromJson(
                   json['transactionDate'] as Map<String, dynamic>),
+          receverId: json['receverId'] == null
+              ? null
+              : IntFieldUpdateOperationsInput.fromJson(
+                  json['receverId'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic> _$TransactionUncheckedUpdateWithoutAccountInputToJson(
@@ -5193,6 +5297,7 @@ Map<String, dynamic> _$TransactionUncheckedUpdateWithoutAccountInputToJson(
   writeNotNull('id', instance.id?.toJson());
   writeNotNull('price', instance.price?.toJson());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
+  writeNotNull('receverId', instance.receverId?.toJson());
   return val;
 }
 
@@ -5212,6 +5317,10 @@ TransactionUncheckedUpdateManyWithoutAccountInput
               ? null
               : DateTimeFieldUpdateOperationsInput.fromJson(
                   json['transactionDate'] as Map<String, dynamic>),
+          receverId: json['receverId'] == null
+              ? null
+              : IntFieldUpdateOperationsInput.fromJson(
+                  json['receverId'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic> _$TransactionUncheckedUpdateManyWithoutAccountInputToJson(
@@ -5227,11 +5336,12 @@ Map<String, dynamic> _$TransactionUncheckedUpdateManyWithoutAccountInputToJson(
   writeNotNull('id', instance.id?.toJson());
   writeNotNull('price', instance.price?.toJson());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
+  writeNotNull('receverId', instance.receverId?.toJson());
   return val;
 }
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
-      id: json['id'] as String,
+      id: json['id'] as int,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       gender: json['gender'] as String,
@@ -5257,7 +5367,7 @@ Account _$AccountFromJson(Map<String, dynamic> json) => Account(
           const DateTimeJsonConverter().fromJson(json['openingDate'] as String),
       closingDate:
           const DateTimeJsonConverter().fromJson(json['closingDate'] as String),
-      userId: json['userId'] as String,
+      userId: json['userId'] as int,
     );
 
 Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
@@ -5282,6 +5392,7 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) => Transaction(
       price: json['price'] as int,
       transactionDate: const DateTimeJsonConverter()
           .fromJson(json['transactionDate'] as String),
+      receverId: json['receverId'] as int,
       accountId: json['accountId'] as int,
     );
 
@@ -5291,6 +5402,7 @@ Map<String, dynamic> _$TransactionToJson(Transaction instance) =>
       'price': instance.price,
       'transactionDate':
           const DateTimeJsonConverter().toJson(instance.transactionDate),
+      'receverId': instance.receverId,
       'accountId': instance.accountId,
     };
 
@@ -5309,7 +5421,7 @@ Map<String, dynamic> _$TransactionTypeToJson(TransactionType instance) =>
 UserGroupByOutputType _$UserGroupByOutputTypeFromJson(
         Map<String, dynamic> json) =>
     UserGroupByOutputType(
-      id: json['id'] as String?,
+      id: json['id'] as int?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
       gender: json['gender'] as String?,
@@ -5350,7 +5462,7 @@ AccountGroupByOutputType _$AccountGroupByOutputTypeFromJson(
           json['openingDate'], const DateTimeJsonConverter().fromJson),
       closingDate: _$JsonConverterFromJson<String, DateTime>(
           json['closingDate'], const DateTimeJsonConverter().fromJson),
-      userId: json['userId'] as String?,
+      userId: json['userId'] as int?,
     );
 
 Map<String, dynamic> _$AccountGroupByOutputTypeToJson(
@@ -5405,6 +5517,7 @@ TransactionGroupByOutputType _$TransactionGroupByOutputTypeFromJson(
       price: json['price'] as int?,
       transactionDate: _$JsonConverterFromJson<String, DateTime>(
           json['transactionDate'], const DateTimeJsonConverter().fromJson),
+      receverId: json['receverId'] as int?,
       accountId: json['accountId'] as int?,
     );
 
@@ -5424,6 +5537,7 @@ Map<String, dynamic> _$TransactionGroupByOutputTypeToJson(
       'transactionDate',
       _$JsonConverterToJson<String, DateTime>(
           instance.transactionDate, const DateTimeJsonConverter().toJson));
+  writeNotNull('receverId', instance.receverId);
   writeNotNull('accountId', instance.accountId);
   return val;
 }

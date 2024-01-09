@@ -13,7 +13,7 @@ datasource db {
 
 // Models
 model User {
-  id String @id
+  id Int @id @default(autoincrement())
   firstName String
   lastName String
   gender String
@@ -29,7 +29,7 @@ model Account {
   closingDate DateTime @default(now())
   transactions Transaction[]
   user User @relation(fields: [userId], references: [id])
-  userId String @unique
+  userId Int @unique
 }
 
 model Operator {
@@ -41,7 +41,8 @@ model Transaction {
   id Int @id @default(autoincrement())
   price Int @unique
   transactionDate DateTime @default(now())  
-  account Account @relation(fields: [accountId], references: [id])
+  receverId Int
+  account Account @relation(fields: [accountId], references: [id])  
   accountId Int
 }
 

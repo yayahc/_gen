@@ -27,7 +27,6 @@ Future<void> generateUsers(int i) async {
     final response = json.decode(request.body);
     final user = um.trigger(response);
     await client.user.create(data: UserCreateInput.fromJson(user));
-    print("$i is on db");
   } catch (e) {
     print(e.toString());
   }

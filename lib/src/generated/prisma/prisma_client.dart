@@ -46,6 +46,7 @@ enum TransactionScalarFieldEnum implements _i1.PrismaEnum {
   id,
   price,
   transactionDate,
+  receverId,
   accountId;
 
   @override
@@ -93,7 +94,7 @@ class UserWhereInput implements _i1.JsonSerializable {
 
   final Iterable<UserWhereInput>? NOT;
 
-  final StringFilter? id;
+  final IntFilter? id;
 
   final StringFilter? firstName;
 
@@ -168,7 +169,7 @@ class UserWhereUniqueInput implements _i1.JsonSerializable {
   factory UserWhereUniqueInput.fromJson(Map<String, dynamic> json) =>
       _$UserWhereUniqueInputFromJson(json);
 
-  final String? id;
+  final int? id;
 
   final Iterable<UserWhereInput>? AND;
 
@@ -205,8 +206,10 @@ class UserOrderByWithAggregationInput implements _i1.JsonSerializable {
     this.birthday,
     this.birthCity,
     this.$count,
+    this.$avg,
     this.$max,
     this.$min,
+    this.$sum,
   });
 
   factory UserOrderByWithAggregationInput.fromJson(Map<String, dynamic> json) =>
@@ -229,11 +232,17 @@ class UserOrderByWithAggregationInput implements _i1.JsonSerializable {
   @JsonKey(name: r'_count')
   final UserCountOrderByAggregateInput? $count;
 
+  @JsonKey(name: r'_avg')
+  final UserAvgOrderByAggregateInput? $avg;
+
   @JsonKey(name: r'_max')
   final UserMaxOrderByAggregateInput? $max;
 
   @JsonKey(name: r'_min')
   final UserMinOrderByAggregateInput? $min;
+
+  @JsonKey(name: r'_sum')
+  final UserSumOrderByAggregateInput? $sum;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -265,7 +274,7 @@ class UserScalarWhereWithAggregatesInput implements _i1.JsonSerializable {
 
   final Iterable<UserScalarWhereWithAggregatesInput>? NOT;
 
-  final StringWithAggregatesFilter? id;
+  final IntWithAggregatesFilter? id;
 
   final StringWithAggregatesFilter? firstName;
 
@@ -313,7 +322,7 @@ class AccountWhereInput implements _i1.JsonSerializable {
 
   final DateTimeFilter? closingDate;
 
-  final StringFilter? userId;
+  final IntFilter? userId;
 
   final TransactionListRelationFilter? transactions;
 
@@ -373,7 +382,7 @@ class AccountWhereUniqueInput implements _i1.JsonSerializable {
 
   final int? id;
 
-  final String? userId;
+  final int? userId;
 
   final Iterable<AccountWhereInput>? AND;
 
@@ -467,7 +476,7 @@ class AccountScalarWhereWithAggregatesInput implements _i1.JsonSerializable {
 
   final DateTimeWithAggregatesFilter? closingDate;
 
-  final StringWithAggregatesFilter? userId;
+  final IntWithAggregatesFilter? userId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -626,6 +635,7 @@ class TransactionWhereInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
     this.accountId,
     this.account,
   });
@@ -645,6 +655,8 @@ class TransactionWhereInput implements _i1.JsonSerializable {
 
   final DateTimeFilter? transactionDate;
 
+  final IntFilter? receverId;
+
   final IntFilter? accountId;
 
   final AccountRelationFilter? account;
@@ -659,6 +671,7 @@ class TransactionOrderByWithRelationInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
     this.accountId,
     this.account,
   });
@@ -672,6 +685,8 @@ class TransactionOrderByWithRelationInput implements _i1.JsonSerializable {
   final SortOrder? price;
 
   final SortOrder? transactionDate;
+
+  final SortOrder? receverId;
 
   final SortOrder? accountId;
 
@@ -691,6 +706,7 @@ class TransactionWhereUniqueInput implements _i1.JsonSerializable {
     this.OR,
     this.NOT,
     this.transactionDate,
+    this.receverId,
     this.accountId,
     this.account,
   });
@@ -710,6 +726,8 @@ class TransactionWhereUniqueInput implements _i1.JsonSerializable {
 
   final DateTimeFilter? transactionDate;
 
+  final IntFilter? receverId;
+
   final IntFilter? accountId;
 
   final AccountRelationFilter? account;
@@ -724,6 +742,7 @@ class TransactionOrderByWithAggregationInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
     this.accountId,
     this.$count,
     this.$avg,
@@ -741,6 +760,8 @@ class TransactionOrderByWithAggregationInput implements _i1.JsonSerializable {
   final SortOrder? price;
 
   final SortOrder? transactionDate;
+
+  final SortOrder? receverId;
 
   final SortOrder? accountId;
 
@@ -774,6 +795,7 @@ class TransactionScalarWhereWithAggregatesInput
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
     this.accountId,
   });
 
@@ -792,6 +814,8 @@ class TransactionScalarWhereWithAggregatesInput
   final IntWithAggregatesFilter? price;
 
   final DateTimeWithAggregatesFilter? transactionDate;
+
+  final IntWithAggregatesFilter? receverId;
 
   final IntWithAggregatesFilter? accountId;
 
@@ -949,7 +973,6 @@ class TransactionTypeScalarWhereWithAggregatesInput
 @_i1.jsonSerializable
 class UserCreateInput implements _i1.JsonSerializable {
   const UserCreateInput({
-    required this.id,
     required this.firstName,
     required this.lastName,
     required this.gender,
@@ -961,8 +984,6 @@ class UserCreateInput implements _i1.JsonSerializable {
 
   factory UserCreateInput.fromJson(Map<String, dynamic> json) =>
       _$UserCreateInputFromJson(json);
-
-  final String id;
 
   final String firstName;
 
@@ -985,7 +1006,7 @@ class UserCreateInput implements _i1.JsonSerializable {
 @_i1.jsonSerializable
 class UserUncheckedCreateInput implements _i1.JsonSerializable {
   const UserUncheckedCreateInput({
-    required this.id,
+    this.id,
     required this.firstName,
     required this.lastName,
     required this.gender,
@@ -998,7 +1019,7 @@ class UserUncheckedCreateInput implements _i1.JsonSerializable {
   factory UserUncheckedCreateInput.fromJson(Map<String, dynamic> json) =>
       _$UserUncheckedCreateInputFromJson(json);
 
-  final String id;
+  final int? id;
 
   final String firstName;
 
@@ -1021,7 +1042,6 @@ class UserUncheckedCreateInput implements _i1.JsonSerializable {
 @_i1.jsonSerializable
 class UserUpdateInput implements _i1.JsonSerializable {
   const UserUpdateInput({
-    this.id,
     this.firstName,
     this.lastName,
     this.gender,
@@ -1033,8 +1053,6 @@ class UserUpdateInput implements _i1.JsonSerializable {
 
   factory UserUpdateInput.fromJson(Map<String, dynamic> json) =>
       _$UserUpdateInputFromJson(json);
-
-  final StringFieldUpdateOperationsInput? id;
 
   final StringFieldUpdateOperationsInput? firstName;
 
@@ -1070,7 +1088,7 @@ class UserUncheckedUpdateInput implements _i1.JsonSerializable {
   factory UserUncheckedUpdateInput.fromJson(Map<String, dynamic> json) =>
       _$UserUncheckedUpdateInputFromJson(json);
 
-  final StringFieldUpdateOperationsInput? id;
+  final IntFieldUpdateOperationsInput? id;
 
   final StringFieldUpdateOperationsInput? firstName;
 
@@ -1093,7 +1111,7 @@ class UserUncheckedUpdateInput implements _i1.JsonSerializable {
 @_i1.jsonSerializable
 class UserCreateManyInput implements _i1.JsonSerializable {
   const UserCreateManyInput({
-    required this.id,
+    this.id,
     required this.firstName,
     required this.lastName,
     required this.gender,
@@ -1105,7 +1123,7 @@ class UserCreateManyInput implements _i1.JsonSerializable {
   factory UserCreateManyInput.fromJson(Map<String, dynamic> json) =>
       _$UserCreateManyInputFromJson(json);
 
-  final String id;
+  final int? id;
 
   final String firstName;
 
@@ -1126,7 +1144,6 @@ class UserCreateManyInput implements _i1.JsonSerializable {
 @_i1.jsonSerializable
 class UserUpdateManyMutationInput implements _i1.JsonSerializable {
   const UserUpdateManyMutationInput({
-    this.id,
     this.firstName,
     this.lastName,
     this.gender,
@@ -1137,8 +1154,6 @@ class UserUpdateManyMutationInput implements _i1.JsonSerializable {
 
   factory UserUpdateManyMutationInput.fromJson(Map<String, dynamic> json) =>
       _$UserUpdateManyMutationInputFromJson(json);
-
-  final StringFieldUpdateOperationsInput? id;
 
   final StringFieldUpdateOperationsInput? firstName;
 
@@ -1171,7 +1186,7 @@ class UserUncheckedUpdateManyInput implements _i1.JsonSerializable {
   factory UserUncheckedUpdateManyInput.fromJson(Map<String, dynamic> json) =>
       _$UserUncheckedUpdateManyInputFromJson(json);
 
-  final StringFieldUpdateOperationsInput? id;
+  final IntFieldUpdateOperationsInput? id;
 
   final StringFieldUpdateOperationsInput? firstName;
 
@@ -1232,7 +1247,7 @@ class AccountUncheckedCreateInput implements _i1.JsonSerializable {
 
   final DateTime? closingDate;
 
-  final String userId;
+  final int userId;
 
   final TransactionUncheckedCreateNestedManyWithoutAccountInput? transactions;
 
@@ -1283,7 +1298,7 @@ class AccountUncheckedUpdateInput implements _i1.JsonSerializable {
 
   final DateTimeFieldUpdateOperationsInput? closingDate;
 
-  final StringFieldUpdateOperationsInput? userId;
+  final IntFieldUpdateOperationsInput? userId;
 
   final TransactionUncheckedUpdateManyWithoutAccountNestedInput? transactions;
 
@@ -1309,7 +1324,7 @@ class AccountCreateManyInput implements _i1.JsonSerializable {
 
   final DateTime? closingDate;
 
-  final String userId;
+  final int userId;
 
   @override
   Map<String, dynamic> toJson() => _$AccountCreateManyInputToJson(this);
@@ -1351,7 +1366,7 @@ class AccountUncheckedUpdateManyInput implements _i1.JsonSerializable {
 
   final DateTimeFieldUpdateOperationsInput? closingDate;
 
-  final StringFieldUpdateOperationsInput? userId;
+  final IntFieldUpdateOperationsInput? userId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -1477,6 +1492,7 @@ class TransactionCreateInput implements _i1.JsonSerializable {
   const TransactionCreateInput({
     required this.price,
     this.transactionDate,
+    required this.receverId,
     required this.account,
   });
 
@@ -1486,6 +1502,8 @@ class TransactionCreateInput implements _i1.JsonSerializable {
   final int price;
 
   final DateTime? transactionDate;
+
+  final int receverId;
 
   final AccountCreateNestedOneWithoutTransactionsInput account;
 
@@ -1499,6 +1517,7 @@ class TransactionUncheckedCreateInput implements _i1.JsonSerializable {
     this.id,
     required this.price,
     this.transactionDate,
+    required this.receverId,
     required this.accountId,
   });
 
@@ -1510,6 +1529,8 @@ class TransactionUncheckedCreateInput implements _i1.JsonSerializable {
   final int price;
 
   final DateTime? transactionDate;
+
+  final int receverId;
 
   final int accountId;
 
@@ -1523,6 +1544,7 @@ class TransactionUpdateInput implements _i1.JsonSerializable {
   const TransactionUpdateInput({
     this.price,
     this.transactionDate,
+    this.receverId,
     this.account,
   });
 
@@ -1532,6 +1554,8 @@ class TransactionUpdateInput implements _i1.JsonSerializable {
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? receverId;
 
   final AccountUpdateOneRequiredWithoutTransactionsNestedInput? account;
 
@@ -1545,6 +1569,7 @@ class TransactionUncheckedUpdateInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
     this.accountId,
   });
 
@@ -1556,6 +1581,8 @@ class TransactionUncheckedUpdateInput implements _i1.JsonSerializable {
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? receverId;
 
   final IntFieldUpdateOperationsInput? accountId;
 
@@ -1570,6 +1597,7 @@ class TransactionCreateManyInput implements _i1.JsonSerializable {
     this.id,
     required this.price,
     this.transactionDate,
+    required this.receverId,
     required this.accountId,
   });
 
@@ -1582,6 +1610,8 @@ class TransactionCreateManyInput implements _i1.JsonSerializable {
 
   final DateTime? transactionDate;
 
+  final int receverId;
+
   final int accountId;
 
   @override
@@ -1593,6 +1623,7 @@ class TransactionUpdateManyMutationInput implements _i1.JsonSerializable {
   const TransactionUpdateManyMutationInput({
     this.price,
     this.transactionDate,
+    this.receverId,
   });
 
   factory TransactionUpdateManyMutationInput.fromJson(
@@ -1602,6 +1633,8 @@ class TransactionUpdateManyMutationInput implements _i1.JsonSerializable {
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? receverId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -1614,6 +1647,7 @@ class TransactionUncheckedUpdateManyInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
     this.accountId,
   });
 
@@ -1626,6 +1660,8 @@ class TransactionUncheckedUpdateManyInput implements _i1.JsonSerializable {
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? receverId;
 
   final IntFieldUpdateOperationsInput? accountId;
 
@@ -1751,6 +1787,43 @@ class TransactionTypeUncheckedUpdateManyInput implements _i1.JsonSerializable {
   @override
   Map<String, dynamic> toJson() =>
       _$TransactionTypeUncheckedUpdateManyInputToJson(this);
+}
+
+@_i1.jsonSerializable
+class IntFilter implements _i1.JsonSerializable {
+  const IntFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+  });
+
+  factory IntFilter.fromJson(Map<String, dynamic> json) =>
+      _$IntFilterFromJson(json);
+
+  final int? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<int>? $in;
+
+  final Iterable<int>? notIn;
+
+  final int? lt;
+
+  final int? lte;
+
+  final int? gt;
+
+  final int? gte;
+
+  final NestedIntFilter? not;
+
+  @override
+  Map<String, dynamic> toJson() => _$IntFilterToJson(this);
 }
 
 @_i1.jsonSerializable
@@ -1889,6 +1962,19 @@ class UserCountOrderByAggregateInput implements _i1.JsonSerializable {
 }
 
 @_i1.jsonSerializable
+class UserAvgOrderByAggregateInput implements _i1.JsonSerializable {
+  const UserAvgOrderByAggregateInput({this.id});
+
+  factory UserAvgOrderByAggregateInput.fromJson(Map<String, dynamic> json) =>
+      _$UserAvgOrderByAggregateInputFromJson(json);
+
+  final SortOrder? id;
+
+  @override
+  Map<String, dynamic> toJson() => _$UserAvgOrderByAggregateInputToJson(this);
+}
+
+@_i1.jsonSerializable
 class UserMaxOrderByAggregateInput implements _i1.JsonSerializable {
   const UserMaxOrderByAggregateInput({
     this.id,
@@ -1952,6 +2038,76 @@ class UserMinOrderByAggregateInput implements _i1.JsonSerializable {
 
   @override
   Map<String, dynamic> toJson() => _$UserMinOrderByAggregateInputToJson(this);
+}
+
+@_i1.jsonSerializable
+class UserSumOrderByAggregateInput implements _i1.JsonSerializable {
+  const UserSumOrderByAggregateInput({this.id});
+
+  factory UserSumOrderByAggregateInput.fromJson(Map<String, dynamic> json) =>
+      _$UserSumOrderByAggregateInputFromJson(json);
+
+  final SortOrder? id;
+
+  @override
+  Map<String, dynamic> toJson() => _$UserSumOrderByAggregateInputToJson(this);
+}
+
+@_i1.jsonSerializable
+class IntWithAggregatesFilter implements _i1.JsonSerializable {
+  const IntWithAggregatesFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+    this.$count,
+    this.$avg,
+    this.$sum,
+    this.$min,
+    this.$max,
+  });
+
+  factory IntWithAggregatesFilter.fromJson(Map<String, dynamic> json) =>
+      _$IntWithAggregatesFilterFromJson(json);
+
+  final int? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<int>? $in;
+
+  final Iterable<int>? notIn;
+
+  final int? lt;
+
+  final int? lte;
+
+  final int? gt;
+
+  final int? gte;
+
+  final NestedIntWithAggregatesFilter? not;
+
+  @JsonKey(name: r'_count')
+  final NestedIntFilter? $count;
+
+  @JsonKey(name: r'_avg')
+  final NestedFloatFilter? $avg;
+
+  @JsonKey(name: r'_sum')
+  final NestedIntFilter? $sum;
+
+  @JsonKey(name: r'_min')
+  final NestedIntFilter? $min;
+
+  @JsonKey(name: r'_max')
+  final NestedIntFilter? $max;
+
+  @override
+  Map<String, dynamic> toJson() => _$IntWithAggregatesFilterToJson(this);
 }
 
 @_i1.jsonSerializable
@@ -2062,43 +2218,6 @@ class DateTimeWithAggregatesFilter implements _i1.JsonSerializable {
 }
 
 @_i1.jsonSerializable
-class IntFilter implements _i1.JsonSerializable {
-  const IntFilter({
-    this.equals,
-    this.$in,
-    this.notIn,
-    this.lt,
-    this.lte,
-    this.gt,
-    this.gte,
-    this.not,
-  });
-
-  factory IntFilter.fromJson(Map<String, dynamic> json) =>
-      _$IntFilterFromJson(json);
-
-  final int? equals;
-
-  @JsonKey(name: r'in')
-  final Iterable<int>? $in;
-
-  final Iterable<int>? notIn;
-
-  final int? lt;
-
-  final int? lte;
-
-  final int? gt;
-
-  final int? gte;
-
-  final NestedIntFilter? not;
-
-  @override
-  Map<String, dynamic> toJson() => _$IntFilterToJson(this);
-}
-
-@_i1.jsonSerializable
 class TransactionListRelationFilter implements _i1.JsonSerializable {
   const TransactionListRelationFilter({
     this.every,
@@ -2182,12 +2301,17 @@ class AccountCountOrderByAggregateInput implements _i1.JsonSerializable {
 
 @_i1.jsonSerializable
 class AccountAvgOrderByAggregateInput implements _i1.JsonSerializable {
-  const AccountAvgOrderByAggregateInput({this.id});
+  const AccountAvgOrderByAggregateInput({
+    this.id,
+    this.userId,
+  });
 
   factory AccountAvgOrderByAggregateInput.fromJson(Map<String, dynamic> json) =>
       _$AccountAvgOrderByAggregateInputFromJson(json);
 
   final SortOrder? id;
+
+  final SortOrder? userId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -2246,73 +2370,21 @@ class AccountMinOrderByAggregateInput implements _i1.JsonSerializable {
 
 @_i1.jsonSerializable
 class AccountSumOrderByAggregateInput implements _i1.JsonSerializable {
-  const AccountSumOrderByAggregateInput({this.id});
+  const AccountSumOrderByAggregateInput({
+    this.id,
+    this.userId,
+  });
 
   factory AccountSumOrderByAggregateInput.fromJson(Map<String, dynamic> json) =>
       _$AccountSumOrderByAggregateInputFromJson(json);
 
   final SortOrder? id;
 
+  final SortOrder? userId;
+
   @override
   Map<String, dynamic> toJson() =>
       _$AccountSumOrderByAggregateInputToJson(this);
-}
-
-@_i1.jsonSerializable
-class IntWithAggregatesFilter implements _i1.JsonSerializable {
-  const IntWithAggregatesFilter({
-    this.equals,
-    this.$in,
-    this.notIn,
-    this.lt,
-    this.lte,
-    this.gt,
-    this.gte,
-    this.not,
-    this.$count,
-    this.$avg,
-    this.$sum,
-    this.$min,
-    this.$max,
-  });
-
-  factory IntWithAggregatesFilter.fromJson(Map<String, dynamic> json) =>
-      _$IntWithAggregatesFilterFromJson(json);
-
-  final int? equals;
-
-  @JsonKey(name: r'in')
-  final Iterable<int>? $in;
-
-  final Iterable<int>? notIn;
-
-  final int? lt;
-
-  final int? lte;
-
-  final int? gt;
-
-  final int? gte;
-
-  final NestedIntWithAggregatesFilter? not;
-
-  @JsonKey(name: r'_count')
-  final NestedIntFilter? $count;
-
-  @JsonKey(name: r'_avg')
-  final NestedFloatFilter? $avg;
-
-  @JsonKey(name: r'_sum')
-  final NestedIntFilter? $sum;
-
-  @JsonKey(name: r'_min')
-  final NestedIntFilter? $min;
-
-  @JsonKey(name: r'_max')
-  final NestedIntFilter? $max;
-
-  @override
-  Map<String, dynamic> toJson() => _$IntWithAggregatesFilterToJson(this);
 }
 
 @_i1.jsonSerializable
@@ -2430,6 +2502,7 @@ class TransactionCountOrderByAggregateInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
     this.accountId,
   });
 
@@ -2443,6 +2516,8 @@ class TransactionCountOrderByAggregateInput implements _i1.JsonSerializable {
 
   final SortOrder? transactionDate;
 
+  final SortOrder? receverId;
+
   final SortOrder? accountId;
 
   @override
@@ -2455,6 +2530,7 @@ class TransactionAvgOrderByAggregateInput implements _i1.JsonSerializable {
   const TransactionAvgOrderByAggregateInput({
     this.id,
     this.price,
+    this.receverId,
     this.accountId,
   });
 
@@ -2465,6 +2541,8 @@ class TransactionAvgOrderByAggregateInput implements _i1.JsonSerializable {
   final SortOrder? id;
 
   final SortOrder? price;
+
+  final SortOrder? receverId;
 
   final SortOrder? accountId;
 
@@ -2479,6 +2557,7 @@ class TransactionMaxOrderByAggregateInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
     this.accountId,
   });
 
@@ -2491,6 +2570,8 @@ class TransactionMaxOrderByAggregateInput implements _i1.JsonSerializable {
   final SortOrder? price;
 
   final SortOrder? transactionDate;
+
+  final SortOrder? receverId;
 
   final SortOrder? accountId;
 
@@ -2505,6 +2586,7 @@ class TransactionMinOrderByAggregateInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
     this.accountId,
   });
 
@@ -2518,6 +2600,8 @@ class TransactionMinOrderByAggregateInput implements _i1.JsonSerializable {
 
   final SortOrder? transactionDate;
 
+  final SortOrder? receverId;
+
   final SortOrder? accountId;
 
   @override
@@ -2530,6 +2614,7 @@ class TransactionSumOrderByAggregateInput implements _i1.JsonSerializable {
   const TransactionSumOrderByAggregateInput({
     this.id,
     this.price,
+    this.receverId,
     this.accountId,
   });
 
@@ -2540,6 +2625,8 @@ class TransactionSumOrderByAggregateInput implements _i1.JsonSerializable {
   final SortOrder? id;
 
   final SortOrder? price;
+
+  final SortOrder? receverId;
 
   final SortOrder? accountId;
 
@@ -2752,6 +2839,33 @@ class AccountUpdateOneWithoutUserNestedInput implements _i1.JsonSerializable {
 }
 
 @_i1.jsonSerializable
+class IntFieldUpdateOperationsInput implements _i1.JsonSerializable {
+  const IntFieldUpdateOperationsInput({
+    this.set,
+    this.increment,
+    this.decrement,
+    this.multiply,
+    this.divide,
+  });
+
+  factory IntFieldUpdateOperationsInput.fromJson(Map<String, dynamic> json) =>
+      _$IntFieldUpdateOperationsInputFromJson(json);
+
+  final int? set;
+
+  final int? increment;
+
+  final int? decrement;
+
+  final int? multiply;
+
+  final int? divide;
+
+  @override
+  Map<String, dynamic> toJson() => _$IntFieldUpdateOperationsInputToJson(this);
+}
+
+@_i1.jsonSerializable
 class AccountUncheckedUpdateOneWithoutUserNestedInput
     implements _i1.JsonSerializable {
   const AccountUncheckedUpdateOneWithoutUserNestedInput({
@@ -2946,33 +3060,6 @@ class UserUpdateOneRequiredWithoutAccountNestedInput
 }
 
 @_i1.jsonSerializable
-class IntFieldUpdateOperationsInput implements _i1.JsonSerializable {
-  const IntFieldUpdateOperationsInput({
-    this.set,
-    this.increment,
-    this.decrement,
-    this.multiply,
-    this.divide,
-  });
-
-  factory IntFieldUpdateOperationsInput.fromJson(Map<String, dynamic> json) =>
-      _$IntFieldUpdateOperationsInputFromJson(json);
-
-  final int? set;
-
-  final int? increment;
-
-  final int? decrement;
-
-  final int? multiply;
-
-  final int? divide;
-
-  @override
-  Map<String, dynamic> toJson() => _$IntFieldUpdateOperationsInputToJson(this);
-}
-
-@_i1.jsonSerializable
 class TransactionUncheckedUpdateManyWithoutAccountNestedInput
     implements _i1.JsonSerializable {
   const TransactionUncheckedUpdateManyWithoutAccountNestedInput({
@@ -3076,6 +3163,43 @@ class AccountUpdateOneRequiredWithoutTransactionsNestedInput
 }
 
 @_i1.jsonSerializable
+class NestedIntFilter implements _i1.JsonSerializable {
+  const NestedIntFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+  });
+
+  factory NestedIntFilter.fromJson(Map<String, dynamic> json) =>
+      _$NestedIntFilterFromJson(json);
+
+  final int? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<int>? $in;
+
+  final Iterable<int>? notIn;
+
+  final int? lt;
+
+  final int? lte;
+
+  final int? gt;
+
+  final int? gte;
+
+  final NestedIntFilter? not;
+
+  @override
+  Map<String, dynamic> toJson() => _$NestedIntFilterToJson(this);
+}
+
+@_i1.jsonSerializable
 class NestedStringFilter implements _i1.JsonSerializable {
   const NestedStringFilter({
     this.equals,
@@ -3156,154 +3280,6 @@ class NestedDateTimeFilter implements _i1.JsonSerializable {
 
   @override
   Map<String, dynamic> toJson() => _$NestedDateTimeFilterToJson(this);
-}
-
-@_i1.jsonSerializable
-class NestedStringWithAggregatesFilter implements _i1.JsonSerializable {
-  const NestedStringWithAggregatesFilter({
-    this.equals,
-    this.$in,
-    this.notIn,
-    this.lt,
-    this.lte,
-    this.gt,
-    this.gte,
-    this.contains,
-    this.startsWith,
-    this.endsWith,
-    this.not,
-    this.$count,
-    this.$min,
-    this.$max,
-  });
-
-  factory NestedStringWithAggregatesFilter.fromJson(
-          Map<String, dynamic> json) =>
-      _$NestedStringWithAggregatesFilterFromJson(json);
-
-  final String? equals;
-
-  @JsonKey(name: r'in')
-  final Iterable<String>? $in;
-
-  final Iterable<String>? notIn;
-
-  final String? lt;
-
-  final String? lte;
-
-  final String? gt;
-
-  final String? gte;
-
-  final String? contains;
-
-  final String? startsWith;
-
-  final String? endsWith;
-
-  final NestedStringWithAggregatesFilter? not;
-
-  @JsonKey(name: r'_count')
-  final NestedIntFilter? $count;
-
-  @JsonKey(name: r'_min')
-  final NestedStringFilter? $min;
-
-  @JsonKey(name: r'_max')
-  final NestedStringFilter? $max;
-
-  @override
-  Map<String, dynamic> toJson() =>
-      _$NestedStringWithAggregatesFilterToJson(this);
-}
-
-@_i1.jsonSerializable
-class NestedIntFilter implements _i1.JsonSerializable {
-  const NestedIntFilter({
-    this.equals,
-    this.$in,
-    this.notIn,
-    this.lt,
-    this.lte,
-    this.gt,
-    this.gte,
-    this.not,
-  });
-
-  factory NestedIntFilter.fromJson(Map<String, dynamic> json) =>
-      _$NestedIntFilterFromJson(json);
-
-  final int? equals;
-
-  @JsonKey(name: r'in')
-  final Iterable<int>? $in;
-
-  final Iterable<int>? notIn;
-
-  final int? lt;
-
-  final int? lte;
-
-  final int? gt;
-
-  final int? gte;
-
-  final NestedIntFilter? not;
-
-  @override
-  Map<String, dynamic> toJson() => _$NestedIntFilterToJson(this);
-}
-
-@_i1.jsonSerializable
-class NestedDateTimeWithAggregatesFilter implements _i1.JsonSerializable {
-  const NestedDateTimeWithAggregatesFilter({
-    this.equals,
-    this.$in,
-    this.notIn,
-    this.lt,
-    this.lte,
-    this.gt,
-    this.gte,
-    this.not,
-    this.$count,
-    this.$min,
-    this.$max,
-  });
-
-  factory NestedDateTimeWithAggregatesFilter.fromJson(
-          Map<String, dynamic> json) =>
-      _$NestedDateTimeWithAggregatesFilterFromJson(json);
-
-  final DateTime? equals;
-
-  @JsonKey(name: r'in')
-  final Iterable<DateTime>? $in;
-
-  final Iterable<DateTime>? notIn;
-
-  final DateTime? lt;
-
-  final DateTime? lte;
-
-  final DateTime? gt;
-
-  final DateTime? gte;
-
-  final NestedDateTimeWithAggregatesFilter? not;
-
-  @JsonKey(name: r'_count')
-  final NestedIntFilter? $count;
-
-  @JsonKey(name: r'_min')
-  final NestedDateTimeFilter? $min;
-
-  @JsonKey(name: r'_max')
-  final NestedDateTimeFilter? $max;
-
-  @override
-  Map<String, dynamic> toJson() =>
-      _$NestedDateTimeWithAggregatesFilterToJson(this);
 }
 
 @_i1.jsonSerializable
@@ -3398,6 +3374,117 @@ class NestedFloatFilter implements _i1.JsonSerializable {
 
   @override
   Map<String, dynamic> toJson() => _$NestedFloatFilterToJson(this);
+}
+
+@_i1.jsonSerializable
+class NestedStringWithAggregatesFilter implements _i1.JsonSerializable {
+  const NestedStringWithAggregatesFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.contains,
+    this.startsWith,
+    this.endsWith,
+    this.not,
+    this.$count,
+    this.$min,
+    this.$max,
+  });
+
+  factory NestedStringWithAggregatesFilter.fromJson(
+          Map<String, dynamic> json) =>
+      _$NestedStringWithAggregatesFilterFromJson(json);
+
+  final String? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<String>? $in;
+
+  final Iterable<String>? notIn;
+
+  final String? lt;
+
+  final String? lte;
+
+  final String? gt;
+
+  final String? gte;
+
+  final String? contains;
+
+  final String? startsWith;
+
+  final String? endsWith;
+
+  final NestedStringWithAggregatesFilter? not;
+
+  @JsonKey(name: r'_count')
+  final NestedIntFilter? $count;
+
+  @JsonKey(name: r'_min')
+  final NestedStringFilter? $min;
+
+  @JsonKey(name: r'_max')
+  final NestedStringFilter? $max;
+
+  @override
+  Map<String, dynamic> toJson() =>
+      _$NestedStringWithAggregatesFilterToJson(this);
+}
+
+@_i1.jsonSerializable
+class NestedDateTimeWithAggregatesFilter implements _i1.JsonSerializable {
+  const NestedDateTimeWithAggregatesFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+    this.$count,
+    this.$min,
+    this.$max,
+  });
+
+  factory NestedDateTimeWithAggregatesFilter.fromJson(
+          Map<String, dynamic> json) =>
+      _$NestedDateTimeWithAggregatesFilterFromJson(json);
+
+  final DateTime? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<DateTime>? $in;
+
+  final Iterable<DateTime>? notIn;
+
+  final DateTime? lt;
+
+  final DateTime? lte;
+
+  final DateTime? gt;
+
+  final DateTime? gte;
+
+  final NestedDateTimeWithAggregatesFilter? not;
+
+  @JsonKey(name: r'_count')
+  final NestedIntFilter? $count;
+
+  @JsonKey(name: r'_min')
+  final NestedDateTimeFilter? $min;
+
+  @JsonKey(name: r'_max')
+  final NestedDateTimeFilter? $max;
+
+  @override
+  Map<String, dynamic> toJson() =>
+      _$NestedDateTimeWithAggregatesFilterToJson(this);
 }
 
 @_i1.jsonSerializable
@@ -3561,6 +3648,7 @@ class TransactionCreateWithoutAccountInput implements _i1.JsonSerializable {
   const TransactionCreateWithoutAccountInput({
     required this.price,
     this.transactionDate,
+    required this.receverId,
   });
 
   factory TransactionCreateWithoutAccountInput.fromJson(
@@ -3570,6 +3658,8 @@ class TransactionCreateWithoutAccountInput implements _i1.JsonSerializable {
   final int price;
 
   final DateTime? transactionDate;
+
+  final int receverId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -3583,6 +3673,7 @@ class TransactionUncheckedCreateWithoutAccountInput
     this.id,
     required this.price,
     this.transactionDate,
+    required this.receverId,
   });
 
   factory TransactionUncheckedCreateWithoutAccountInput.fromJson(
@@ -3594,6 +3685,8 @@ class TransactionUncheckedCreateWithoutAccountInput
   final int price;
 
   final DateTime? transactionDate;
+
+  final int receverId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -3645,7 +3738,6 @@ class TransactionCreateManyAccountInputEnvelope
 @_i1.jsonSerializable
 class UserCreateWithoutAccountInput implements _i1.JsonSerializable {
   const UserCreateWithoutAccountInput({
-    required this.id,
     required this.firstName,
     required this.lastName,
     required this.gender,
@@ -3656,8 +3748,6 @@ class UserCreateWithoutAccountInput implements _i1.JsonSerializable {
 
   factory UserCreateWithoutAccountInput.fromJson(Map<String, dynamic> json) =>
       _$UserCreateWithoutAccountInputFromJson(json);
-
-  final String id;
 
   final String firstName;
 
@@ -3678,7 +3768,7 @@ class UserCreateWithoutAccountInput implements _i1.JsonSerializable {
 @_i1.jsonSerializable
 class UserUncheckedCreateWithoutAccountInput implements _i1.JsonSerializable {
   const UserUncheckedCreateWithoutAccountInput({
-    required this.id,
+    this.id,
     required this.firstName,
     required this.lastName,
     required this.gender,
@@ -3691,7 +3781,7 @@ class UserUncheckedCreateWithoutAccountInput implements _i1.JsonSerializable {
           Map<String, dynamic> json) =>
       _$UserUncheckedCreateWithoutAccountInputFromJson(json);
 
-  final String id;
+  final int? id;
 
   final String firstName;
 
@@ -3805,6 +3895,7 @@ class TransactionScalarWhereInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
     this.accountId,
   });
 
@@ -3822,6 +3913,8 @@ class TransactionScalarWhereInput implements _i1.JsonSerializable {
   final IntFilter? price;
 
   final DateTimeFilter? transactionDate;
+
+  final IntFilter? receverId;
 
   final IntFilter? accountId;
 
@@ -3874,7 +3967,6 @@ class UserUpdateToOneWithWhereWithoutAccountInput
 @_i1.jsonSerializable
 class UserUpdateWithoutAccountInput implements _i1.JsonSerializable {
   const UserUpdateWithoutAccountInput({
-    this.id,
     this.firstName,
     this.lastName,
     this.gender,
@@ -3885,8 +3977,6 @@ class UserUpdateWithoutAccountInput implements _i1.JsonSerializable {
 
   factory UserUpdateWithoutAccountInput.fromJson(Map<String, dynamic> json) =>
       _$UserUpdateWithoutAccountInputFromJson(json);
-
-  final StringFieldUpdateOperationsInput? id;
 
   final StringFieldUpdateOperationsInput? firstName;
 
@@ -3920,7 +4010,7 @@ class UserUncheckedUpdateWithoutAccountInput implements _i1.JsonSerializable {
           Map<String, dynamic> json) =>
       _$UserUncheckedUpdateWithoutAccountInputFromJson(json);
 
-  final StringFieldUpdateOperationsInput? id;
+  final IntFieldUpdateOperationsInput? id;
 
   final StringFieldUpdateOperationsInput? firstName;
 
@@ -3982,7 +4072,7 @@ class AccountUncheckedCreateWithoutTransactionsInput
 
   final DateTime? closingDate;
 
-  final String userId;
+  final int userId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -4097,7 +4187,7 @@ class AccountUncheckedUpdateWithoutTransactionsInput
 
   final DateTimeFieldUpdateOperationsInput? closingDate;
 
-  final StringFieldUpdateOperationsInput? userId;
+  final IntFieldUpdateOperationsInput? userId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -4110,6 +4200,7 @@ class TransactionCreateManyAccountInput implements _i1.JsonSerializable {
     this.id,
     required this.price,
     this.transactionDate,
+    required this.receverId,
   });
 
   factory TransactionCreateManyAccountInput.fromJson(
@@ -4122,6 +4213,8 @@ class TransactionCreateManyAccountInput implements _i1.JsonSerializable {
 
   final DateTime? transactionDate;
 
+  final int receverId;
+
   @override
   Map<String, dynamic> toJson() =>
       _$TransactionCreateManyAccountInputToJson(this);
@@ -4132,6 +4225,7 @@ class TransactionUpdateWithoutAccountInput implements _i1.JsonSerializable {
   const TransactionUpdateWithoutAccountInput({
     this.price,
     this.transactionDate,
+    this.receverId,
   });
 
   factory TransactionUpdateWithoutAccountInput.fromJson(
@@ -4141,6 +4235,8 @@ class TransactionUpdateWithoutAccountInput implements _i1.JsonSerializable {
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? receverId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -4154,6 +4250,7 @@ class TransactionUncheckedUpdateWithoutAccountInput
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
   });
 
   factory TransactionUncheckedUpdateWithoutAccountInput.fromJson(
@@ -4165,6 +4262,8 @@ class TransactionUncheckedUpdateWithoutAccountInput
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? receverId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -4178,6 +4277,7 @@ class TransactionUncheckedUpdateManyWithoutAccountInput
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
   });
 
   factory TransactionUncheckedUpdateManyWithoutAccountInput.fromJson(
@@ -4189,6 +4289,8 @@ class TransactionUncheckedUpdateManyWithoutAccountInput
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? receverId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -4209,7 +4311,7 @@ class User implements _i1.JsonSerializable {
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  final String id;
+  final int id;
 
   final String firstName;
 
@@ -4245,7 +4347,7 @@ class Account implements _i1.JsonSerializable {
 
   final DateTime closingDate;
 
-  final String userId;
+  final int userId;
 
   @override
   Map<String, dynamic> toJson() => _$AccountToJson(this);
@@ -4275,6 +4377,7 @@ class Transaction implements _i1.JsonSerializable {
     required this.id,
     required this.price,
     required this.transactionDate,
+    required this.receverId,
     required this.accountId,
   });
 
@@ -4286,6 +4389,8 @@ class Transaction implements _i1.JsonSerializable {
   final int price;
 
   final DateTime transactionDate;
+
+  final int receverId;
 
   final int accountId;
 
@@ -7167,7 +7272,7 @@ class UserGroupByOutputType implements _i1.JsonSerializable {
   factory UserGroupByOutputType.fromJson(Map<String, dynamic> json) =>
       _$UserGroupByOutputTypeFromJson(json);
 
-  final String? id;
+  final int? id;
 
   final String? firstName;
 
@@ -7203,7 +7308,7 @@ class AccountGroupByOutputType implements _i1.JsonSerializable {
 
   final DateTime? closingDate;
 
-  final String? userId;
+  final int? userId;
 
   @override
   Map<String, dynamic> toJson() => _$AccountGroupByOutputTypeToJson(this);
@@ -7233,6 +7338,7 @@ class TransactionGroupByOutputType implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.receverId,
     this.accountId,
   });
 
@@ -7244,6 +7350,8 @@ class TransactionGroupByOutputType implements _i1.JsonSerializable {
   final int? price;
 
   final DateTime? transactionDate;
+
+  final int? receverId;
 
   final int? accountId;
 
@@ -7300,6 +7408,32 @@ class AggregateUser {
       key: r'_count',
     );
     return UserCountAggregateOutputType(query);
+  }
+
+  UserAvgAggregateOutputType $avg() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'_avg',
+          fields: fields,
+        )
+      ]),
+      key: r'_avg',
+    );
+    return UserAvgAggregateOutputType(query);
+  }
+
+  UserSumAggregateOutputType $sum() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'_sum',
+          fields: fields,
+        )
+      ]),
+      key: r'_sum',
+    );
+    return UserSumAggregateOutputType(query);
   }
 
   UserMinAggregateOutputType $min() {
@@ -7723,12 +7857,12 @@ class UserCountAggregateOutputType {
   }
 }
 
-class UserMinAggregateOutputType {
-  const UserMinAggregateOutputType(this.$query);
+class UserAvgAggregateOutputType {
+  const UserAvgAggregateOutputType(this.$query);
 
   final _i1.PrismaFluentQuery $query;
 
-  Future<String?> id() {
+  Future<double?> id() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
         _i2.GraphQLField(
@@ -7738,7 +7872,45 @@ class UserMinAggregateOutputType {
       ]),
       key: r'id',
     );
-    return query(const []).then((value) => (value as String?));
+    return query(const []).then((value) => (value as double?));
+  }
+}
+
+class UserSumAggregateOutputType {
+  const UserSumAggregateOutputType(this.$query);
+
+  final _i1.PrismaFluentQuery $query;
+
+  Future<int?> id() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'id',
+          fields: fields,
+        )
+      ]),
+      key: r'id',
+    );
+    return query(const []).then((value) => (value as int?));
+  }
+}
+
+class UserMinAggregateOutputType {
+  const UserMinAggregateOutputType(this.$query);
+
+  final _i1.PrismaFluentQuery $query;
+
+  Future<int?> id() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'id',
+          fields: fields,
+        )
+      ]),
+      key: r'id',
+    );
+    return query(const []).then((value) => (value as int?));
   }
 
   Future<String?> firstName() {
@@ -7826,7 +7998,7 @@ class UserMaxAggregateOutputType {
 
   final _i1.PrismaFluentQuery $query;
 
-  Future<String?> id() {
+  Future<int?> id() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
         _i2.GraphQLField(
@@ -7836,7 +8008,7 @@ class UserMaxAggregateOutputType {
       ]),
       key: r'id',
     );
-    return query(const []).then((value) => (value as String?));
+    return query(const []).then((value) => (value as int?));
   }
 
   Future<String?> firstName() {
@@ -8033,6 +8205,19 @@ class AccountAvgAggregateOutputType {
     );
     return query(const []).then((value) => (value as double?));
   }
+
+  Future<double?> userId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'userId',
+          fields: fields,
+        )
+      ]),
+      key: r'userId',
+    );
+    return query(const []).then((value) => (value as double?));
+  }
 }
 
 class AccountSumAggregateOutputType {
@@ -8049,6 +8234,19 @@ class AccountSumAggregateOutputType {
         )
       ]),
       key: r'id',
+    );
+    return query(const []).then((value) => (value as int?));
+  }
+
+  Future<int?> userId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'userId',
+          fields: fields,
+        )
+      ]),
+      key: r'userId',
     );
     return query(const []).then((value) => (value as int?));
   }
@@ -8100,7 +8298,7 @@ class AccountMinAggregateOutputType {
         .then((value) => value is String ? DateTime.parse(value) : null);
   }
 
-  Future<String?> userId() {
+  Future<int?> userId() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
         _i2.GraphQLField(
@@ -8110,7 +8308,7 @@ class AccountMinAggregateOutputType {
       ]),
       key: r'userId',
     );
-    return query(const []).then((value) => (value as String?));
+    return query(const []).then((value) => (value as int?));
   }
 }
 
@@ -8160,7 +8358,7 @@ class AccountMaxAggregateOutputType {
         .then((value) => value is String ? DateTime.parse(value) : null);
   }
 
-  Future<String?> userId() {
+  Future<int?> userId() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
         _i2.GraphQLField(
@@ -8170,7 +8368,7 @@ class AccountMaxAggregateOutputType {
       ]),
       key: r'userId',
     );
-    return query(const []).then((value) => (value as String?));
+    return query(const []).then((value) => (value as int?));
   }
 }
 
@@ -8365,6 +8563,19 @@ class TransactionCountAggregateOutputType {
     return query(const []).then((value) => (value as int));
   }
 
+  Future<int> receverId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'receverId',
+          fields: fields,
+        )
+      ]),
+      key: r'receverId',
+    );
+    return query(const []).then((value) => (value as int));
+  }
+
   Future<int> accountId() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
@@ -8423,6 +8634,19 @@ class TransactionAvgAggregateOutputType {
     return query(const []).then((value) => (value as double?));
   }
 
+  Future<double?> receverId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'receverId',
+          fields: fields,
+        )
+      ]),
+      key: r'receverId',
+    );
+    return query(const []).then((value) => (value as double?));
+  }
+
   Future<double?> accountId() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
@@ -8464,6 +8688,19 @@ class TransactionSumAggregateOutputType {
         )
       ]),
       key: r'price',
+    );
+    return query(const []).then((value) => (value as int?));
+  }
+
+  Future<int?> receverId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'receverId',
+          fields: fields,
+        )
+      ]),
+      key: r'receverId',
     );
     return query(const []).then((value) => (value as int?));
   }
@@ -8527,6 +8764,19 @@ class TransactionMinAggregateOutputType {
         .then((value) => value is String ? DateTime.parse(value) : null);
   }
 
+  Future<int?> receverId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'receverId',
+          fields: fields,
+        )
+      ]),
+      key: r'receverId',
+    );
+    return query(const []).then((value) => (value as int?));
+  }
+
   Future<int?> accountId() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
@@ -8584,6 +8834,19 @@ class TransactionMaxAggregateOutputType {
     );
     return query(const [])
         .then((value) => value is String ? DateTime.parse(value) : null);
+  }
+
+  Future<int?> receverId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'receverId',
+          fields: fields,
+        )
+      ]),
+      key: r'receverId',
+    );
+    return query(const []).then((value) => (value as int?));
   }
 
   Future<int?> accountId() {
@@ -8787,7 +9050,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
     final engine = _i5.BinaryEngine(
       logger: logger,
       schema:
-          r'Ly8gVGhpcyBpcyB5b3VyIFByaXNtYSBzY2hlbWEgZmlsZSwKLy8gbGVhcm4gbW9yZSBhYm91dCBpdCBpbiB0aGUgZG9jczogaHR0cHM6Ly9wcmlzLmx5L2QvcHJpc21hLXNjaGVtYQoKZ2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgPSAiZGFydCBydW4gb3JtIgp9CgpkYXRhc291cmNlIGRiIHsKICBwcm92aWRlciA9ICJteXNxbCIKICB1cmwgICAgICA9IGVudigiREFUQUJBU0VfVVJMIikKfQoKCi8vIE1vZGVscwptb2RlbCBVc2VyIHsKICBpZCBTdHJpbmcgQGlkCiAgZmlyc3ROYW1lIFN0cmluZwogIGxhc3ROYW1lIFN0cmluZwogIGdlbmRlciBTdHJpbmcKICBpZGVudGl0eUNvZGUgU3RyaW5nCiAgYmlydGhkYXkgRGF0ZVRpbWUgQGRlZmF1bHQobm93KCkpCiAgYmlydGhDaXR5IFN0cmluZwogIGFjY291bnQgQWNjb3VudD8KfQoKbW9kZWwgQWNjb3VudCB7CiAgaWQgSW50IEBpZCBAZGVmYXVsdChhdXRvaW5jcmVtZW50KCkpCiAgb3BlbmluZ0RhdGUgRGF0ZVRpbWUgQGRlZmF1bHQobm93KCkpCiAgY2xvc2luZ0RhdGUgRGF0ZVRpbWUgQGRlZmF1bHQobm93KCkpCiAgdHJhbnNhY3Rpb25zIFRyYW5zYWN0aW9uW10KICB1c2VyIFVzZXIgQHJlbGF0aW9uKGZpZWxkczogW3VzZXJJZF0sIHJlZmVyZW5jZXM6IFtpZF0pCiAgdXNlcklkIFN0cmluZyBAdW5pcXVlCn0KCm1vZGVsIE9wZXJhdG9yIHsKICBpZCBJbnQgQGlkIEBkZWZhdWx0KGF1dG9pbmNyZW1lbnQoKSkKICBsYWJlbCBTdHJpbmcKfQoKbW9kZWwgVHJhbnNhY3Rpb24gewogIGlkIEludCBAaWQgQGRlZmF1bHQoYXV0b2luY3JlbWVudCgpKQogIHByaWNlIEludCBAdW5pcXVlCiAgdHJhbnNhY3Rpb25EYXRlIERhdGVUaW1lIEBkZWZhdWx0KG5vdygpKSAgCiAgYWNjb3VudCBBY2NvdW50IEByZWxhdGlvbihmaWVsZHM6IFthY2NvdW50SWRdLCByZWZlcmVuY2VzOiBbaWRdKQogIGFjY291bnRJZCBJbnQKfQoKbW9kZWwgVHJhbnNhY3Rpb25UeXBlIHsKICBpZCBJbnQgQGlkIEBkZWZhdWx0KGF1dG9pbmNyZW1lbnQoKSkKICBsYWJlbCBTdHJpbmcgIAp9',
+          r'Ly8gVGhpcyBpcyB5b3VyIFByaXNtYSBzY2hlbWEgZmlsZSwKLy8gbGVhcm4gbW9yZSBhYm91dCBpdCBpbiB0aGUgZG9jczogaHR0cHM6Ly9wcmlzLmx5L2QvcHJpc21hLXNjaGVtYQoKZ2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgPSAiZGFydCBydW4gb3JtIgp9CgpkYXRhc291cmNlIGRiIHsKICBwcm92aWRlciA9ICJteXNxbCIKICB1cmwgICAgICA9IGVudigiREFUQUJBU0VfVVJMIikKfQoKCi8vIE1vZGVscwptb2RlbCBVc2VyIHsKICBpZCBJbnQgQGlkIEBkZWZhdWx0KGF1dG9pbmNyZW1lbnQoKSkKICBmaXJzdE5hbWUgU3RyaW5nCiAgbGFzdE5hbWUgU3RyaW5nCiAgZ2VuZGVyIFN0cmluZwogIGlkZW50aXR5Q29kZSBTdHJpbmcKICBiaXJ0aGRheSBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICBiaXJ0aENpdHkgU3RyaW5nCiAgYWNjb3VudCBBY2NvdW50Pwp9Cgptb2RlbCBBY2NvdW50IHsKICBpZCBJbnQgQGlkIEBkZWZhdWx0KGF1dG9pbmNyZW1lbnQoKSkKICBvcGVuaW5nRGF0ZSBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICBjbG9zaW5nRGF0ZSBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICB0cmFuc2FjdGlvbnMgVHJhbnNhY3Rpb25bXQogIHVzZXIgVXNlciBAcmVsYXRpb24oZmllbGRzOiBbdXNlcklkXSwgcmVmZXJlbmNlczogW2lkXSkKICB1c2VySWQgSW50IEB1bmlxdWUKfQoKbW9kZWwgT3BlcmF0b3IgewogIGlkIEludCBAaWQgQGRlZmF1bHQoYXV0b2luY3JlbWVudCgpKQogIGxhYmVsIFN0cmluZwp9Cgptb2RlbCBUcmFuc2FjdGlvbiB7CiAgaWQgSW50IEBpZCBAZGVmYXVsdChhdXRvaW5jcmVtZW50KCkpCiAgcHJpY2UgSW50IEB1bmlxdWUKICB0cmFuc2FjdGlvbkRhdGUgRGF0ZVRpbWUgQGRlZmF1bHQobm93KCkpICAKICByZWNldmVySWQgSW50CiAgYWNjb3VudCBBY2NvdW50IEByZWxhdGlvbihmaWVsZHM6IFthY2NvdW50SWRdLCByZWZlcmVuY2VzOiBbaWRdKSAgCiAgYWNjb3VudElkIEludAp9Cgptb2RlbCBUcmFuc2FjdGlvblR5cGUgewogIGlkIEludCBAaWQgQGRlZmF1bHQoYXV0b2luY3JlbWVudCgpKQogIGxhYmVsIFN0cmluZyAgCn0=',
       datasources: datasources?.toJson().cast() ?? const {},
       executable:
           r'/home/yayahc/Documents/Master II/SystemeD/Etl/node_modules/prisma/query-engine-debian-openssl-3.0.x',
