@@ -13,7 +13,7 @@ final link = "https://randomuser.me/api/";
 final prisma = getPrismaConfig();
 
 Future<void> main() async {
-  final int _count = 1;
+  final int _count = 1000000;
 
   for (var i = 0; i < _count; i++) {
     final request = await http.get(Uri.parse(link));
@@ -21,6 +21,7 @@ Future<void> main() async {
       final response = json.decode(request.body);
       final user = um.trigger(response);
       await prisma.user.create(data: UserCreateInput.fromJson(user));
+      print("$i is on db");
     } catch (e) {
       print(e.toString());
     }
