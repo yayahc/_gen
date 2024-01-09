@@ -13,7 +13,7 @@ dependencies:
 
 
 scripts:
-  gen: "dart g_transaction_types.dart && dart g_operators.dart && dart g_users.dart && dart g_accounts.dart"
+  gen: "dart g_transaction_types.dart && dart g_operators.dart && dart g_users.dart && dart g_accounts.dart && dart g_transcations.dart"
   gen-a: "dart g_accounts.dart"
   gen-u: "dart g_users.dart"
   gen-t: "dart g_transaction_types.dart"  
