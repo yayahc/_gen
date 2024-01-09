@@ -12,7 +12,7 @@ final link = "https://randomuser.me/api/";
 final client = getPrismaClient();
 
 Future<void> main() async {
-  final int _count = 10000;
+  final int _count = 50;
 
   for (var i = 0; i < _count; i++) {
     await generateUsers(i);

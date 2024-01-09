@@ -28,7 +28,8 @@ enum AccountScalarFieldEnum implements _i1.PrismaEnum {
   id,
   openingDate,
   closingDate,
-  userId;
+  userId,
+  operatorId;
 
   @override
   String? get originalName => null;
@@ -46,6 +47,7 @@ enum TransactionScalarFieldEnum implements _i1.PrismaEnum {
   id,
   price,
   transactionDate,
+  transactionTypeId,
   receverId,
   accountId;
 
@@ -64,6 +66,14 @@ enum TransactionTypeScalarFieldEnum implements _i1.PrismaEnum {
 enum SortOrder implements _i1.PrismaEnum {
   asc,
   desc;
+
+  @override
+  String? get originalName => null;
+}
+
+enum NullsOrder implements _i1.PrismaEnum {
+  first,
+  last;
 
   @override
   String? get originalName => null;
@@ -303,6 +313,7 @@ class AccountWhereInput implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     this.userId,
+    this.operatorId,
     this.transactions,
     this.user,
   });
@@ -320,9 +331,11 @@ class AccountWhereInput implements _i1.JsonSerializable {
 
   final DateTimeFilter? openingDate;
 
-  final DateTimeFilter? closingDate;
+  final DateTimeNullableFilter? closingDate;
 
   final IntFilter? userId;
+
+  final IntFilter? operatorId;
 
   final TransactionListRelationFilter? transactions;
 
@@ -339,6 +352,7 @@ class AccountOrderByWithRelationInput implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     this.userId,
+    this.operatorId,
     this.transactions,
     this.user,
   });
@@ -353,6 +367,8 @@ class AccountOrderByWithRelationInput implements _i1.JsonSerializable {
   final SortOrder? closingDate;
 
   final SortOrder? userId;
+
+  final SortOrder? operatorId;
 
   final TransactionOrderByRelationAggregateInput? transactions;
 
@@ -373,6 +389,7 @@ class AccountWhereUniqueInput implements _i1.JsonSerializable {
     this.NOT,
     this.openingDate,
     this.closingDate,
+    this.operatorId,
     this.transactions,
     this.user,
   });
@@ -392,7 +409,9 @@ class AccountWhereUniqueInput implements _i1.JsonSerializable {
 
   final DateTimeFilter? openingDate;
 
-  final DateTimeFilter? closingDate;
+  final DateTimeNullableFilter? closingDate;
+
+  final IntFilter? operatorId;
 
   final TransactionListRelationFilter? transactions;
 
@@ -409,6 +428,7 @@ class AccountOrderByWithAggregationInput implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     this.userId,
+    this.operatorId,
     this.$count,
     this.$avg,
     this.$max,
@@ -427,6 +447,8 @@ class AccountOrderByWithAggregationInput implements _i1.JsonSerializable {
   final SortOrder? closingDate;
 
   final SortOrder? userId;
+
+  final SortOrder? operatorId;
 
   @JsonKey(name: r'_count')
   final AccountCountOrderByAggregateInput? $count;
@@ -458,6 +480,7 @@ class AccountScalarWhereWithAggregatesInput implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     this.userId,
+    this.operatorId,
   });
 
   factory AccountScalarWhereWithAggregatesInput.fromJson(
@@ -474,9 +497,11 @@ class AccountScalarWhereWithAggregatesInput implements _i1.JsonSerializable {
 
   final DateTimeWithAggregatesFilter? openingDate;
 
-  final DateTimeWithAggregatesFilter? closingDate;
+  final DateTimeNullableWithAggregatesFilter? closingDate;
 
   final IntWithAggregatesFilter? userId;
+
+  final IntWithAggregatesFilter? operatorId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -635,6 +660,7 @@ class TransactionWhereInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
     this.account,
@@ -655,6 +681,8 @@ class TransactionWhereInput implements _i1.JsonSerializable {
 
   final DateTimeFilter? transactionDate;
 
+  final IntFilter? transactionTypeId;
+
   final IntFilter? receverId;
 
   final IntFilter? accountId;
@@ -671,6 +699,7 @@ class TransactionOrderByWithRelationInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
     this.account,
@@ -685,6 +714,8 @@ class TransactionOrderByWithRelationInput implements _i1.JsonSerializable {
   final SortOrder? price;
 
   final SortOrder? transactionDate;
+
+  final SortOrder? transactionTypeId;
 
   final SortOrder? receverId;
 
@@ -706,6 +737,7 @@ class TransactionWhereUniqueInput implements _i1.JsonSerializable {
     this.OR,
     this.NOT,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
     this.account,
@@ -726,6 +758,8 @@ class TransactionWhereUniqueInput implements _i1.JsonSerializable {
 
   final DateTimeFilter? transactionDate;
 
+  final IntFilter? transactionTypeId;
+
   final IntFilter? receverId;
 
   final IntFilter? accountId;
@@ -742,6 +776,7 @@ class TransactionOrderByWithAggregationInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
     this.$count,
@@ -760,6 +795,8 @@ class TransactionOrderByWithAggregationInput implements _i1.JsonSerializable {
   final SortOrder? price;
 
   final SortOrder? transactionDate;
+
+  final SortOrder? transactionTypeId;
 
   final SortOrder? receverId;
 
@@ -795,6 +832,7 @@ class TransactionScalarWhereWithAggregatesInput
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
   });
@@ -814,6 +852,8 @@ class TransactionScalarWhereWithAggregatesInput
   final IntWithAggregatesFilter? price;
 
   final DateTimeWithAggregatesFilter? transactionDate;
+
+  final IntWithAggregatesFilter? transactionTypeId;
 
   final IntWithAggregatesFilter? receverId;
 
@@ -1209,6 +1249,7 @@ class AccountCreateInput implements _i1.JsonSerializable {
   const AccountCreateInput({
     this.openingDate,
     this.closingDate,
+    required this.operatorId,
     this.transactions,
     required this.user,
   });
@@ -1219,6 +1260,8 @@ class AccountCreateInput implements _i1.JsonSerializable {
   final DateTime? openingDate;
 
   final DateTime? closingDate;
+
+  final int operatorId;
 
   final TransactionCreateNestedManyWithoutAccountInput? transactions;
 
@@ -1235,6 +1278,7 @@ class AccountUncheckedCreateInput implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     required this.userId,
+    required this.operatorId,
     this.transactions,
   });
 
@@ -1249,6 +1293,8 @@ class AccountUncheckedCreateInput implements _i1.JsonSerializable {
 
   final int userId;
 
+  final int operatorId;
+
   final TransactionUncheckedCreateNestedManyWithoutAccountInput? transactions;
 
   @override
@@ -1260,6 +1306,7 @@ class AccountUpdateInput implements _i1.JsonSerializable {
   const AccountUpdateInput({
     this.openingDate,
     this.closingDate,
+    this.operatorId,
     this.transactions,
     this.user,
   });
@@ -1269,7 +1316,9 @@ class AccountUpdateInput implements _i1.JsonSerializable {
 
   final DateTimeFieldUpdateOperationsInput? openingDate;
 
-  final DateTimeFieldUpdateOperationsInput? closingDate;
+  final NullableDateTimeFieldUpdateOperationsInput? closingDate;
+
+  final IntFieldUpdateOperationsInput? operatorId;
 
   final TransactionUpdateManyWithoutAccountNestedInput? transactions;
 
@@ -1286,6 +1335,7 @@ class AccountUncheckedUpdateInput implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     this.userId,
+    this.operatorId,
     this.transactions,
   });
 
@@ -1296,9 +1346,11 @@ class AccountUncheckedUpdateInput implements _i1.JsonSerializable {
 
   final DateTimeFieldUpdateOperationsInput? openingDate;
 
-  final DateTimeFieldUpdateOperationsInput? closingDate;
+  final NullableDateTimeFieldUpdateOperationsInput? closingDate;
 
   final IntFieldUpdateOperationsInput? userId;
+
+  final IntFieldUpdateOperationsInput? operatorId;
 
   final TransactionUncheckedUpdateManyWithoutAccountNestedInput? transactions;
 
@@ -1313,6 +1365,7 @@ class AccountCreateManyInput implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     required this.userId,
+    required this.operatorId,
   });
 
   factory AccountCreateManyInput.fromJson(Map<String, dynamic> json) =>
@@ -1326,6 +1379,8 @@ class AccountCreateManyInput implements _i1.JsonSerializable {
 
   final int userId;
 
+  final int operatorId;
+
   @override
   Map<String, dynamic> toJson() => _$AccountCreateManyInputToJson(this);
 }
@@ -1335,6 +1390,7 @@ class AccountUpdateManyMutationInput implements _i1.JsonSerializable {
   const AccountUpdateManyMutationInput({
     this.openingDate,
     this.closingDate,
+    this.operatorId,
   });
 
   factory AccountUpdateManyMutationInput.fromJson(Map<String, dynamic> json) =>
@@ -1342,7 +1398,9 @@ class AccountUpdateManyMutationInput implements _i1.JsonSerializable {
 
   final DateTimeFieldUpdateOperationsInput? openingDate;
 
-  final DateTimeFieldUpdateOperationsInput? closingDate;
+  final NullableDateTimeFieldUpdateOperationsInput? closingDate;
+
+  final IntFieldUpdateOperationsInput? operatorId;
 
   @override
   Map<String, dynamic> toJson() => _$AccountUpdateManyMutationInputToJson(this);
@@ -1355,6 +1413,7 @@ class AccountUncheckedUpdateManyInput implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     this.userId,
+    this.operatorId,
   });
 
   factory AccountUncheckedUpdateManyInput.fromJson(Map<String, dynamic> json) =>
@@ -1364,9 +1423,11 @@ class AccountUncheckedUpdateManyInput implements _i1.JsonSerializable {
 
   final DateTimeFieldUpdateOperationsInput? openingDate;
 
-  final DateTimeFieldUpdateOperationsInput? closingDate;
+  final NullableDateTimeFieldUpdateOperationsInput? closingDate;
 
   final IntFieldUpdateOperationsInput? userId;
+
+  final IntFieldUpdateOperationsInput? operatorId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -1492,6 +1553,7 @@ class TransactionCreateInput implements _i1.JsonSerializable {
   const TransactionCreateInput({
     required this.price,
     this.transactionDate,
+    required this.transactionTypeId,
     required this.receverId,
     required this.account,
   });
@@ -1502,6 +1564,8 @@ class TransactionCreateInput implements _i1.JsonSerializable {
   final int price;
 
   final DateTime? transactionDate;
+
+  final int transactionTypeId;
 
   final int receverId;
 
@@ -1517,6 +1581,7 @@ class TransactionUncheckedCreateInput implements _i1.JsonSerializable {
     this.id,
     required this.price,
     this.transactionDate,
+    required this.transactionTypeId,
     required this.receverId,
     required this.accountId,
   });
@@ -1529,6 +1594,8 @@ class TransactionUncheckedCreateInput implements _i1.JsonSerializable {
   final int price;
 
   final DateTime? transactionDate;
+
+  final int transactionTypeId;
 
   final int receverId;
 
@@ -1544,6 +1611,7 @@ class TransactionUpdateInput implements _i1.JsonSerializable {
   const TransactionUpdateInput({
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.account,
   });
@@ -1554,6 +1622,8 @@ class TransactionUpdateInput implements _i1.JsonSerializable {
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? transactionTypeId;
 
   final IntFieldUpdateOperationsInput? receverId;
 
@@ -1569,6 +1639,7 @@ class TransactionUncheckedUpdateInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
   });
@@ -1581,6 +1652,8 @@ class TransactionUncheckedUpdateInput implements _i1.JsonSerializable {
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? transactionTypeId;
 
   final IntFieldUpdateOperationsInput? receverId;
 
@@ -1597,6 +1670,7 @@ class TransactionCreateManyInput implements _i1.JsonSerializable {
     this.id,
     required this.price,
     this.transactionDate,
+    required this.transactionTypeId,
     required this.receverId,
     required this.accountId,
   });
@@ -1609,6 +1683,8 @@ class TransactionCreateManyInput implements _i1.JsonSerializable {
   final int price;
 
   final DateTime? transactionDate;
+
+  final int transactionTypeId;
 
   final int receverId;
 
@@ -1623,6 +1699,7 @@ class TransactionUpdateManyMutationInput implements _i1.JsonSerializable {
   const TransactionUpdateManyMutationInput({
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
   });
 
@@ -1633,6 +1710,8 @@ class TransactionUpdateManyMutationInput implements _i1.JsonSerializable {
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? transactionTypeId;
 
   final IntFieldUpdateOperationsInput? receverId;
 
@@ -1647,6 +1726,7 @@ class TransactionUncheckedUpdateManyInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
   });
@@ -1660,6 +1740,8 @@ class TransactionUncheckedUpdateManyInput implements _i1.JsonSerializable {
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? transactionTypeId;
 
   final IntFieldUpdateOperationsInput? receverId;
 
@@ -2218,6 +2300,43 @@ class DateTimeWithAggregatesFilter implements _i1.JsonSerializable {
 }
 
 @_i1.jsonSerializable
+class DateTimeNullableFilter implements _i1.JsonSerializable {
+  const DateTimeNullableFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+  });
+
+  factory DateTimeNullableFilter.fromJson(Map<String, dynamic> json) =>
+      _$DateTimeNullableFilterFromJson(json);
+
+  final DateTime? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<DateTime>? $in;
+
+  final Iterable<DateTime>? notIn;
+
+  final DateTime? lt;
+
+  final DateTime? lte;
+
+  final DateTime? gt;
+
+  final DateTime? gte;
+
+  final NestedDateTimeNullableFilter? not;
+
+  @override
+  Map<String, dynamic> toJson() => _$DateTimeNullableFilterToJson(this);
+}
+
+@_i1.jsonSerializable
 class TransactionListRelationFilter implements _i1.JsonSerializable {
   const TransactionListRelationFilter({
     this.every,
@@ -2258,6 +2377,24 @@ class UserRelationFilter implements _i1.JsonSerializable {
 }
 
 @_i1.jsonSerializable
+class SortOrderInput implements _i1.JsonSerializable {
+  const SortOrderInput({
+    required this.sort,
+    this.nulls,
+  });
+
+  factory SortOrderInput.fromJson(Map<String, dynamic> json) =>
+      _$SortOrderInputFromJson(json);
+
+  final SortOrder sort;
+
+  final NullsOrder? nulls;
+
+  @override
+  Map<String, dynamic> toJson() => _$SortOrderInputToJson(this);
+}
+
+@_i1.jsonSerializable
 class TransactionOrderByRelationAggregateInput implements _i1.JsonSerializable {
   const TransactionOrderByRelationAggregateInput({this.$count});
 
@@ -2280,6 +2417,7 @@ class AccountCountOrderByAggregateInput implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     this.userId,
+    this.operatorId,
   });
 
   factory AccountCountOrderByAggregateInput.fromJson(
@@ -2294,6 +2432,8 @@ class AccountCountOrderByAggregateInput implements _i1.JsonSerializable {
 
   final SortOrder? userId;
 
+  final SortOrder? operatorId;
+
   @override
   Map<String, dynamic> toJson() =>
       _$AccountCountOrderByAggregateInputToJson(this);
@@ -2304,6 +2444,7 @@ class AccountAvgOrderByAggregateInput implements _i1.JsonSerializable {
   const AccountAvgOrderByAggregateInput({
     this.id,
     this.userId,
+    this.operatorId,
   });
 
   factory AccountAvgOrderByAggregateInput.fromJson(Map<String, dynamic> json) =>
@@ -2312,6 +2453,8 @@ class AccountAvgOrderByAggregateInput implements _i1.JsonSerializable {
   final SortOrder? id;
 
   final SortOrder? userId;
+
+  final SortOrder? operatorId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -2325,6 +2468,7 @@ class AccountMaxOrderByAggregateInput implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     this.userId,
+    this.operatorId,
   });
 
   factory AccountMaxOrderByAggregateInput.fromJson(Map<String, dynamic> json) =>
@@ -2338,6 +2482,8 @@ class AccountMaxOrderByAggregateInput implements _i1.JsonSerializable {
 
   final SortOrder? userId;
 
+  final SortOrder? operatorId;
+
   @override
   Map<String, dynamic> toJson() =>
       _$AccountMaxOrderByAggregateInputToJson(this);
@@ -2350,6 +2496,7 @@ class AccountMinOrderByAggregateInput implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     this.userId,
+    this.operatorId,
   });
 
   factory AccountMinOrderByAggregateInput.fromJson(Map<String, dynamic> json) =>
@@ -2363,6 +2510,8 @@ class AccountMinOrderByAggregateInput implements _i1.JsonSerializable {
 
   final SortOrder? userId;
 
+  final SortOrder? operatorId;
+
   @override
   Map<String, dynamic> toJson() =>
       _$AccountMinOrderByAggregateInputToJson(this);
@@ -2373,6 +2522,7 @@ class AccountSumOrderByAggregateInput implements _i1.JsonSerializable {
   const AccountSumOrderByAggregateInput({
     this.id,
     this.userId,
+    this.operatorId,
   });
 
   factory AccountSumOrderByAggregateInput.fromJson(Map<String, dynamic> json) =>
@@ -2382,9 +2532,62 @@ class AccountSumOrderByAggregateInput implements _i1.JsonSerializable {
 
   final SortOrder? userId;
 
+  final SortOrder? operatorId;
+
   @override
   Map<String, dynamic> toJson() =>
       _$AccountSumOrderByAggregateInputToJson(this);
+}
+
+@_i1.jsonSerializable
+class DateTimeNullableWithAggregatesFilter implements _i1.JsonSerializable {
+  const DateTimeNullableWithAggregatesFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+    this.$count,
+    this.$min,
+    this.$max,
+  });
+
+  factory DateTimeNullableWithAggregatesFilter.fromJson(
+          Map<String, dynamic> json) =>
+      _$DateTimeNullableWithAggregatesFilterFromJson(json);
+
+  final DateTime? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<DateTime>? $in;
+
+  final Iterable<DateTime>? notIn;
+
+  final DateTime? lt;
+
+  final DateTime? lte;
+
+  final DateTime? gt;
+
+  final DateTime? gte;
+
+  final NestedDateTimeNullableWithAggregatesFilter? not;
+
+  @JsonKey(name: r'_count')
+  final NestedIntNullableFilter? $count;
+
+  @JsonKey(name: r'_min')
+  final NestedDateTimeNullableFilter? $min;
+
+  @JsonKey(name: r'_max')
+  final NestedDateTimeNullableFilter? $max;
+
+  @override
+  Map<String, dynamic> toJson() =>
+      _$DateTimeNullableWithAggregatesFilterToJson(this);
 }
 
 @_i1.jsonSerializable
@@ -2502,6 +2705,7 @@ class TransactionCountOrderByAggregateInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
   });
@@ -2515,6 +2719,8 @@ class TransactionCountOrderByAggregateInput implements _i1.JsonSerializable {
   final SortOrder? price;
 
   final SortOrder? transactionDate;
+
+  final SortOrder? transactionTypeId;
 
   final SortOrder? receverId;
 
@@ -2530,6 +2736,7 @@ class TransactionAvgOrderByAggregateInput implements _i1.JsonSerializable {
   const TransactionAvgOrderByAggregateInput({
     this.id,
     this.price,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
   });
@@ -2541,6 +2748,8 @@ class TransactionAvgOrderByAggregateInput implements _i1.JsonSerializable {
   final SortOrder? id;
 
   final SortOrder? price;
+
+  final SortOrder? transactionTypeId;
 
   final SortOrder? receverId;
 
@@ -2557,6 +2766,7 @@ class TransactionMaxOrderByAggregateInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
   });
@@ -2570,6 +2780,8 @@ class TransactionMaxOrderByAggregateInput implements _i1.JsonSerializable {
   final SortOrder? price;
 
   final SortOrder? transactionDate;
+
+  final SortOrder? transactionTypeId;
 
   final SortOrder? receverId;
 
@@ -2586,6 +2798,7 @@ class TransactionMinOrderByAggregateInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
   });
@@ -2599,6 +2812,8 @@ class TransactionMinOrderByAggregateInput implements _i1.JsonSerializable {
   final SortOrder? price;
 
   final SortOrder? transactionDate;
+
+  final SortOrder? transactionTypeId;
 
   final SortOrder? receverId;
 
@@ -2614,6 +2829,7 @@ class TransactionSumOrderByAggregateInput implements _i1.JsonSerializable {
   const TransactionSumOrderByAggregateInput({
     this.id,
     this.price,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
   });
@@ -2625,6 +2841,8 @@ class TransactionSumOrderByAggregateInput implements _i1.JsonSerializable {
   final SortOrder? id;
 
   final SortOrder? price;
+
+  final SortOrder? transactionTypeId;
 
   final SortOrder? receverId;
 
@@ -2978,6 +3196,22 @@ class TransactionUncheckedCreateNestedManyWithoutAccountInput
   @override
   Map<String, dynamic> toJson() =>
       _$TransactionUncheckedCreateNestedManyWithoutAccountInputToJson(this);
+}
+
+@_i1.jsonSerializable
+class NullableDateTimeFieldUpdateOperationsInput
+    implements _i1.JsonSerializable {
+  const NullableDateTimeFieldUpdateOperationsInput({this.set});
+
+  factory NullableDateTimeFieldUpdateOperationsInput.fromJson(
+          Map<String, dynamic> json) =>
+      _$NullableDateTimeFieldUpdateOperationsInputFromJson(json);
+
+  final DateTime? set;
+
+  @override
+  Map<String, dynamic> toJson() =>
+      _$NullableDateTimeFieldUpdateOperationsInputToJson(this);
 }
 
 @_i1.jsonSerializable
@@ -3488,10 +3722,137 @@ class NestedDateTimeWithAggregatesFilter implements _i1.JsonSerializable {
 }
 
 @_i1.jsonSerializable
+class NestedDateTimeNullableFilter implements _i1.JsonSerializable {
+  const NestedDateTimeNullableFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+  });
+
+  factory NestedDateTimeNullableFilter.fromJson(Map<String, dynamic> json) =>
+      _$NestedDateTimeNullableFilterFromJson(json);
+
+  final DateTime? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<DateTime>? $in;
+
+  final Iterable<DateTime>? notIn;
+
+  final DateTime? lt;
+
+  final DateTime? lte;
+
+  final DateTime? gt;
+
+  final DateTime? gte;
+
+  final NestedDateTimeNullableFilter? not;
+
+  @override
+  Map<String, dynamic> toJson() => _$NestedDateTimeNullableFilterToJson(this);
+}
+
+@_i1.jsonSerializable
+class NestedDateTimeNullableWithAggregatesFilter
+    implements _i1.JsonSerializable {
+  const NestedDateTimeNullableWithAggregatesFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+    this.$count,
+    this.$min,
+    this.$max,
+  });
+
+  factory NestedDateTimeNullableWithAggregatesFilter.fromJson(
+          Map<String, dynamic> json) =>
+      _$NestedDateTimeNullableWithAggregatesFilterFromJson(json);
+
+  final DateTime? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<DateTime>? $in;
+
+  final Iterable<DateTime>? notIn;
+
+  final DateTime? lt;
+
+  final DateTime? lte;
+
+  final DateTime? gt;
+
+  final DateTime? gte;
+
+  final NestedDateTimeNullableWithAggregatesFilter? not;
+
+  @JsonKey(name: r'_count')
+  final NestedIntNullableFilter? $count;
+
+  @JsonKey(name: r'_min')
+  final NestedDateTimeNullableFilter? $min;
+
+  @JsonKey(name: r'_max')
+  final NestedDateTimeNullableFilter? $max;
+
+  @override
+  Map<String, dynamic> toJson() =>
+      _$NestedDateTimeNullableWithAggregatesFilterToJson(this);
+}
+
+@_i1.jsonSerializable
+class NestedIntNullableFilter implements _i1.JsonSerializable {
+  const NestedIntNullableFilter({
+    this.equals,
+    this.$in,
+    this.notIn,
+    this.lt,
+    this.lte,
+    this.gt,
+    this.gte,
+    this.not,
+  });
+
+  factory NestedIntNullableFilter.fromJson(Map<String, dynamic> json) =>
+      _$NestedIntNullableFilterFromJson(json);
+
+  final int? equals;
+
+  @JsonKey(name: r'in')
+  final Iterable<int>? $in;
+
+  final Iterable<int>? notIn;
+
+  final int? lt;
+
+  final int? lte;
+
+  final int? gt;
+
+  final int? gte;
+
+  final NestedIntNullableFilter? not;
+
+  @override
+  Map<String, dynamic> toJson() => _$NestedIntNullableFilterToJson(this);
+}
+
+@_i1.jsonSerializable
 class AccountCreateWithoutUserInput implements _i1.JsonSerializable {
   const AccountCreateWithoutUserInput({
     this.openingDate,
     this.closingDate,
+    required this.operatorId,
     this.transactions,
   });
 
@@ -3501,6 +3862,8 @@ class AccountCreateWithoutUserInput implements _i1.JsonSerializable {
   final DateTime? openingDate;
 
   final DateTime? closingDate;
+
+  final int operatorId;
 
   final TransactionCreateNestedManyWithoutAccountInput? transactions;
 
@@ -3514,6 +3877,7 @@ class AccountUncheckedCreateWithoutUserInput implements _i1.JsonSerializable {
     this.id,
     this.openingDate,
     this.closingDate,
+    required this.operatorId,
     this.transactions,
   });
 
@@ -3526,6 +3890,8 @@ class AccountUncheckedCreateWithoutUserInput implements _i1.JsonSerializable {
   final DateTime? openingDate;
 
   final DateTime? closingDate;
+
+  final int operatorId;
 
   final TransactionUncheckedCreateNestedManyWithoutAccountInput? transactions;
 
@@ -3601,6 +3967,7 @@ class AccountUpdateWithoutUserInput implements _i1.JsonSerializable {
   const AccountUpdateWithoutUserInput({
     this.openingDate,
     this.closingDate,
+    this.operatorId,
     this.transactions,
   });
 
@@ -3609,7 +3976,9 @@ class AccountUpdateWithoutUserInput implements _i1.JsonSerializable {
 
   final DateTimeFieldUpdateOperationsInput? openingDate;
 
-  final DateTimeFieldUpdateOperationsInput? closingDate;
+  final NullableDateTimeFieldUpdateOperationsInput? closingDate;
+
+  final IntFieldUpdateOperationsInput? operatorId;
 
   final TransactionUpdateManyWithoutAccountNestedInput? transactions;
 
@@ -3623,6 +3992,7 @@ class AccountUncheckedUpdateWithoutUserInput implements _i1.JsonSerializable {
     this.id,
     this.openingDate,
     this.closingDate,
+    this.operatorId,
     this.transactions,
   });
 
@@ -3634,7 +4004,9 @@ class AccountUncheckedUpdateWithoutUserInput implements _i1.JsonSerializable {
 
   final DateTimeFieldUpdateOperationsInput? openingDate;
 
-  final DateTimeFieldUpdateOperationsInput? closingDate;
+  final NullableDateTimeFieldUpdateOperationsInput? closingDate;
+
+  final IntFieldUpdateOperationsInput? operatorId;
 
   final TransactionUncheckedUpdateManyWithoutAccountNestedInput? transactions;
 
@@ -3648,6 +4020,7 @@ class TransactionCreateWithoutAccountInput implements _i1.JsonSerializable {
   const TransactionCreateWithoutAccountInput({
     required this.price,
     this.transactionDate,
+    required this.transactionTypeId,
     required this.receverId,
   });
 
@@ -3658,6 +4031,8 @@ class TransactionCreateWithoutAccountInput implements _i1.JsonSerializable {
   final int price;
 
   final DateTime? transactionDate;
+
+  final int transactionTypeId;
 
   final int receverId;
 
@@ -3673,6 +4048,7 @@ class TransactionUncheckedCreateWithoutAccountInput
     this.id,
     required this.price,
     this.transactionDate,
+    required this.transactionTypeId,
     required this.receverId,
   });
 
@@ -3685,6 +4061,8 @@ class TransactionUncheckedCreateWithoutAccountInput
   final int price;
 
   final DateTime? transactionDate;
+
+  final int transactionTypeId;
 
   final int receverId;
 
@@ -3895,6 +4273,7 @@ class TransactionScalarWhereInput implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
   });
@@ -3913,6 +4292,8 @@ class TransactionScalarWhereInput implements _i1.JsonSerializable {
   final IntFilter? price;
 
   final DateTimeFilter? transactionDate;
+
+  final IntFilter? transactionTypeId;
 
   final IntFilter? receverId;
 
@@ -4034,6 +4415,7 @@ class AccountCreateWithoutTransactionsInput implements _i1.JsonSerializable {
   const AccountCreateWithoutTransactionsInput({
     this.openingDate,
     this.closingDate,
+    required this.operatorId,
     required this.user,
   });
 
@@ -4044,6 +4426,8 @@ class AccountCreateWithoutTransactionsInput implements _i1.JsonSerializable {
   final DateTime? openingDate;
 
   final DateTime? closingDate;
+
+  final int operatorId;
 
   final UserCreateNestedOneWithoutAccountInput user;
 
@@ -4060,6 +4444,7 @@ class AccountUncheckedCreateWithoutTransactionsInput
     this.openingDate,
     this.closingDate,
     required this.userId,
+    required this.operatorId,
   });
 
   factory AccountUncheckedCreateWithoutTransactionsInput.fromJson(
@@ -4073,6 +4458,8 @@ class AccountUncheckedCreateWithoutTransactionsInput
   final DateTime? closingDate;
 
   final int userId;
+
+  final int operatorId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -4149,6 +4536,7 @@ class AccountUpdateWithoutTransactionsInput implements _i1.JsonSerializable {
   const AccountUpdateWithoutTransactionsInput({
     this.openingDate,
     this.closingDate,
+    this.operatorId,
     this.user,
   });
 
@@ -4158,7 +4546,9 @@ class AccountUpdateWithoutTransactionsInput implements _i1.JsonSerializable {
 
   final DateTimeFieldUpdateOperationsInput? openingDate;
 
-  final DateTimeFieldUpdateOperationsInput? closingDate;
+  final NullableDateTimeFieldUpdateOperationsInput? closingDate;
+
+  final IntFieldUpdateOperationsInput? operatorId;
 
   final UserUpdateOneRequiredWithoutAccountNestedInput? user;
 
@@ -4175,6 +4565,7 @@ class AccountUncheckedUpdateWithoutTransactionsInput
     this.openingDate,
     this.closingDate,
     this.userId,
+    this.operatorId,
   });
 
   factory AccountUncheckedUpdateWithoutTransactionsInput.fromJson(
@@ -4185,9 +4576,11 @@ class AccountUncheckedUpdateWithoutTransactionsInput
 
   final DateTimeFieldUpdateOperationsInput? openingDate;
 
-  final DateTimeFieldUpdateOperationsInput? closingDate;
+  final NullableDateTimeFieldUpdateOperationsInput? closingDate;
 
   final IntFieldUpdateOperationsInput? userId;
+
+  final IntFieldUpdateOperationsInput? operatorId;
 
   @override
   Map<String, dynamic> toJson() =>
@@ -4200,6 +4593,7 @@ class TransactionCreateManyAccountInput implements _i1.JsonSerializable {
     this.id,
     required this.price,
     this.transactionDate,
+    required this.transactionTypeId,
     required this.receverId,
   });
 
@@ -4213,6 +4607,8 @@ class TransactionCreateManyAccountInput implements _i1.JsonSerializable {
 
   final DateTime? transactionDate;
 
+  final int transactionTypeId;
+
   final int receverId;
 
   @override
@@ -4225,6 +4621,7 @@ class TransactionUpdateWithoutAccountInput implements _i1.JsonSerializable {
   const TransactionUpdateWithoutAccountInput({
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
   });
 
@@ -4235,6 +4632,8 @@ class TransactionUpdateWithoutAccountInput implements _i1.JsonSerializable {
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? transactionTypeId;
 
   final IntFieldUpdateOperationsInput? receverId;
 
@@ -4250,6 +4649,7 @@ class TransactionUncheckedUpdateWithoutAccountInput
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
   });
 
@@ -4262,6 +4662,8 @@ class TransactionUncheckedUpdateWithoutAccountInput
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? transactionTypeId;
 
   final IntFieldUpdateOperationsInput? receverId;
 
@@ -4277,6 +4679,7 @@ class TransactionUncheckedUpdateManyWithoutAccountInput
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
   });
 
@@ -4289,6 +4692,8 @@ class TransactionUncheckedUpdateManyWithoutAccountInput
   final IntFieldUpdateOperationsInput? price;
 
   final DateTimeFieldUpdateOperationsInput? transactionDate;
+
+  final IntFieldUpdateOperationsInput? transactionTypeId;
 
   final IntFieldUpdateOperationsInput? receverId;
 
@@ -4334,8 +4739,9 @@ class Account implements _i1.JsonSerializable {
   const Account({
     required this.id,
     required this.openingDate,
-    required this.closingDate,
+    this.closingDate,
     required this.userId,
+    required this.operatorId,
   });
 
   factory Account.fromJson(Map<String, dynamic> json) =>
@@ -4345,9 +4751,11 @@ class Account implements _i1.JsonSerializable {
 
   final DateTime openingDate;
 
-  final DateTime closingDate;
+  final DateTime? closingDate;
 
   final int userId;
+
+  final int operatorId;
 
   @override
   Map<String, dynamic> toJson() => _$AccountToJson(this);
@@ -4377,6 +4785,7 @@ class Transaction implements _i1.JsonSerializable {
     required this.id,
     required this.price,
     required this.transactionDate,
+    required this.transactionTypeId,
     required this.receverId,
     required this.accountId,
   });
@@ -4389,6 +4798,8 @@ class Transaction implements _i1.JsonSerializable {
   final int price;
 
   final DateTime transactionDate;
+
+  final int transactionTypeId;
 
   final int receverId;
 
@@ -7297,6 +7708,7 @@ class AccountGroupByOutputType implements _i1.JsonSerializable {
     this.openingDate,
     this.closingDate,
     this.userId,
+    this.operatorId,
   });
 
   factory AccountGroupByOutputType.fromJson(Map<String, dynamic> json) =>
@@ -7309,6 +7721,8 @@ class AccountGroupByOutputType implements _i1.JsonSerializable {
   final DateTime? closingDate;
 
   final int? userId;
+
+  final int? operatorId;
 
   @override
   Map<String, dynamic> toJson() => _$AccountGroupByOutputTypeToJson(this);
@@ -7338,6 +7752,7 @@ class TransactionGroupByOutputType implements _i1.JsonSerializable {
     this.id,
     this.price,
     this.transactionDate,
+    this.transactionTypeId,
     this.receverId,
     this.accountId,
   });
@@ -7350,6 +7765,8 @@ class TransactionGroupByOutputType implements _i1.JsonSerializable {
   final int? price;
 
   final DateTime? transactionDate;
+
+  final int? transactionTypeId;
 
   final int? receverId;
 
@@ -8174,6 +8591,19 @@ class AccountCountAggregateOutputType {
     return query(const []).then((value) => (value as int));
   }
 
+  Future<int> operatorId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'operatorId',
+          fields: fields,
+        )
+      ]),
+      key: r'operatorId',
+    );
+    return query(const []).then((value) => (value as int));
+  }
+
   Future<int> $all() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
@@ -8218,6 +8648,19 @@ class AccountAvgAggregateOutputType {
     );
     return query(const []).then((value) => (value as double?));
   }
+
+  Future<double?> operatorId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'operatorId',
+          fields: fields,
+        )
+      ]),
+      key: r'operatorId',
+    );
+    return query(const []).then((value) => (value as double?));
+  }
 }
 
 class AccountSumAggregateOutputType {
@@ -8247,6 +8690,19 @@ class AccountSumAggregateOutputType {
         )
       ]),
       key: r'userId',
+    );
+    return query(const []).then((value) => (value as int?));
+  }
+
+  Future<int?> operatorId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'operatorId',
+          fields: fields,
+        )
+      ]),
+      key: r'operatorId',
     );
     return query(const []).then((value) => (value as int?));
   }
@@ -8310,6 +8766,19 @@ class AccountMinAggregateOutputType {
     );
     return query(const []).then((value) => (value as int?));
   }
+
+  Future<int?> operatorId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'operatorId',
+          fields: fields,
+        )
+      ]),
+      key: r'operatorId',
+    );
+    return query(const []).then((value) => (value as int?));
+  }
 }
 
 class AccountMaxAggregateOutputType {
@@ -8367,6 +8836,19 @@ class AccountMaxAggregateOutputType {
         )
       ]),
       key: r'userId',
+    );
+    return query(const []).then((value) => (value as int?));
+  }
+
+  Future<int?> operatorId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'operatorId',
+          fields: fields,
+        )
+      ]),
+      key: r'operatorId',
     );
     return query(const []).then((value) => (value as int?));
   }
@@ -8563,6 +9045,19 @@ class TransactionCountAggregateOutputType {
     return query(const []).then((value) => (value as int));
   }
 
+  Future<int> transactionTypeId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'transactionTypeId',
+          fields: fields,
+        )
+      ]),
+      key: r'transactionTypeId',
+    );
+    return query(const []).then((value) => (value as int));
+  }
+
   Future<int> receverId() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
@@ -8634,6 +9129,19 @@ class TransactionAvgAggregateOutputType {
     return query(const []).then((value) => (value as double?));
   }
 
+  Future<double?> transactionTypeId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'transactionTypeId',
+          fields: fields,
+        )
+      ]),
+      key: r'transactionTypeId',
+    );
+    return query(const []).then((value) => (value as double?));
+  }
+
   Future<double?> receverId() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
@@ -8688,6 +9196,19 @@ class TransactionSumAggregateOutputType {
         )
       ]),
       key: r'price',
+    );
+    return query(const []).then((value) => (value as int?));
+  }
+
+  Future<int?> transactionTypeId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'transactionTypeId',
+          fields: fields,
+        )
+      ]),
+      key: r'transactionTypeId',
     );
     return query(const []).then((value) => (value as int?));
   }
@@ -8764,6 +9285,19 @@ class TransactionMinAggregateOutputType {
         .then((value) => value is String ? DateTime.parse(value) : null);
   }
 
+  Future<int?> transactionTypeId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'transactionTypeId',
+          fields: fields,
+        )
+      ]),
+      key: r'transactionTypeId',
+    );
+    return query(const []).then((value) => (value as int?));
+  }
+
   Future<int?> receverId() {
     final query = _i1.PrismaFluent.queryBuilder(
       query: (fields) => $query([
@@ -8834,6 +9368,19 @@ class TransactionMaxAggregateOutputType {
     );
     return query(const [])
         .then((value) => value is String ? DateTime.parse(value) : null);
+  }
+
+  Future<int?> transactionTypeId() {
+    final query = _i1.PrismaFluent.queryBuilder(
+      query: (fields) => $query([
+        _i2.GraphQLField(
+          r'transactionTypeId',
+          fields: fields,
+        )
+      ]),
+      key: r'transactionTypeId',
+    );
+    return query(const []).then((value) => (value as int?));
   }
 
   Future<int?> receverId() {
@@ -9050,7 +9597,7 @@ class PrismaClient extends _i1.BasePrismaClient<PrismaClient> {
     final engine = _i5.BinaryEngine(
       logger: logger,
       schema:
-          r'Ly8gVGhpcyBpcyB5b3VyIFByaXNtYSBzY2hlbWEgZmlsZSwKLy8gbGVhcm4gbW9yZSBhYm91dCBpdCBpbiB0aGUgZG9jczogaHR0cHM6Ly9wcmlzLmx5L2QvcHJpc21hLXNjaGVtYQoKZ2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgPSAiZGFydCBydW4gb3JtIgp9CgpkYXRhc291cmNlIGRiIHsKICBwcm92aWRlciA9ICJteXNxbCIKICB1cmwgICAgICA9IGVudigiREFUQUJBU0VfVVJMIikKfQoKCi8vIE1vZGVscwptb2RlbCBVc2VyIHsKICBpZCBJbnQgQGlkIEBkZWZhdWx0KGF1dG9pbmNyZW1lbnQoKSkKICBmaXJzdE5hbWUgU3RyaW5nCiAgbGFzdE5hbWUgU3RyaW5nCiAgZ2VuZGVyIFN0cmluZwogIGlkZW50aXR5Q29kZSBTdHJpbmcKICBiaXJ0aGRheSBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICBiaXJ0aENpdHkgU3RyaW5nCiAgYWNjb3VudCBBY2NvdW50Pwp9Cgptb2RlbCBBY2NvdW50IHsKICBpZCBJbnQgQGlkIEBkZWZhdWx0KGF1dG9pbmNyZW1lbnQoKSkKICBvcGVuaW5nRGF0ZSBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICBjbG9zaW5nRGF0ZSBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICB0cmFuc2FjdGlvbnMgVHJhbnNhY3Rpb25bXQogIHVzZXIgVXNlciBAcmVsYXRpb24oZmllbGRzOiBbdXNlcklkXSwgcmVmZXJlbmNlczogW2lkXSkKICB1c2VySWQgSW50IEB1bmlxdWUKfQoKbW9kZWwgT3BlcmF0b3IgewogIGlkIEludCBAaWQgQGRlZmF1bHQoYXV0b2luY3JlbWVudCgpKQogIGxhYmVsIFN0cmluZwp9Cgptb2RlbCBUcmFuc2FjdGlvbiB7CiAgaWQgSW50IEBpZCBAZGVmYXVsdChhdXRvaW5jcmVtZW50KCkpCiAgcHJpY2UgSW50IEB1bmlxdWUKICB0cmFuc2FjdGlvbkRhdGUgRGF0ZVRpbWUgQGRlZmF1bHQobm93KCkpICAKICByZWNldmVySWQgSW50CiAgYWNjb3VudCBBY2NvdW50IEByZWxhdGlvbihmaWVsZHM6IFthY2NvdW50SWRdLCByZWZlcmVuY2VzOiBbaWRdKSAgCiAgYWNjb3VudElkIEludAp9Cgptb2RlbCBUcmFuc2FjdGlvblR5cGUgewogIGlkIEludCBAaWQgQGRlZmF1bHQoYXV0b2luY3JlbWVudCgpKQogIGxhYmVsIFN0cmluZyAgCn0=',
+          r'Ly8gVGhpcyBpcyB5b3VyIFByaXNtYSBzY2hlbWEgZmlsZSwKLy8gbGVhcm4gbW9yZSBhYm91dCBpdCBpbiB0aGUgZG9jczogaHR0cHM6Ly9wcmlzLmx5L2QvcHJpc21hLXNjaGVtYQoKZ2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgPSAiZGFydCBydW4gb3JtIgp9CgpkYXRhc291cmNlIGRiIHsKICBwcm92aWRlciA9ICJteXNxbCIKICB1cmwgICAgICA9IGVudigiREFUQUJBU0VfVVJMIikKfQoKCi8vIE1vZGVscwptb2RlbCBVc2VyIHsKICBpZCBJbnQgQGlkIEBkZWZhdWx0KGF1dG9pbmNyZW1lbnQoKSkKICBmaXJzdE5hbWUgU3RyaW5nCiAgbGFzdE5hbWUgU3RyaW5nCiAgZ2VuZGVyIFN0cmluZwogIGlkZW50aXR5Q29kZSBTdHJpbmcKICBiaXJ0aGRheSBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICBiaXJ0aENpdHkgU3RyaW5nCiAgYWNjb3VudCBBY2NvdW50Pwp9Cgptb2RlbCBBY2NvdW50IHsKICBpZCBJbnQgQGlkIEBkZWZhdWx0KGF1dG9pbmNyZW1lbnQoKSkKICBvcGVuaW5nRGF0ZSBEYXRlVGltZSBAZGVmYXVsdChub3coKSkKICBjbG9zaW5nRGF0ZSBEYXRlVGltZT8KICB0cmFuc2FjdGlvbnMgVHJhbnNhY3Rpb25bXQogIHVzZXIgVXNlciBAcmVsYXRpb24oZmllbGRzOiBbdXNlcklkXSwgcmVmZXJlbmNlczogW2lkXSkKICB1c2VySWQgSW50IEB1bmlxdWUKICBvcGVyYXRvcklkIEludAp9Cgptb2RlbCBPcGVyYXRvciB7CiAgaWQgSW50IEBpZCBAZGVmYXVsdChhdXRvaW5jcmVtZW50KCkpCiAgbGFiZWwgU3RyaW5nICAKfQoKbW9kZWwgVHJhbnNhY3Rpb24gewogIGlkIEludCBAaWQgQGRlZmF1bHQoYXV0b2luY3JlbWVudCgpKQogIHByaWNlIEludCBAdW5pcXVlCiAgdHJhbnNhY3Rpb25EYXRlIERhdGVUaW1lIEBkZWZhdWx0KG5vdygpKSAgCiAgdHJhbnNhY3Rpb25UeXBlSWQgSW50ICAgCiAgcmVjZXZlcklkIEludAogIGFjY291bnQgQWNjb3VudCBAcmVsYXRpb24oZmllbGRzOiBbYWNjb3VudElkXSwgcmVmZXJlbmNlczogW2lkXSkgIAogIGFjY291bnRJZCBJbnQKfQoKbW9kZWwgVHJhbnNhY3Rpb25UeXBlIHsKICBpZCBJbnQgQGlkIEBkZWZhdWx0KGF1dG9pbmNyZW1lbnQoKSkKICBsYWJlbCBTdHJpbmcgIAp9',
       datasources: datasources?.toJson().cast() ?? const {},
       executable:
           r'/home/yayahc/Documents/Master II/SystemeD/Etl/node_modules/prisma/query-engine-debian-openssl-3.0.x',

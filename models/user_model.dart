@@ -17,7 +17,7 @@ class UserModel {
     final lastNamefromResult = jsonResult['name']['last'];
     final genderFromResult = jsonResult['gender'];
     final identityCodeFromResult =
-        "${jsonResult['location']['postcode']}CIV-${firstNameFromResult[0]}-${lastNamefromResult[0]}}";
+        "${jsonResult['location']['postcode']}CIV-${firstNameFromResult[0]}-${lastNamefromResult[0]}";
     final birthCityFromResult = jsonResult['location']['city'];
     final uuidFromResult = jsonResult['login']['uuid'];
     final birthdayFromResult = jsonResult['dob']['date'];
