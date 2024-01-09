@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:orm/logger.dart';
 import 'package:scripts_shrtct/src/generated/prisma/prisma_client.dart';
 import 'models/user_model.dart' as um;
 
@@ -32,7 +31,7 @@ Future<void> main() async {
 
 PrismaClient getPrismaConfig() {
   final prisma = PrismaClient(
-    stdout: Event.values,
+    // stdout: Event.values,
     datasources: Datasources(
       db: dbUrl,
     ),

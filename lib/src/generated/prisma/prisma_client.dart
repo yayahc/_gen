@@ -7,6 +7,7 @@ import 'package:orm/engine_core.dart' as _i3;
 import 'package:orm/graphql.dart' as _i2;
 import 'package:orm/logger.dart' as _i4;
 import 'package:orm/orm.dart' as _i1;
+
 part 'prisma_client.g.dart';
 
 enum UserScalarFieldEnum implements _i1.PrismaEnum {
