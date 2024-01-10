@@ -12,18 +12,19 @@ Future<void> main() async {
 }
 
 Future<void> generateTransaction(List<User> users, PrismaClient client) async {
-  final raw = users.length ~/ 2;
+  final raw = users.length;
   for (var i = 0; i < raw; i++) {
     final price = Random().nextInt(20000);
+    final senderId = Random().nextInt(raw);
+    final receverId = (Random().nextInt(raw) == 0) ? 0 : 1;
     final transactionTypeId = Random().nextInt(2);
-    final user = users[i];
-    final recever = users[i + 1];
+    print(senderId);
     await client.transaction.create(
         data: TransactionCreateInput(
             transactionTypeId: transactionTypeId,
             price: price,
-            receverId: recever.id,
+            receverId: receverId,
             account: AccountCreateNestedOneWithoutTransactionsInput(
-                connect: AccountWhereUniqueInput(id: user.id))));
+                connect: AccountWhereUniqueInput(id: senderId))));
   }
 }

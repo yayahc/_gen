@@ -40,7 +40,7 @@ model Operator {
 
 model Transaction {
   id Int @id @default(autoincrement())
-  price Int @unique
+  price Int 
   transactionDate DateTime @default(now())  
   transactionTypeId Int   
   receverId Int

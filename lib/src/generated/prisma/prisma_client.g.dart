@@ -821,13 +821,15 @@ TransactionWhereUniqueInput _$TransactionWhereUniqueInputFromJson(
         Map<String, dynamic> json) =>
     TransactionWhereUniqueInput(
       id: json['id'] as int?,
-      price: json['price'] as int?,
       AND: (json['AND'] as List<dynamic>?)?.map(
           (e) => TransactionWhereInput.fromJson(e as Map<String, dynamic>)),
       OR: (json['OR'] as List<dynamic>?)?.map(
           (e) => TransactionWhereInput.fromJson(e as Map<String, dynamic>)),
       NOT: (json['NOT'] as List<dynamic>?)?.map(
           (e) => TransactionWhereInput.fromJson(e as Map<String, dynamic>)),
+      price: json['price'] == null
+          ? null
+          : IntFilter.fromJson(json['price'] as Map<String, dynamic>),
       transactionDate: json['transactionDate'] == null
           ? null
           : DateTimeFilter.fromJson(
@@ -859,10 +861,10 @@ Map<String, dynamic> _$TransactionWhereUniqueInputToJson(
   }
 
   writeNotNull('id', instance.id);
-  writeNotNull('price', instance.price);
   writeNotNull('AND', instance.AND?.map((e) => e.toJson()).toList());
   writeNotNull('OR', instance.OR?.map((e) => e.toJson()).toList());
   writeNotNull('NOT', instance.NOT?.map((e) => e.toJson()).toList());
+  writeNotNull('price', instance.price?.toJson());
   writeNotNull('transactionDate', instance.transactionDate?.toJson());
   writeNotNull('transactionTypeId', instance.transactionTypeId?.toJson());
   writeNotNull('receverId', instance.receverId?.toJson());
