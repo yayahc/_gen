@@ -6,10 +6,9 @@ environment:
   sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
-  orm: ^3.4.6  
-  build_runner:  
-  json_serializable:
-  json_annotation:
+  build_runner: ^2.4.7
+  http: ^1.1.2
+  orm: ^4.0.0-alpha.0
 
 
 scripts:
@@ -20,5 +19,7 @@ scripts:
   gen-t: "dart g_transactions.dart"  
   gen-tt: "dart g_transaction_types.dart"  
   prisma-push: "npx prisma db push"
+  get-add: "git add ."
+  get-push: "git push -u origin master"
   prisma-gen: "npx prisma generate && dart run build_runner build"
   prisma-pg: "npx prisma db push && npx prisma generate && dart run build_runner build"

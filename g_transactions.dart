@@ -1,7 +1,11 @@
 import 'dart:math';
-import 'package:scripts_shrtct/src/generated/prisma/prisma_client.dart';
+import 'package:orm/orm.dart';
+
 import 'config.dart';
 import 'error/error_catcher.dart';
+import 'prisma/generated_dart_client/client.dart';
+import 'prisma/generated_dart_client/model.dart';
+import 'prisma/generated_dart_client/prisma.dart';
 
 Future<void> main() async {
   final client = getPrismaClient();
@@ -20,11 +24,12 @@ Future<void> generateTransaction(List<User> users, PrismaClient client) async {
     final transactionTypeId = Random().nextInt(2);
     print(senderId);
     await client.transaction.create(
-        data: TransactionCreateInput(
+        data: PrismaUnion.$1(TransactionCreateInput(
             transactionTypeId: transactionTypeId,
             price: price,
             receverId: receverId,
             account: AccountCreateNestedOneWithoutTransactionsInput(
-                connect: AccountWhereUniqueInput(id: senderId))));
+                connect: AccountWhereUniqueInput(
+                    id: receverId, userId: senderId)))));
   }
 }

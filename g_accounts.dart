@@ -1,8 +1,11 @@
 import 'dart:math';
+import 'package:orm/orm.dart';
 
-import 'package:scripts_shrtct/src/generated/prisma/prisma_client.dart';
 import 'config.dart';
 import 'error/error_catcher.dart';
+import 'prisma/generated_dart_client/client.dart';
+import 'prisma/generated_dart_client/model.dart';
+import 'prisma/generated_dart_client/prisma.dart';
 
 Future<void> main() async {
   final client = getPrismaClient();
@@ -23,12 +26,12 @@ Future<void> getAccounts(
 
     if (!hasAccount) {
       await client.account.create(
-          data: AccountCreateInput(
+          data: PrismaUnion.$1(AccountCreateInput(
               operatorId: operatorId,
               user: UserCreateNestedOneWithoutAccountInput(
                   connect: UserWhereUniqueInput(
-                id: user.id,
-              ))));
+                id: user.id!,
+              )))));
     }
   }
 }

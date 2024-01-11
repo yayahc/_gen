@@ -1,6 +1,9 @@
-import 'package:scripts_shrtct/src/generated/prisma/prisma_client.dart';
+import 'package:orm/orm.dart';
+
 import 'config.dart';
 import 'error/error_catcher.dart';
+import 'prisma/generated_dart_client/client.dart';
+import 'prisma/generated_dart_client/prisma.dart';
 
 final List<String> defaultOperators = ['Mtn', 'Orange', 'Moov', 'Wave'];
 
@@ -12,7 +15,7 @@ Future<void> main() async {
 
 Future<void> getOperators(PrismaClient client) async {
   for (var i = 0; i < defaultOperators.length; i++) {
-    await client.operator
-        .create(data: OperatorCreateInput(label: defaultOperators[i]));
+    await client.operator.create(
+        data: PrismaUnion.$1(OperatorCreateInput(label: defaultOperators[i])));
   }
 }
