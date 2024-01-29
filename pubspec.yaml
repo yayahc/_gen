@@ -8,7 +8,7 @@ environment:
 dependencies:
   build_runner: ^2.4.7
   http: ^1.1.2
-  orm: ^4.0.0-alpha.0
+  orm: ^4.0.0-alpha.4
 
 
 scripts:

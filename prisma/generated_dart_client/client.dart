@@ -2312,7 +2312,7 @@ class PrismaClient {
     }
     final engine = _i4.BinaryEngine(
       schema:
-          '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = "dart run orm"\n}\n\ndatasource db {\n  provider = "mysql"\n  url      = env("DATABASE_URL")\n}\n\n// Models\nmodel User {\n  id Int @id @default(autoincrement())\n  firstName String\n  lastName String\n  gender String\n  identityCode String\n  birthday String\n  birthCity String\n  account Account?\n}\n\nmodel Account {\n  id Int @id @default(autoincrement())\n  openingDate DateTime @default(now())\n  closingDate DateTime?\n  transactions Transaction[]\n  user User @relation(fields: [userId], references: [id])\n  userId Int @unique\n  operatorId Int\n}\n\nmodel Operator {\n  id Int @id @default(autoincrement())\n  label String  \n}\n\nmodel Transaction {\n  id Int @id @default(autoincrement())\n  price Int \n  transactionDate DateTime @default(now())  \n  transactionTypeId Int   \n  receverId Int\n  account Account @relation(fields: [accountId], references: [id])  \n  accountId Int\n}\n\nmodel TransactionType {\n  id Int @id @default(autoincrement())\n  label String  \n}',
+          '// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = "dart run orm"\n}\n\ndatasource db {\n  provider = "mysql"\n  url      = env("DATABASE_URL")\n}\n\n// Models\nmodel User {\n  id Int @id @default(autoincrement())\n  firstName String @unique\n  lastName String\n  gender String\n  identityCode String\n  birthday String\n  birthCity String\n  account Account?\n}\n\nmodel Account {\n  id Int @id @default(autoincrement())\n  openingDate DateTime @default(now())\n  closingDate DateTime?\n  transactions Transaction[]\n  user User @relation(fields: [userId], references: [id])\n  userId Int @unique\n  operatorId Int\n}\n\nmodel Operator {\n  id Int @id @default(autoincrement())\n  label String  \n}\n\nmodel Transaction {\n  id Int @id @default(autoincrement())\n  price Int \n  transactionDate DateTime @default(now())  \n  transactionTypeId Int   \n  receverId Int\n  account Account @relation(fields: [accountId], references: [id])  \n  accountId Int\n}\n\nmodel TransactionType {\n  id Int @id @default(autoincrement())\n  label String  \n}',
       datasources: datasources,
     );
     final metrics = _i1.MetricsClient(engine);
@@ -2359,7 +2359,7 @@ class PrismaClient {
             'kind': 'scalar',
             'isList': false,
             'isRequired': true,
-            'isUnique': false,
+            'isUnique': true,
             'isId': false,
             'isReadOnly': false,
             'hasDefaultValue': false,

@@ -611,11 +611,11 @@ class UserWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 class UserWhereUniqueInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const UserWhereUniqueInput({
-    required this.id,
+    this.id,
+    this.firstName,
     this.AND,
     this.OR,
     this.NOT,
-    this.firstName,
     this.lastName,
     this.gender,
     this.identityCode,
@@ -624,15 +624,15 @@ class UserWhereUniqueInput
     this.account,
   });
 
-  final int id;
+  final int? id;
+
+  final String? firstName;
 
   final _i1.PrismaUnion<_i2.UserWhereInput, Iterable<_i2.UserWhereInput>>? AND;
 
   final Iterable<_i2.UserWhereInput>? OR;
 
   final _i1.PrismaUnion<_i2.UserWhereInput, Iterable<_i2.UserWhereInput>>? NOT;
-
-  final _i1.PrismaUnion<_i2.StringFilter, String>? firstName;
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? lastName;
 
@@ -650,10 +650,10 @@ class UserWhereUniqueInput
   @override
   Map<String, dynamic> toJson() => {
         'id': id,
+        'firstName': firstName,
         'AND': AND,
         'OR': OR,
         'NOT': NOT,
-        'firstName': firstName,
         'lastName': lastName,
         'gender': gender,
         'identityCode': identityCode,
@@ -858,7 +858,7 @@ class TransactionOrderByWithRelationInput
 class TransactionWhereUniqueInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const TransactionWhereUniqueInput({
-    required this.id,
+    this.id,
     this.AND,
     this.OR,
     this.NOT,
@@ -870,7 +870,7 @@ class TransactionWhereUniqueInput
     this.account,
   });
 
-  final int id;
+  final int? id;
 
   final _i1.PrismaUnion<_i2.TransactionWhereInput,
       Iterable<_i2.TransactionWhereInput>>? AND;
@@ -1019,20 +1019,43 @@ class AccountUserArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
+class AccountCountOutputTypeSelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AccountCountOutputTypeSelect({this.transactions});
+
+  final bool? transactions;
+
+  @override
+  Map<String, dynamic> toJson() => {'transactions': transactions};
+}
+
+class AccountCountArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AccountCountArgs({this.select});
+
+  final _i2.AccountCountOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
 class AccountInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
   const AccountInclude({
     this.transactions,
     this.user,
+    this.$count,
   });
 
   final _i1.PrismaUnion<bool, _i2.AccountTransactionsArgs>? transactions;
 
   final _i1.PrismaUnion<bool, _i2.AccountUserArgs>? user;
 
+  final _i1.PrismaUnion<bool, _i2.AccountCountArgs>? $count;
+
   @override
   Map<String, dynamic> toJson() => {
         'transactions': transactions,
         'user': user,
+        '_count': $count,
       };
 }
 
@@ -1071,25 +1094,6 @@ class TransactionSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
         'accountId': accountId,
         'account': account,
       };
-}
-
-class AccountCountOutputTypeSelect
-    implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AccountCountOutputTypeSelect({this.transactions});
-
-  final bool? transactions;
-
-  @override
-  Map<String, dynamic> toJson() => {'transactions': transactions};
-}
-
-class AccountCountArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AccountCountArgs({this.select});
-
-  final _i2.AccountCountOutputTypeSelect? select;
-
-  @override
-  Map<String, dynamic> toJson() => {'select': select};
 }
 
 class AccountSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
@@ -1451,8 +1455,8 @@ class AccountUncheckedCreateWithoutUserInput
 class AccountWhereUniqueInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const AccountWhereUniqueInput({
-    required this.id,
-    required this.userId,
+    this.id,
+    this.userId,
     this.AND,
     this.OR,
     this.NOT,
@@ -1463,9 +1467,9 @@ class AccountWhereUniqueInput
     this.user,
   });
 
-  final int id;
+  final int? id;
 
-  final int userId;
+  final int? userId;
 
   final _i1.PrismaUnion<_i2.AccountWhereInput, Iterable<_i2.AccountWhereInput>>?
       AND;
@@ -5184,14 +5188,14 @@ class OperatorWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 class OperatorWhereUniqueInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const OperatorWhereUniqueInput({
-    required this.id,
+    this.id,
     this.AND,
     this.OR,
     this.NOT,
     this.label,
   });
 
-  final int id;
+  final int? id;
 
   final _i1
       .PrismaUnion<_i2.OperatorWhereInput, Iterable<_i2.OperatorWhereInput>>?
@@ -7268,14 +7272,14 @@ class TransactionTypeWhereInput
 class TransactionTypeWhereUniqueInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const TransactionTypeWhereUniqueInput({
-    required this.id,
+    this.id,
     this.AND,
     this.OR,
     this.NOT,
     this.label,
   });
 
-  final int id;
+  final int? id;
 
   final _i1.PrismaUnion<_i2.TransactionTypeWhereInput,
       Iterable<_i2.TransactionTypeWhereInput>>? AND;
