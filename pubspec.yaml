@@ -1,6 +1,4 @@
-# shortcuts for running scripts
-
-name: scripts_shrtct
+name: gen
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
@@ -11,6 +9,7 @@ dependencies:
   orm: ^4.0.0-alpha.4
 
 
+# shortcuts for running scripts
 scripts:
   a: "git add ."
   p: "git push -u origin master"
