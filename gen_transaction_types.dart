@@ -6,16 +6,19 @@ import 'prisma/generated_dart_client/prisma.dart';
 
 final List<String> defaultTransactionType = ['Depot', 'Retrait'];
 
-Future<void> main() async {
-  final client = getPrismaClient();
-  tryCatch(await getTransactionTypes(client));
+Future<void> generateTransactionTypes(List<String>? transactionTypes) async {
+  tryCatch(await _generateDefaultTransactionTypes(
+      client, transactionTypes ?? defaultTransactionType));
   client.$disconnect();
 }
 
-Future<void> getTransactionTypes(PrismaClient client) async {
-  for (var i = 0; i < defaultTransactionType.length; i++) {
+Future<void> _generateDefaultTransactionTypes(
+    PrismaClient client, List<String> transactionTypes) async {
+  for (var i = 0; i < transactionTypes.length; i++) {
     await client.transactionType.create(
         data: PrismaUnion.$1(
             TransactionTypeCreateInput(label: defaultTransactionType[i])));
   }
+
+  client.$disconnect();
 }

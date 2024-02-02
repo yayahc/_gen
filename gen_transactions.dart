@@ -1,21 +1,20 @@
 import 'dart:math';
 import 'package:orm/orm.dart';
-
 import 'config.dart';
 import 'error/error_catcher.dart';
 import 'prisma/generated_dart_client/client.dart';
 import 'prisma/generated_dart_client/model.dart';
 import 'prisma/generated_dart_client/prisma.dart';
 
-Future<void> main() async {
-  final client = getPrismaClient();
+Future<void> generateTransaction() async {
   final usersQuery = await client.user.findMany();
   final users = usersQuery.toList();
-  tryCatch(await generateTransaction(users, client));
+  tryCatch(await _generateTransactionBetweenUsers(users, client));
   client.$disconnect();
 }
 
-Future<void> generateTransaction(List<User> users, PrismaClient client) async {
+Future<void> _generateTransactionBetweenUsers(
+    List<User> users, PrismaClient client) async {
   final raw = users.length;
   for (var i = 0; i < raw; i++) {
     final price = Random().nextInt(20000);
@@ -32,4 +31,6 @@ Future<void> generateTransaction(List<User> users, PrismaClient client) async {
                 connect: AccountWhereUniqueInput(
                     id: receverId, userId: senderId)))));
   }
+
+  client.$disconnect();
 }

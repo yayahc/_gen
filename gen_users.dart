@@ -1,23 +1,19 @@
 /// Dart code to generate fake users using randomuser API
 /// we send a get request to https://randomuser.me/api/'
-/// we exept to get json response that contain fake user
+/// we exept to get json response that contain fake user (only one per request)
 
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:orm/orm.dart';
+
 import 'config.dart';
-import 'models/user_model.dart' as um;
+import 'modules/gen_modules.dart';
 import 'prisma/generated_dart_client/model.dart';
 import 'prisma/generated_dart_client/prisma.dart';
 
-final link = "https://randomuser.me/api/";
-final client = getPrismaClient();
-
-Future<void> main() async {
-  final int _count = 100;
+Future<void> generateUsers(int? count) async {
+  final int _count = count ?? 100;
   final List<Map<String, dynamic>> users = [];
   for (var i = 0; i < _count; i++) {
-    final user = await generateUsers();
+    final user = await fetchFakeUser();
     users.add(user);
   }
 
@@ -33,18 +29,4 @@ Future<void> main() async {
   })));
 
   await client.$disconnect();
-}
-
-Future<Map<String, dynamic>> generateUsers() async {
-  final request = await http.get(Uri.parse(link));
-  late final response;
-  try {
-    response = json.decode(request.body);
-  } catch (e) {
-    print(request.body);
-    print(request.statusCode);
-    print(e);
-  }
-  final user = um.trigger(response);
-  return user;
 }
