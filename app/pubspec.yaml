@@ -38,7 +38,7 @@ dependencies:
   gen:
     git:
       url: https://github.com/yayahc/_gen
-
+      ref: app
 
 dev_dependencies:
   flutter_test:
