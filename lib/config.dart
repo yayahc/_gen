@@ -36,3 +36,10 @@ Future<void> createEnv(File file,
 Future<bool> checkExistingEnv(File file) async {
   return await file.exists();
 }
+
+Future<String> getEnv() async {
+  final file = File("../.env");
+  final content =
+      (await checkExistingEnv(file)) ? await file.readAsString() : "";
+  return content;
+}
