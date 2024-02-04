@@ -1,12 +1,13 @@
 import 'dart:math';
+import 'package:gen/config.dart';
 import 'package:orm/orm.dart';
-import 'config.dart';
 import 'error/error_catcher.dart';
 import 'generated/prisma/client.dart';
 import 'generated/prisma/model.dart';
 import 'generated/prisma/prisma.dart';
 
 Future<void> generateAccounts() async {
+  final client = await getPrismaClient();
   final usersQuery = await client.user.findMany();
   final accountsQuery = await client.account.findMany();
   final accounts = accountsQuery.toList();
