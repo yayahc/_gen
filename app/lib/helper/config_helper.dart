@@ -1,20 +1,13 @@
 import 'package:gen/config.dart' as config;
+import 'package:gen/gen.dart';
 
-Future<void> makeDBConfig({
-  String? provider,
-  String? username,
-  String? password,
-  String? localHost,
-  String? dbPort,
-  String? dbName,
-  String? schema = "public",
-}) async {
+Future<void> makeDBConfig(DbUrlModel dbUrlModel) async {
   await config.setupUrl(
-      provider: provider,
-      username: username,
-      password: password,
-      localHost: localHost,
-      dbPort: dbPort,
-      dbName: dbName,
-      schema: schema);
+      provider: dbUrlModel.provider,
+      username: dbUrlModel.username,
+      password: dbUrlModel.password,
+      localHost: dbUrlModel.localHost,
+      dbPort: dbUrlModel.dbPort,
+      dbName: dbUrlModel.dbName,
+      schema: dbUrlModel.schema);
 }
