@@ -1,16 +1,16 @@
 import 'dart:io';
-
 import 'generated/prisma/client.dart';
+
+/// Schema file path
+final file = File("../prisma/schema.prisma");
 
 /// Prisma client
 Future<PrismaClient> getPrismaClient() async {
-  // setupEnv();
   final prisma = PrismaClient();
   return prisma;
 }
 
-/// Setup .env file for prisma client
-/// Check if there is a .env file if not create one with required params
+/// Setup dbUrl file for prisma client in schema.prisma
 Future<void> setupUrl(
     {String? provider,
     String? username,
@@ -19,11 +19,16 @@ Future<void> setupUrl(
     String? dbPort,
     String? dbName,
     String? schema = "public"}) async {
-  final file = File("../prisma/schema.prisma");
-
   final lines = await file.readAsLines();
-  final index = lines.indexWhere((line) => line.contains("url"));
+  final index = await lines.indexWhere((line) => line.contains("url"));
   lines[index] =
       """  url      = "$provider://$username:$password@$localHost:$dbPort/$dbName?schema=$schema" """;
   await file.writeAsString(lines.join('\n'));
+}
+
+/// Get dbUrl from existing schema.prisma
+Future<String?> getUrl() async {
+  final lines = await file.readAsLines();
+  final index = await lines.indexWhere((line) => line.contains("url"));
+  return (index == -1) ? null : lines[index];
 }
