@@ -40,6 +40,7 @@ dependencies:
     git:
       url: https://github.com/yayahc/_gen
   equatable: ^2.0.5
+  go_router: ^13.1.0
 
 dev_dependencies:
   flutter_test:

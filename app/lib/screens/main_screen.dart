@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gen/config.dart';
+import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -13,6 +14,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
+    // _getUrlConfig();
     super.initState();
   }
 
@@ -26,21 +28,23 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ListenableBuilder(
-              listenable: _dbConfigNotif,
-              builder: (context, child) {
-                if (_dbConfigNotif.value != null) {
-                  return Text(_dbConfigNotif.value!);
-                }
-                return const SizedBox();
-              },
-            ),
+            // ListenableBuilder(
+            //   listenable: _dbConfigNotif,
+            //   builder: (context, child) {
+            //     if (_dbConfigNotif.value != null) {
+            //       return Text(_dbConfigNotif.value!);
+            //     }
+            //     return const SizedBox();
+            //   },
+            // ),
             const SizedBox(
               height: 20,
             ),
             ElevatedButton(
-                onPressed: () => _pushToConfig,
+                onPressed: () => _pushToConfig(context),
                 child: const Text("Back to Config"))
           ],
         ),
@@ -48,11 +52,11 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Future<void> getUrlConfig() async {
-    _dbConfigNotif.value = await getUrl();
-  }
+  // Future<void> _getUrlConfig() async {
+  //   _dbConfigNotif.value = await getUrl();
+  // }
 
   void _pushToConfig(BuildContext context) {
-    Navigator.pop(context);
+    context.go("/config");
   }
 }

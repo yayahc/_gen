@@ -45,32 +45,36 @@ class _DBConfigScreenState extends State<DBConfigScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: BlocBuilder<GenBloc, GenState>(builder: (context, state) {
-        if (state is InitialState || state is GenProcessing) {
-          return const CircularProgressIndicator();
-        } else if (state is GenFailed) {
-          return const Text("Something went wrong");
-        } else {
-          return Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: size.width / 5),
+        child: BlocBuilder<GenBloc, GenState>(builder: (context, state) {
+          if (state is GenProcessing) {
+            return const CircularProgressIndicator();
+          } else if (state is GenFailed) {
+            return Text(state.message);
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Form(
                     key: _formKey,
                     child: Wrap(
                       direction: Axis.horizontal,
-                      spacing: 10,
                       children: [
-                        _providerContorller,
-                        _usernameContorller,
-                        _passwordContorller,
-                        _localHostContorller,
-                        _dbPortContorller,
-                        _dbNameContorller,
-                        _schemaContorller
-                      ].map((c) => _buildInput(c)).toList(),
+                        [_providerContorller, "Provider"],
+                        [_usernameContorller, "Username"],
+                        [_passwordContorller, "Password"],
+                        [_localHostContorller, "LocalHost"],
+                        [_dbPortContorller, "DataBase Port"],
+                        [_dbNameContorller, "DataBase Name"],
+                        [_schemaContorller, "DataBase Schema"]
+                      ]
+                          .map((c) => _buildInput(c[0] as TextEditingController,
+                              c[1] as String, size))
+                          .toList(),
                     )),
                 const SizedBox(
                   height: 20,
@@ -78,22 +82,30 @@ class _DBConfigScreenState extends State<DBConfigScreen> {
                 ElevatedButton(
                     onPressed: _makeConfig, child: const Text("Config"))
               ],
-            ),
-          );
-        }
-      }),
+            );
+          }
+        }),
+      ),
     );
   }
 
-  Column _buildInput(TextEditingController controller) {
-    return Column(
+  Widget _buildInput(TextEditingController controller, String text, Size size) {
+    return Row(
       children: [
-        TextFormField(
-          controller: controller,
-          obscureText: controller == _passwordContorller,
+        SizedBox(
+          width: size.width / 8,
+          child: TextFormField(
+            decoration: const InputDecoration(border: OutlineInputBorder()),
+            controller: controller,
+            obscureText: controller == _passwordContorller,
+          ),
         ),
         const SizedBox(
-          height: 10,
+          width: 10,
+        ),
+        Text("as $text"),
+        SizedBox(
+          height: size.height / 10,
         )
       ],
     );
