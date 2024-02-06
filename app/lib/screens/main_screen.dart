@@ -1,5 +1,5 @@
+import 'package:app/screens/gen_users_form.dart';
 import 'package:flutter/material.dart';
-import 'package:gen/config.dart';
 import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatefulWidget {
@@ -10,7 +10,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final ValueNotifier<String?> _dbConfigNotif = ValueNotifier(null);
+  // final ValueNotifier<String?> _dbConfigNotif = ValueNotifier(null);
 
   @override
   void initState() {
@@ -40,12 +40,20 @@ class _MainScreenState extends State<MainScreen> {
             //     return const SizedBox();
             //   },
             // ),
-            const SizedBox(
-              height: 20,
-            ),
             ElevatedButton(
                 onPressed: () => _pushToConfig(context),
-                child: const Text("Back to Config"))
+                child: const Text("Back to Config")),
+            const SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+                onPressed: () async {
+                  await showModalBottomSheet(
+                    context: context,
+                    builder: (context) => const GenUsersForm(),
+                  );
+                },
+                child: const Text("Generate Users"))
           ],
         ),
       ),

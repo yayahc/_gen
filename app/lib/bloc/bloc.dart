@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:app/bloc/event.dart';
 import 'package:app/bloc/state.dart';
 import 'package:app/helper/config_helper.dart';
+import 'package:app/helper/gen_user_helper.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gen/gen.dart';
 import 'package:go_router/go_router.dart';
@@ -27,6 +29,22 @@ class GenBloc extends Bloc<GenEvent, GenState> {
         emit(GenFailed(stackTarce.toString()));
       }
     });
+    on<GenUserEvent>((GenUserEvent event, Emitter emit) async {
+      try {
+        emit(GenProcessing());
+        await generate(event.count);
+        emit(GenDone());
+        showSnack(event);
+      } catch (e, stackTrace) {
+        log(e.toString());
+        emit(GenFailed(stackTrace.toString()));
+      }
+    });
+  }
+
+  void showSnack(GenUserEvent event) {
+    ScaffoldMessenger.of(navKey.currentContext!).showSnackBar(SnackBar(
+        content: Text("${event.count} users was succefuly generated ...")));
   }
 
   void pushToMain() {

@@ -7,6 +7,9 @@ class MakeConfigurationEvent extends GenEvent {
   MakeConfigurationEvent(this.dbUrlModel);
 }
 
-class GenUserEvent extends GenEvent {}
+class GenUserEvent extends GenEvent {
+  final int count;
+  GenUserEvent(this.count);
+}
 
 class GenOperatorsEvent extends GenEvent {}
