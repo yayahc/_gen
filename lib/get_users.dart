@@ -9,3 +9,7 @@ Future<void> getUsers() async {
   print(user?.lastName);
   client.$disconnect();
 }
+
+void main() async {
+  await getUsers();
+}
