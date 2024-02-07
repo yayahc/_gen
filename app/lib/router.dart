@@ -7,7 +7,7 @@ final navKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
   static final GoRouter _router =
-      GoRouter(navigatorKey: navKey, initialLocation: "/config", routes: [
+      GoRouter(navigatorKey: navKey, initialLocation: "/main", routes: [
     GoRoute(
       path: "/config",
       builder: (context, state) => const DBConfigScreen(),

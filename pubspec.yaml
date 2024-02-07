@@ -4,7 +4,6 @@ environment:
   sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
-  build_runner: ^2.4.7
   http: ^1.1.0
   orm: ^4.0.0-alpha.4
 
@@ -13,6 +12,5 @@ dependencies:
 scripts:
   a: "git add ."
   p: "git push -u origin master"
-  prisma-pg: "npx prisma db push && npx prisma generate && dart run build_runner build"
-  prisma-gen: "npx prisma generate && dart run build_runner build"
   prisma-push: "npx prisma db push"
+  prisma-gen: "npx prisma generate"

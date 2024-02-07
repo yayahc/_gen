@@ -33,16 +33,13 @@ class _GenUsersFormState extends State<GenUsersForm> {
           key: _formKey,
           child: Column(
             children: [
-              TextFormField(
-                controller: _countController,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+              _buildCountField(context),
               BlocBuilder<GenBloc, GenState>(
                 builder: (context, state) {
                   if (state is GenProcessing) {
                     return const CircularProgressIndicator();
+                  } else if (state is GenFailed) {
+                    return Text(state.message);
                   } else {
                     return ElevatedButton(
                         onPressed: () => _genUsers(context),
@@ -58,5 +55,30 @@ class _GenUsersFormState extends State<GenUsersForm> {
   void _genUsers(BuildContext context) {
     final bloc = BlocProvider.of<GenBloc>(context);
     bloc.add(GenUserEvent(int.parse(_countController.text)));
+  }
+
+  Padding _buildCountField(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text("Enter users count to be generated :"),
+          const SizedBox(
+            width: 20,
+          ),
+          SizedBox(
+            width: 100,
+            child: TextFormField(
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+              controller: _countController,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    );
   }
 }
