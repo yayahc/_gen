@@ -1,1 +1,0 @@
-Deskop app to expose [gen]() scripts

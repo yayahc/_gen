@@ -31,3 +31,8 @@ Future<void> generateUsers(int? count) async {
 
   await client.$disconnect();
 }
+
+void main(List<String> args) async {
+  final count = int.tryParse(args.first);
+  await generateUsers(count);
+}
