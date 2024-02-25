@@ -10,7 +10,5 @@ dependencies:
 
 # shortcuts for running scripts
 scripts:
-  a: "git add ."
-  p: "git push -u origin master"
   prisma-push: "npx prisma db push"
   prisma-gen: "npx prisma generate"
