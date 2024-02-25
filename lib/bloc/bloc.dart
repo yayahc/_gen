@@ -43,6 +43,7 @@ class GenBloc extends Bloc<GenEvent, GenState> {
   }
 
   void showSnack(GenUserEvent event) {
+    navKey.currentContext!.pop();
     ScaffoldMessenger.of(navKey.currentContext!).showSnackBar(SnackBar(
         content: Text("${event.count} users was succefuly generated ...")));
   }

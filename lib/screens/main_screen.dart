@@ -40,9 +40,9 @@ class _MainScreenState extends State<MainScreen> {
             //     return const SizedBox();
             //   },
             // ),
-            ElevatedButton(
-                onPressed: () => _pushToConfig(context),
-                child: const Text("Back to Config")),
+            // ElevatedButton(
+            //     onPressed: () => _pushToConfig(context),
+            //     child: const Text("Back to Config")),
             const SizedBox(
               height: 50,
             ),
@@ -53,18 +53,26 @@ class _MainScreenState extends State<MainScreen> {
                     builder: (context) => const GenUsersForm(),
                   );
                 },
-                child: const Text("Generate Users"))
+                child: const Text("Generate Users")),
+            const SizedBox(
+              height: 50,
+            ),
+            // ElevatedButton(
+            //     onPressed: () => _getUsers(context),
+            //     child: const Text("Get users")),
           ],
         ),
       ),
     );
   }
 
+  // Future<void> _getUsers(BuildContext context) async {}
+
   // Future<void> _getUrlConfig() async {
   //   _dbConfigNotif.value = await getUrl();
   // }
 
-  void _pushToConfig(BuildContext context) {
-    context.go("/config");
-  }
+  // void _pushToConfig(BuildContext context) {
+  //   context.go("/config");
+  // }
 }

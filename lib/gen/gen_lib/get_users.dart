@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'config.dart';
 import 'generated/prisma/prisma.dart';
 
@@ -8,7 +6,7 @@ Future<void> getUsers() async {
 
   final user = await client.user
       .findUnique(where: const UserWhereUniqueInput(firstName: "Olivia"));
-  log((user?.lastName).toString());
+  print((user?.lastName).toString());
   client.$disconnect();
 }
 
