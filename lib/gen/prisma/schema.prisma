@@ -8,47 +8,105 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://yayahc:&''&@127.0.0.1:3306/alpha?schema=" 
+  url      = "mysql://yayahc:&''&@127.0.0.1:3306/beta?schema=" 
 }
 
 // Models
-model User {
-  id Int @id @default(autoincrement())
-  firstName String @unique
-  lastName String
-  gender String
-  identityCode String
-  birthday String
-  birthCity String
-  account Account?
+model Department {
+  Departement_id Int @id @default(autoincrement())
+  DepartementName String 
+  Instructor Instructor[]
+  Course Course[]
+  Class Class[]
 }
 
-model Account {
-  id Int @id @default(autoincrement())
-  openingDate DateTime @default(now())
-  closingDate DateTime?
-  transactions Transaction[]
-  user User @relation(fields: [userId], references: [id])
-  userId Int @unique
-  operatorId Int
+model Instructor {
+  Instructor_id Int @id @default(autoincrement())
+  FirstName String 
+  LastName String
+  Gender String 
+  PhoneNumber String @unique
+  Departement Department @relation(fields: [Departement_id], references: [Departement_id])
+  Departement_id Int @unique
+  Grade Grade @relation(fields: [Grade_ID], references: [Grade_ID])
+  Grade_ID Int @unique
+  class Class?
 }
 
-model Operator {
-  id Int @id @default(autoincrement())
-  label String  
+model Grade {
+  Grade_ID Int @id @default(autoincrement())
+  GradeValue String
+  Instructor Instructor?
 }
 
-model Transaction {
-  id Int @id @default(autoincrement())
-  price Int 
-  transactionDate DateTime @default(now())  
-  transactionTypeId Int   
-  receverId Int
-  account Account @relation(fields: [accountId], references: [id])  
-  accountId Int
+model Course {
+  course_id Int @id @default(autoincrement())
+  course_name String
+  Department Department @relation(fields: [Department_id], references: [Departement_id])
+  Department_id Int @unique
+  frais Frais?
+  class Class[]
 }
 
-model TransactionType {
-  id Int @id @default(autoincrement())
-  label String  
+model Schedule_Type {
+  Schedule_ID Int @id @default(autoincrement())
+  TypeName String
+  schedule_type_details Schedule_Type_Details[]
+  class Class?
+}
+
+model Schedule_Type_Details {
+  Schedule_Type_Detail_ID Int @id @default(autoincrement())
+  Schedule_id Int
+  schedule_type Schedule_Type @relation(fields: [Schedule_id], references: [Schedule_ID])
+  dateC DateTime
+}
+
+model Student {
+  student_id Int @id @default(autoincrement())
+  FirstName String
+  LastName String
+  Gender String
+  annee String
+  Student_Schedule Student_Schedule?
+}
+
+model Frais {
+  Frais_ID Int @id @default(autoincrement())
+  course Course @relation(fields: [Course_ID], references: [course_id])
+  Course_ID Int @unique
+  Amount Float
+}
+
+model Class_Location {
+  Class_Building Int @unique
+  Class_Room Int @unique
+  CampusName String
+  class Class?
+  @@id([Class_Building, Class_Room])
+}
+
+model Class {
+  CLASS_ID String @id
+  schedule_type Schedule_Type? @relation(fields: [SCHEDULE_ID], references: [Schedule_ID])
+  SCHEDULE_ID Int @unique
+  Student_Schedule Student_Schedule?
+  class_location Class_Location @relation(fields: [CLASS_BUILDING], references: [Class_Building])
+  CLASS_BUILDING Int @unique
+  course Course @relation(fields: [COURSE_ID], references: [course_id])
+  COURSE_ID Int @unique
+  department Department @relation(fields: [DEPARTMENT_ID], references: [Departement_id])
+  DEPARTMENT_ID Int @unique
+  instructor Instructor @relation(fields: [INSTRUCTOR_ID], references: [Instructor_id])
+  INSTRUCTOR_ID Int @unique
+  SEMESTER String
+  SCHOOL_YEAR DateTime
+}
+
+model Student_Schedule {
+  student Student @relation(fields: [Student_id], references: [student_id])
+  Student_id Int @unique
+  class Class @relation(fields: [CLASS_ID], references: [CLASS_ID])
+  CLASS_ID String @unique
+  @@id([Student_id, CLASS_ID])
 }
