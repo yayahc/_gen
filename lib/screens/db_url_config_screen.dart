@@ -3,7 +3,7 @@ import 'package:app/bloc/event.dart';
 import 'package:app/bloc/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gen/gen.dart';
+import '../gen/gen_lib/gen.dart';
 
 class DBConfigScreen extends StatefulWidget {
   const DBConfigScreen({super.key});

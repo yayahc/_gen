@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:gen/gen.dart';
+import '../gen/gen_lib/gen.dart';
 
 abstract class GenState extends Equatable {}
 

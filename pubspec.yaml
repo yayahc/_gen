@@ -36,11 +36,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.1.3
-  gen:
-    git:
-      url: https://github.com/yayahc/_gen
   equatable: ^2.0.5
   go_router: ^13.1.0
+  http: ^1.1.0
+  orm: ^4.0.0-alpha.4
 
 dev_dependencies:
   flutter_test:
@@ -94,3 +93,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+scripts:
+  prisma-push: "npx prisma db push"
+  prisma-gen: "npx prisma generate --schema=./lib/gen/prisma/schema.prisma"
