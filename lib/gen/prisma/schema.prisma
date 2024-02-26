@@ -87,7 +87,7 @@ model Class_Location {
 }
 
 model Class {
-  CLASS_ID String @id
+  CLASS_ID Int @id @default(autoincrement())
   schedule_type Schedule_Type? @relation(fields: [SCHEDULE_ID], references: [Schedule_ID])
   SCHEDULE_ID Int @unique
   Student_Schedule Student_Schedule?
@@ -107,6 +107,6 @@ model Student_Schedule {
   student Student @relation(fields: [Student_id], references: [student_id])
   Student_id Int @unique
   class Class @relation(fields: [CLASS_ID], references: [CLASS_ID])
-  CLASS_ID String @unique
+  CLASS_ID Int @unique
   @@id([Student_id, CLASS_ID])
 }
