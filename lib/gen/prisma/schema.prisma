@@ -8,47 +8,87 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://yayahc:&''&@127.0.0.1:3306/alpha?schema=" 
+  url      = "mysql://yayahc:&''&@127.0.0.1:3306/sale?schema=public" 
 }
+
 
 // Models
-model User {
-  id Int @id @default(autoincrement())
-  firstName String @unique
-  lastName String
-  gender String
-  identityCode String
-  birthday String
-  birthCity String
-  account Account?
+model Client {
+  id_client Int @id @default(autoincrement())
+  nom_client String
+  prenom_client String
+  adresse_client String
+  acheter Acheter?
 }
 
-model Account {
-  id Int @id @default(autoincrement())
-  openingDate DateTime @default(now())
-  closingDate DateTime?
-  transactions Transaction[]
-  user User @relation(fields: [userId], references: [id])
-  userId Int @unique
-  operatorId Int
+model Groupe {
+  id_groupe Int @id @default(autoincrement())
+  lib_groupe String
+  produit Produit[]
 }
 
-model Operator {
-  id Int @id @default(autoincrement())
-  label String  
+model Fabricant {
+  id_fabricant Int @id @default(autoincrement())
+  lib_fabricant String
+  produit Produit[]
 }
 
-model Transaction {
-  id Int @id @default(autoincrement())
-  price Int 
-  transactionDate DateTime @default(now())  
-  transactionTypeId Int   
-  receverId Int
-  account Account @relation(fields: [accountId], references: [id])  
-  accountId Int
+
+model Ville {
+  id_ville Int @id @default(autoincrement())
+  nom_ville String
+  region Region @relation(fields: [region_id], references: [id_region])
+  region_id Int 
+  magasin Magasin[]
 }
 
-model TransactionType {
-  id Int @id @default(autoincrement())
-  label String  
+
+model Region {
+  id_region Int @id @default(autoincrement())
+  nom_region String
+  pays Pays @relation(fields: [pays_id], references: [id_pays])
+  pays_id Int 
+  ville Ville[]
+}
+
+
+model Pays {
+  id_pays Int @id @default(autoincrement())
+  nom_pays String
+  region Region[]
+}
+
+model Magasin {
+  id_magasin Int @id @default(autoincrement())
+  description String
+  surface Float
+  ville Ville @relation(fields: [ville_id], references: [id_ville])
+  ville_id Int
+  produit Produit[]
+}
+
+model Produit {
+  id_produit Int @id @default(autoincrement())
+  nom_produit String
+  code String
+  poids Float
+  pv String
+  groupe Groupe @relation(fields: [groupe_id], references: [id_groupe])
+  groupe_id Int 
+  fabricant Fabricant @relation(fields: [fabricant_id], references: [id_fabricant])
+  fabricant_id Int 
+  magasin Magasin @relation(fields: [magasin_id], references: [id_magasin])
+  magasin_id Int 
+  acheter Acheter?
+}
+
+model Acheter {
+  id_achat Int @id @default(autoincrement())
+  date DateTime
+  quantite_achete Int
+  montant_achat Int
+  client Client @relation(fields: [client_id], references: [id_client])
+  client_id Int @unique
+  produit Produit @relation(fields: [produit_id], references: [id_produit])
+  produit_id Int @unique
 }
