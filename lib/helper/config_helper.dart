@@ -1,5 +1,5 @@
-import '../gen/library/config.dart' as config;
-import '../gen/library/gen.dart';
+import '../gen/config.dart' as config;
+import '../gen/models/db_url_model.dart';
 
 Future<void> makeDBConfig(DbUrlModel dbUrlModel) async {
   await config.setupUrl(

@@ -1,35 +1,35 @@
-import 'package:equatable/equatable.dart';
-import '../gen/library/gen.dart';
+// import 'package:equatable/equatable.dart';
+// import '../gen/library/gen.dart';
 
-abstract class GenState extends Equatable {}
+// abstract class GenState extends Equatable {}
 
-class InitialState extends GenState {
-  @override
-  List<Object?> get props => [];
-}
+// class InitialState extends GenState {
+//   @override
+//   List<Object?> get props => [];
+// }
 
-class GenProcessing extends GenState {
-  @override
-  List<Object?> get props => [];
-}
+// class GenProcessing extends GenState {
+//   @override
+//   List<Object?> get props => [];
+// }
 
-class GenFailed extends GenState {
-  final String message;
+// class GenFailed extends GenState {
+//   final String message;
 
-  GenFailed(this.message);
-  @override
-  List<Object?> get props => [];
-}
+//   GenFailed(this.message);
+//   @override
+//   List<Object?> get props => [];
+// }
 
-class GenDone extends GenState {
-  @override
-  List<Object?> get props => [];
-}
+// class GenDone extends GenState {
+//   @override
+//   List<Object?> get props => [];
+// }
 
-class MakeConfigDone extends GenState {
-  final DbUrlModel dbUrlModel;
-  MakeConfigDone(this.dbUrlModel);
+// class MakeConfigDone extends GenState {
+//   final DbUrlModel dbUrlModel;
+//   MakeConfigDone(this.dbUrlModel);
 
-  @override
-  List<Object?> get props => [dbUrlModel];
-}
+//   @override
+//   List<Object?> get props => [dbUrlModel];
+// }

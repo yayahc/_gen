@@ -1,15 +1,15 @@
-import '../gen/library/gen.dart';
+// import '../gen/library/gen.dart';
 
-class GenEvent {}
+// class GenEvent {}
 
-class MakeConfigurationEvent extends GenEvent {
-  final DbUrlModel dbUrlModel;
-  MakeConfigurationEvent(this.dbUrlModel);
-}
+// class MakeConfigurationEvent extends GenEvent {
+//   final DbUrlModel dbUrlModel;
+//   MakeConfigurationEvent(this.dbUrlModel);
+// }
 
-class GenUserEvent extends GenEvent {
-  final int count;
-  GenUserEvent(this.count);
-}
+// class GenUserEvent extends GenEvent {
+//   final int count;
+//   GenUserEvent(this.count);
+// }
 
-class GenOperatorsEvent extends GenEvent {}
+// class GenOperatorsEvent extends GenEvent {}
