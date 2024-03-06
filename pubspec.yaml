@@ -103,4 +103,5 @@ scripts:
   gen-groupe: "dart lib/gen/gen_groupe.dart"
   gen-client: "dart lib/gen/gen_client.dart"
   gen-ac: "dart lib/gen/gen_ac.dart"
+  gen-cities: "dart lib/gen/gen_cities.dart"
   gen-country: "dart lib/gen/gen_country.dart"

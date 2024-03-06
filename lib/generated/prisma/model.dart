@@ -208,6 +208,7 @@ class Produit {
     this.fabricant,
     this.magasin,
     this.acheter,
+    this.$count,
   });
 
   factory Produit.fromJson(Map json) => Produit(
@@ -227,8 +228,10 @@ class Produit {
         magasin: json['magasin'] is Map
             ? _i1.Magasin.fromJson(json['magasin'])
             : null,
-        acheter: json['acheter'] is Map
-            ? _i1.Acheter.fromJson(json['acheter'])
+        acheter: (json['acheter'] as Iterable?)
+            ?.map((json) => _i1.Acheter.fromJson(json)),
+        $count: json['_count'] is Map
+            ? _i2.ProduitCountOutputType.fromJson(json['_count'])
             : null,
       );
 
@@ -254,7 +257,9 @@ class Produit {
 
   final _i1.Magasin? magasin;
 
-  final _i1.Acheter? acheter;
+  final Iterable<_i1.Acheter>? acheter;
+
+  final _i2.ProduitCountOutputType? $count;
 }
 
 class Acheter {
@@ -307,6 +312,7 @@ class Client {
     this.prenomClient,
     this.adresseClient,
     this.acheter,
+    this.$count,
   });
 
   factory Client.fromJson(Map json) => Client(
@@ -314,8 +320,10 @@ class Client {
         nomClient: json['nom_client'],
         prenomClient: json['prenom_client'],
         adresseClient: json['adresse_client'],
-        acheter: json['acheter'] is Map
-            ? _i1.Acheter.fromJson(json['acheter'])
+        acheter: (json['acheter'] as Iterable?)
+            ?.map((json) => _i1.Acheter.fromJson(json)),
+        $count: json['_count'] is Map
+            ? _i2.ClientCountOutputType.fromJson(json['_count'])
             : null,
       );
 
@@ -327,5 +335,7 @@ class Client {
 
   final String? adresseClient;
 
-  final _i1.Acheter? acheter;
+  final Iterable<_i1.Acheter>? acheter;
+
+  final _i2.ClientCountOutputType? $count;
 }

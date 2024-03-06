@@ -60,6 +60,24 @@ class MagasinCountOutputType {
   final int? produit;
 }
 
+class ProduitCountOutputType {
+  const ProduitCountOutputType({this.acheter});
+
+  factory ProduitCountOutputType.fromJson(Map json) =>
+      ProduitCountOutputType(acheter: json['acheter']);
+
+  final int? acheter;
+}
+
+class ClientCountOutputType {
+  const ClientCountOutputType({this.acheter});
+
+  factory ClientCountOutputType.fromJson(Map json) =>
+      ClientCountOutputType(acheter: json['acheter']);
+
+  final int? acheter;
+}
+
 class NestedIntFilter implements _i1.JsonConvertible<Map<String, dynamic>> {
   const NestedIntFilter({
     this.equals,
@@ -914,8 +932,7 @@ class ProduitWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   final _i1.PrismaUnion<_i2.MagasinRelationFilter, _i2.MagasinWhereInput>?
       magasin;
 
-  final _i1.PrismaUnion<_i2.AcheterNullableRelationFilter,
-      _i1.PrismaUnion<_i2.AcheterWhereInput, _i1.PrismaNull>>? acheter;
+  final _i2.AcheterListRelationFilter? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1011,21 +1028,25 @@ class AcheterWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class AcheterNullableRelationFilter
+class AcheterListRelationFilter
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterNullableRelationFilter({
-    this.$is,
-    this.isNot,
+  const AcheterListRelationFilter({
+    this.every,
+    this.some,
+    this.none,
   });
 
-  final _i1.PrismaUnion<_i2.AcheterWhereInput, _i1.PrismaNull>? $is;
+  final _i2.AcheterWhereInput? every;
 
-  final _i1.PrismaUnion<_i2.AcheterWhereInput, _i1.PrismaNull>? isNot;
+  final _i2.AcheterWhereInput? some;
+
+  final _i2.AcheterWhereInput? none;
 
   @override
   Map<String, dynamic> toJson() => {
-        'is': $is,
-        'isNot': isNot,
+        'every': every,
+        'some': some,
+        'none': none,
       };
 }
 
@@ -1057,8 +1078,7 @@ class ClientWhereInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? adresseClient;
 
-  final _i1.PrismaUnion<_i2.AcheterNullableRelationFilter,
-      _i1.PrismaUnion<_i2.AcheterWhereInput, _i1.PrismaNull>>? acheter;
+  final _i2.AcheterListRelationFilter? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1102,8 +1122,7 @@ class ClientWhereUniqueInput
 
   final _i1.PrismaUnion<_i2.StringFilter, String>? adresseClient;
 
-  final _i1.PrismaUnion<_i2.AcheterNullableRelationFilter,
-      _i1.PrismaUnion<_i2.AcheterWhereInput, _i1.PrismaNull>>? acheter;
+  final _i2.AcheterListRelationFilter? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1345,76 +1364,14 @@ class MagasinOrderByWithRelationInput
       };
 }
 
-class ClientOrderByWithRelationInput
+class AcheterOrderByRelationAggregateInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const ClientOrderByWithRelationInput({
-    this.idClient,
-    this.nomClient,
-    this.prenomClient,
-    this.adresseClient,
-    this.acheter,
-  });
+  const AcheterOrderByRelationAggregateInput({this.$count});
 
-  final _i2.SortOrder? idClient;
-
-  final _i2.SortOrder? nomClient;
-
-  final _i2.SortOrder? prenomClient;
-
-  final _i2.SortOrder? adresseClient;
-
-  final _i2.AcheterOrderByWithRelationInput? acheter;
+  final _i2.SortOrder? $count;
 
   @override
-  Map<String, dynamic> toJson() => {
-        'id_client': idClient,
-        'nom_client': nomClient,
-        'prenom_client': prenomClient,
-        'adresse_client': adresseClient,
-        'acheter': acheter,
-      };
-}
-
-class AcheterOrderByWithRelationInput
-    implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterOrderByWithRelationInput({
-    this.idAchat,
-    this.date,
-    this.quantiteAchete,
-    this.montantAchat,
-    this.clientId,
-    this.produitId,
-    this.client,
-    this.produit,
-  });
-
-  final _i2.SortOrder? idAchat;
-
-  final _i2.SortOrder? date;
-
-  final _i2.SortOrder? quantiteAchete;
-
-  final _i2.SortOrder? montantAchat;
-
-  final _i2.SortOrder? clientId;
-
-  final _i2.SortOrder? produitId;
-
-  final _i2.ClientOrderByWithRelationInput? client;
-
-  final _i2.ProduitOrderByWithRelationInput? produit;
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'id_achat': idAchat,
-        'date': date,
-        'quantite_achete': quantiteAchete,
-        'montant_achat': montantAchat,
-        'client_id': clientId,
-        'produit_id': produitId,
-        'client': client,
-        'produit': produit,
-      };
+  Map<String, dynamic> toJson() => {'_count': $count};
 }
 
 class ProduitOrderByWithRelationInput
@@ -1456,7 +1413,7 @@ class ProduitOrderByWithRelationInput
 
   final _i2.MagasinOrderByWithRelationInput? magasin;
 
-  final _i2.AcheterOrderByWithRelationInput? acheter;
+  final _i2.AcheterOrderByRelationAggregateInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -1527,8 +1484,7 @@ class ProduitWhereUniqueInput
   final _i1.PrismaUnion<_i2.MagasinRelationFilter, _i2.MagasinWhereInput>?
       magasin;
 
-  final _i1.PrismaUnion<_i2.AcheterNullableRelationFilter,
-      _i1.PrismaUnion<_i2.AcheterWhereInput, _i1.PrismaNull>>? acheter;
+  final _i2.AcheterListRelationFilter? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -2501,14 +2457,180 @@ class ProduitMagasinArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
+class ClientOrderByWithRelationInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const ClientOrderByWithRelationInput({
+    this.idClient,
+    this.nomClient,
+    this.prenomClient,
+    this.adresseClient,
+    this.acheter,
+  });
+
+  final _i2.SortOrder? idClient;
+
+  final _i2.SortOrder? nomClient;
+
+  final _i2.SortOrder? prenomClient;
+
+  final _i2.SortOrder? adresseClient;
+
+  final _i2.AcheterOrderByRelationAggregateInput? acheter;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id_client': idClient,
+        'nom_client': nomClient,
+        'prenom_client': prenomClient,
+        'adresse_client': adresseClient,
+        'acheter': acheter,
+      };
+}
+
+class AcheterOrderByWithRelationInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterOrderByWithRelationInput({
+    this.idAchat,
+    this.date,
+    this.quantiteAchete,
+    this.montantAchat,
+    this.clientId,
+    this.produitId,
+    this.client,
+    this.produit,
+  });
+
+  final _i2.SortOrder? idAchat;
+
+  final _i2.SortOrder? date;
+
+  final _i2.SortOrder? quantiteAchete;
+
+  final _i2.SortOrder? montantAchat;
+
+  final _i2.SortOrder? clientId;
+
+  final _i2.SortOrder? produitId;
+
+  final _i2.ClientOrderByWithRelationInput? client;
+
+  final _i2.ProduitOrderByWithRelationInput? produit;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id_achat': idAchat,
+        'date': date,
+        'quantite_achete': quantiteAchete,
+        'montant_achat': montantAchat,
+        'client_id': clientId,
+        'produit_id': produitId,
+        'client': client,
+        'produit': produit,
+      };
+}
+
+class AcheterWhereUniqueInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterWhereUniqueInput({
+    this.idAchat,
+    this.AND,
+    this.OR,
+    this.NOT,
+    this.date,
+    this.quantiteAchete,
+    this.montantAchat,
+    this.clientId,
+    this.produitId,
+    this.client,
+    this.produit,
+  });
+
+  final int? idAchat;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereInput, Iterable<_i2.AcheterWhereInput>>?
+      AND;
+
+  final Iterable<_i2.AcheterWhereInput>? OR;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereInput, Iterable<_i2.AcheterWhereInput>>?
+      NOT;
+
+  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? date;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? quantiteAchete;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? montantAchat;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? clientId;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? produitId;
+
+  final _i1.PrismaUnion<_i2.ClientRelationFilter, _i2.ClientWhereInput>? client;
+
+  final _i1.PrismaUnion<_i2.ProduitRelationFilter, _i2.ProduitWhereInput>?
+      produit;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id_achat': idAchat,
+        'AND': AND,
+        'OR': OR,
+        'NOT': NOT,
+        'date': date,
+        'quantite_achete': quantiteAchete,
+        'montant_achat': montantAchat,
+        'client_id': clientId,
+        'produit_id': produitId,
+        'client': client,
+        'produit': produit,
+      };
+}
+
+enum AcheterScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
+  idAchat<int>('id_achat', 'Acheter'),
+  date<DateTime>('date', 'Acheter'),
+  quantiteAchete<int>('quantite_achete', 'Acheter'),
+  montantAchat<int>('montant_achat', 'Acheter'),
+  clientId<int>('client_id', 'Acheter'),
+  produitId<int>('produit_id', 'Acheter');
+
+  const AcheterScalar(
+    this.name,
+    this.model,
+  );
+
+  @override
+  final String name;
+
+  @override
+  final String model;
+}
+
 class ProduitAcheterArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
   const ProduitAcheterArgs({
     this.where,
+    this.orderBy,
+    this.cursor,
+    this.take,
+    this.skip,
+    this.distinct,
     this.select,
     this.include,
   });
 
   final _i2.AcheterWhereInput? where;
+
+  final _i1.PrismaUnion<Iterable<_i2.AcheterOrderByWithRelationInput>,
+      _i2.AcheterOrderByWithRelationInput>? orderBy;
+
+  final _i2.AcheterWhereUniqueInput? cursor;
+
+  final int? take;
+
+  final int? skip;
+
+  final _i1.PrismaUnion<_i2.AcheterScalar, Iterable<_i2.AcheterScalar>>?
+      distinct;
 
   final _i2.AcheterSelect? select;
 
@@ -2517,9 +2639,33 @@ class ProduitAcheterArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
   @override
   Map<String, dynamic> toJson() => {
         'where': where,
+        'orderBy': orderBy,
+        'cursor': cursor,
+        'take': take,
+        'skip': skip,
+        'distinct': distinct,
         'select': select,
         'include': include,
       };
+}
+
+class ProduitCountOutputTypeSelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const ProduitCountOutputTypeSelect({this.acheter});
+
+  final bool? acheter;
+
+  @override
+  Map<String, dynamic> toJson() => {'acheter': acheter};
+}
+
+class ProduitCountArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const ProduitCountArgs({this.select});
+
+  final _i2.ProduitCountOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
 }
 
 class ProduitInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
@@ -2528,6 +2674,7 @@ class ProduitInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.fabricant,
     this.magasin,
     this.acheter,
+    this.$count,
   });
 
   final _i1.PrismaUnion<bool, _i2.ProduitGroupeArgs>? groupe;
@@ -2538,12 +2685,15 @@ class ProduitInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<bool, _i2.ProduitAcheterArgs>? acheter;
 
+  final _i1.PrismaUnion<bool, _i2.ProduitCountArgs>? $count;
+
   @override
   Map<String, dynamic> toJson() => {
         'groupe': groupe,
         'fabricant': fabricant,
         'magasin': magasin,
         'acheter': acheter,
+        '_count': $count,
       };
 }
 
@@ -2586,6 +2736,7 @@ class ProduitSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.fabricant,
     this.magasin,
     this.acheter,
+    this.$count,
   });
 
   final bool? idProduit;
@@ -2612,6 +2763,8 @@ class ProduitSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<bool, _i2.ProduitAcheterArgs>? acheter;
 
+  final _i1.PrismaUnion<bool, _i2.ProduitCountArgs>? $count;
+
   @override
   Map<String, dynamic> toJson() => {
         'id_produit': idProduit,
@@ -2626,6 +2779,7 @@ class ProduitSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
         'fabricant': fabricant,
         'magasin': magasin,
         'acheter': acheter,
+        '_count': $count,
       };
 }
 
@@ -2666,11 +2820,28 @@ class AcheterInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
 class ClientAcheterArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
   const ClientAcheterArgs({
     this.where,
+    this.orderBy,
+    this.cursor,
+    this.take,
+    this.skip,
+    this.distinct,
     this.select,
     this.include,
   });
 
   final _i2.AcheterWhereInput? where;
+
+  final _i1.PrismaUnion<Iterable<_i2.AcheterOrderByWithRelationInput>,
+      _i2.AcheterOrderByWithRelationInput>? orderBy;
+
+  final _i2.AcheterWhereUniqueInput? cursor;
+
+  final int? take;
+
+  final int? skip;
+
+  final _i1.PrismaUnion<_i2.AcheterScalar, Iterable<_i2.AcheterScalar>>?
+      distinct;
 
   final _i2.AcheterSelect? select;
 
@@ -2679,18 +2850,50 @@ class ClientAcheterArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
   @override
   Map<String, dynamic> toJson() => {
         'where': where,
+        'orderBy': orderBy,
+        'cursor': cursor,
+        'take': take,
+        'skip': skip,
+        'distinct': distinct,
         'select': select,
         'include': include,
       };
 }
 
-class ClientInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const ClientInclude({this.acheter});
+class ClientCountOutputTypeSelect
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const ClientCountOutputTypeSelect({this.acheter});
 
-  final _i1.PrismaUnion<bool, _i2.ClientAcheterArgs>? acheter;
+  final bool? acheter;
 
   @override
   Map<String, dynamic> toJson() => {'acheter': acheter};
+}
+
+class ClientCountArgs implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const ClientCountArgs({this.select});
+
+  final _i2.ClientCountOutputTypeSelect? select;
+
+  @override
+  Map<String, dynamic> toJson() => {'select': select};
+}
+
+class ClientInclude implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const ClientInclude({
+    this.acheter,
+    this.$count,
+  });
+
+  final _i1.PrismaUnion<bool, _i2.ClientAcheterArgs>? acheter;
+
+  final _i1.PrismaUnion<bool, _i2.ClientCountArgs>? $count;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'acheter': acheter,
+        '_count': $count,
+      };
 }
 
 class AcheterSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
@@ -2741,6 +2944,7 @@ class ClientSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
     this.prenomClient,
     this.adresseClient,
     this.acheter,
+    this.$count,
   });
 
   final bool? idClient;
@@ -2753,6 +2957,8 @@ class ClientSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i1.PrismaUnion<bool, _i2.ClientAcheterArgs>? acheter;
 
+  final _i1.PrismaUnion<bool, _i2.ClientCountArgs>? $count;
+
   @override
   Map<String, dynamic> toJson() => {
         'id_client': idClient,
@@ -2760,6 +2966,7 @@ class ClientSelect implements _i1.JsonConvertible<Map<String, dynamic>> {
         'prenom_client': prenomClient,
         'adresse_client': adresseClient,
         'acheter': acheter,
+        '_count': $count,
       };
 }
 
@@ -3531,63 +3738,6 @@ class AcheterUncheckedCreateWithoutClientInput
       };
 }
 
-class AcheterWhereUniqueInput
-    implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterWhereUniqueInput({
-    this.idAchat,
-    this.clientId,
-    this.produitId,
-    this.AND,
-    this.OR,
-    this.NOT,
-    this.date,
-    this.quantiteAchete,
-    this.montantAchat,
-    this.client,
-    this.produit,
-  });
-
-  final int? idAchat;
-
-  final int? clientId;
-
-  final int? produitId;
-
-  final _i1.PrismaUnion<_i2.AcheterWhereInput, Iterable<_i2.AcheterWhereInput>>?
-      AND;
-
-  final Iterable<_i2.AcheterWhereInput>? OR;
-
-  final _i1.PrismaUnion<_i2.AcheterWhereInput, Iterable<_i2.AcheterWhereInput>>?
-      NOT;
-
-  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? date;
-
-  final _i1.PrismaUnion<_i2.IntFilter, int>? quantiteAchete;
-
-  final _i1.PrismaUnion<_i2.IntFilter, int>? montantAchat;
-
-  final _i1.PrismaUnion<_i2.ClientRelationFilter, _i2.ClientWhereInput>? client;
-
-  final _i1.PrismaUnion<_i2.ProduitRelationFilter, _i2.ProduitWhereInput>?
-      produit;
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'id_achat': idAchat,
-        'client_id': clientId,
-        'produit_id': produitId,
-        'AND': AND,
-        'OR': OR,
-        'NOT': NOT,
-        'date': date,
-        'quantite_achete': quantiteAchete,
-        'montant_achat': montantAchat,
-        'client': client,
-        'produit': produit,
-      };
-}
-
 class AcheterCreateOrConnectWithoutClientInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
   const AcheterCreateOrConnectWithoutClientInput({
@@ -3607,25 +3757,84 @@ class AcheterCreateOrConnectWithoutClientInput
       };
 }
 
-class AcheterCreateNestedOneWithoutClientInput
+class AcheterCreateManyClientInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterCreateNestedOneWithoutClientInput({
+  const AcheterCreateManyClientInput({
+    this.idAchat,
+    required this.date,
+    required this.quantiteAchete,
+    required this.montantAchat,
+    required this.produitId,
+  });
+
+  final int? idAchat;
+
+  final DateTime date;
+
+  final int quantiteAchete;
+
+  final int montantAchat;
+
+  final int produitId;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id_achat': idAchat,
+        'date': date,
+        'quantite_achete': quantiteAchete,
+        'montant_achat': montantAchat,
+        'produit_id': produitId,
+      };
+}
+
+class AcheterCreateManyClientInputEnvelope
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterCreateManyClientInputEnvelope({
+    required this.data,
+    this.skipDuplicates,
+  });
+
+  final _i1.PrismaUnion<_i2.AcheterCreateManyClientInput,
+      Iterable<_i2.AcheterCreateManyClientInput>> data;
+
+  final bool? skipDuplicates;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'data': data,
+        'skipDuplicates': skipDuplicates,
+      };
+}
+
+class AcheterCreateNestedManyWithoutClientInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterCreateNestedManyWithoutClientInput({
     this.create,
     this.connectOrCreate,
+    this.createMany,
     this.connect,
   });
 
-  final _i1.PrismaUnion<_i2.AcheterCreateWithoutClientInput,
-      _i2.AcheterUncheckedCreateWithoutClientInput>? create;
+  final _i1.PrismaUnion<
+      _i2.AcheterCreateWithoutClientInput,
+      _i1.PrismaUnion<
+          Iterable<_i2.AcheterCreateWithoutClientInput>,
+          _i1.PrismaUnion<_i2.AcheterUncheckedCreateWithoutClientInput,
+              Iterable<_i2.AcheterUncheckedCreateWithoutClientInput>>>>? create;
 
-  final _i2.AcheterCreateOrConnectWithoutClientInput? connectOrCreate;
+  final _i1.PrismaUnion<_i2.AcheterCreateOrConnectWithoutClientInput,
+      Iterable<_i2.AcheterCreateOrConnectWithoutClientInput>>? connectOrCreate;
 
-  final _i2.AcheterWhereUniqueInput? connect;
+  final _i2.AcheterCreateManyClientInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? connect;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
+        'createMany': createMany,
         'connect': connect,
       };
 }
@@ -3644,7 +3853,7 @@ class ClientCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final String adresseClient;
 
-  final _i2.AcheterCreateNestedOneWithoutClientInput? acheter;
+  final _i2.AcheterCreateNestedManyWithoutClientInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -3655,25 +3864,35 @@ class ClientCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class AcheterUncheckedCreateNestedOneWithoutClientInput
+class AcheterUncheckedCreateNestedManyWithoutClientInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterUncheckedCreateNestedOneWithoutClientInput({
+  const AcheterUncheckedCreateNestedManyWithoutClientInput({
     this.create,
     this.connectOrCreate,
+    this.createMany,
     this.connect,
   });
 
-  final _i1.PrismaUnion<_i2.AcheterCreateWithoutClientInput,
-      _i2.AcheterUncheckedCreateWithoutClientInput>? create;
+  final _i1.PrismaUnion<
+      _i2.AcheterCreateWithoutClientInput,
+      _i1.PrismaUnion<
+          Iterable<_i2.AcheterCreateWithoutClientInput>,
+          _i1.PrismaUnion<_i2.AcheterUncheckedCreateWithoutClientInput,
+              Iterable<_i2.AcheterUncheckedCreateWithoutClientInput>>>>? create;
 
-  final _i2.AcheterCreateOrConnectWithoutClientInput? connectOrCreate;
+  final _i1.PrismaUnion<_i2.AcheterCreateOrConnectWithoutClientInput,
+      Iterable<_i2.AcheterCreateOrConnectWithoutClientInput>>? connectOrCreate;
 
-  final _i2.AcheterWhereUniqueInput? connect;
+  final _i2.AcheterCreateManyClientInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? connect;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
+        'createMany': createMany,
         'connect': connect,
       };
 }
@@ -3696,7 +3915,7 @@ class ClientUncheckedCreateInput
 
   final String adresseClient;
 
-  final _i2.AcheterUncheckedCreateNestedOneWithoutClientInput? acheter;
+  final _i2.AcheterUncheckedCreateNestedManyWithoutClientInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -4720,13 +4939,15 @@ class AcheterUncheckedUpdateWithoutClientInput
       };
 }
 
-class AcheterUpsertWithoutClientInput
+class AcheterUpsertWithWhereUniqueWithoutClientInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterUpsertWithoutClientInput({
+  const AcheterUpsertWithWhereUniqueWithoutClientInput({
+    required this.where,
     required this.update,
     required this.create,
-    this.where,
   });
+
+  final _i2.AcheterWhereUniqueInput where;
 
   final _i1.PrismaUnion<_i2.AcheterUpdateWithoutClientInput,
       _i2.AcheterUncheckedUpdateWithoutClientInput> update;
@@ -4734,24 +4955,22 @@ class AcheterUpsertWithoutClientInput
   final _i1.PrismaUnion<_i2.AcheterCreateWithoutClientInput,
       _i2.AcheterUncheckedCreateWithoutClientInput> create;
 
-  final _i2.AcheterWhereInput? where;
-
   @override
   Map<String, dynamic> toJson() => {
+        'where': where,
         'update': update,
         'create': create,
-        'where': where,
       };
 }
 
-class AcheterUpdateToOneWithWhereWithoutClientInput
+class AcheterUpdateWithWhereUniqueWithoutClientInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterUpdateToOneWithWhereWithoutClientInput({
-    this.where,
+  const AcheterUpdateWithWhereUniqueWithoutClientInput({
+    required this.where,
     required this.data,
   });
 
-  final _i2.AcheterWhereInput? where;
+  final _i2.AcheterWhereUniqueInput where;
 
   final _i1.PrismaUnion<_i2.AcheterUpdateWithoutClientInput,
       _i2.AcheterUncheckedUpdateWithoutClientInput> data;
@@ -4763,45 +4982,190 @@ class AcheterUpdateToOneWithWhereWithoutClientInput
       };
 }
 
-class AcheterUpdateOneWithoutClientNestedInput
+class AcheterScalarWhereInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterUpdateOneWithoutClientNestedInput({
+  const AcheterScalarWhereInput({
+    this.AND,
+    this.OR,
+    this.NOT,
+    this.idAchat,
+    this.date,
+    this.quantiteAchete,
+    this.montantAchat,
+    this.clientId,
+    this.produitId,
+  });
+
+  final _i1.PrismaUnion<_i2.AcheterScalarWhereInput,
+      Iterable<_i2.AcheterScalarWhereInput>>? AND;
+
+  final Iterable<_i2.AcheterScalarWhereInput>? OR;
+
+  final _i1.PrismaUnion<_i2.AcheterScalarWhereInput,
+      Iterable<_i2.AcheterScalarWhereInput>>? NOT;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? idAchat;
+
+  final _i1.PrismaUnion<_i2.DateTimeFilter, DateTime>? date;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? quantiteAchete;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? montantAchat;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? clientId;
+
+  final _i1.PrismaUnion<_i2.IntFilter, int>? produitId;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'AND': AND,
+        'OR': OR,
+        'NOT': NOT,
+        'id_achat': idAchat,
+        'date': date,
+        'quantite_achete': quantiteAchete,
+        'montant_achat': montantAchat,
+        'client_id': clientId,
+        'produit_id': produitId,
+      };
+}
+
+class AcheterUpdateManyMutationInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterUpdateManyMutationInput({
+    this.date,
+    this.quantiteAchete,
+    this.montantAchat,
+  });
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? date;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? quantiteAchete;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? montantAchat;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'date': date,
+        'quantite_achete': quantiteAchete,
+        'montant_achat': montantAchat,
+      };
+}
+
+class AcheterUncheckedUpdateManyWithoutClientInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterUncheckedUpdateManyWithoutClientInput({
+    this.idAchat,
+    this.date,
+    this.quantiteAchete,
+    this.montantAchat,
+    this.produitId,
+  });
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? idAchat;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? date;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? quantiteAchete;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? montantAchat;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? produitId;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id_achat': idAchat,
+        'date': date,
+        'quantite_achete': quantiteAchete,
+        'montant_achat': montantAchat,
+        'produit_id': produitId,
+      };
+}
+
+class AcheterUpdateManyWithWhereWithoutClientInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterUpdateManyWithWhereWithoutClientInput({
+    required this.where,
+    required this.data,
+  });
+
+  final _i2.AcheterScalarWhereInput where;
+
+  final _i1.PrismaUnion<_i2.AcheterUpdateManyMutationInput,
+      _i2.AcheterUncheckedUpdateManyWithoutClientInput> data;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'where': where,
+        'data': data,
+      };
+}
+
+class AcheterUpdateManyWithoutClientNestedInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterUpdateManyWithoutClientNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
+    this.createMany,
+    this.set,
     this.disconnect,
     this.delete,
     this.connect,
     this.update,
+    this.updateMany,
+    this.deleteMany,
   });
 
-  final _i1.PrismaUnion<_i2.AcheterCreateWithoutClientInput,
-      _i2.AcheterUncheckedCreateWithoutClientInput>? create;
-
-  final _i2.AcheterCreateOrConnectWithoutClientInput? connectOrCreate;
-
-  final _i2.AcheterUpsertWithoutClientInput? upsert;
-
-  final _i1.PrismaUnion<bool, _i2.AcheterWhereInput>? disconnect;
-
-  final _i1.PrismaUnion<bool, _i2.AcheterWhereInput>? delete;
-
-  final _i2.AcheterWhereUniqueInput? connect;
-
   final _i1.PrismaUnion<
-      _i2.AcheterUpdateToOneWithWhereWithoutClientInput,
-      _i1.PrismaUnion<_i2.AcheterUpdateWithoutClientInput,
-          _i2.AcheterUncheckedUpdateWithoutClientInput>>? update;
+      _i2.AcheterCreateWithoutClientInput,
+      _i1.PrismaUnion<
+          Iterable<_i2.AcheterCreateWithoutClientInput>,
+          _i1.PrismaUnion<_i2.AcheterUncheckedCreateWithoutClientInput,
+              Iterable<_i2.AcheterUncheckedCreateWithoutClientInput>>>>? create;
+
+  final _i1.PrismaUnion<_i2.AcheterCreateOrConnectWithoutClientInput,
+      Iterable<_i2.AcheterCreateOrConnectWithoutClientInput>>? connectOrCreate;
+
+  final _i1.PrismaUnion<_i2.AcheterUpsertWithWhereUniqueWithoutClientInput,
+      Iterable<_i2.AcheterUpsertWithWhereUniqueWithoutClientInput>>? upsert;
+
+  final _i2.AcheterCreateManyClientInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? set;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? disconnect;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? delete;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? connect;
+
+  final _i1.PrismaUnion<_i2.AcheterUpdateWithWhereUniqueWithoutClientInput,
+      Iterable<_i2.AcheterUpdateWithWhereUniqueWithoutClientInput>>? update;
+
+  final _i1.PrismaUnion<_i2.AcheterUpdateManyWithWhereWithoutClientInput,
+      Iterable<_i2.AcheterUpdateManyWithWhereWithoutClientInput>>? updateMany;
+
+  final _i1.PrismaUnion<_i2.AcheterScalarWhereInput,
+      Iterable<_i2.AcheterScalarWhereInput>>? deleteMany;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
         'upsert': upsert,
+        'createMany': createMany,
+        'set': set,
         'disconnect': disconnect,
         'delete': delete,
         'connect': connect,
         'update': update,
+        'updateMany': updateMany,
+        'deleteMany': deleteMany,
       };
 }
 
@@ -4822,7 +5186,7 @@ class ClientUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
       adresseClient;
 
-  final _i2.AcheterUpdateOneWithoutClientNestedInput? acheter;
+  final _i2.AcheterUpdateManyWithoutClientNestedInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -4833,45 +5197,71 @@ class ClientUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
       };
 }
 
-class AcheterUncheckedUpdateOneWithoutClientNestedInput
+class AcheterUncheckedUpdateManyWithoutClientNestedInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterUncheckedUpdateOneWithoutClientNestedInput({
+  const AcheterUncheckedUpdateManyWithoutClientNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
+    this.createMany,
+    this.set,
     this.disconnect,
     this.delete,
     this.connect,
     this.update,
+    this.updateMany,
+    this.deleteMany,
   });
 
-  final _i1.PrismaUnion<_i2.AcheterCreateWithoutClientInput,
-      _i2.AcheterUncheckedCreateWithoutClientInput>? create;
-
-  final _i2.AcheterCreateOrConnectWithoutClientInput? connectOrCreate;
-
-  final _i2.AcheterUpsertWithoutClientInput? upsert;
-
-  final _i1.PrismaUnion<bool, _i2.AcheterWhereInput>? disconnect;
-
-  final _i1.PrismaUnion<bool, _i2.AcheterWhereInput>? delete;
-
-  final _i2.AcheterWhereUniqueInput? connect;
-
   final _i1.PrismaUnion<
-      _i2.AcheterUpdateToOneWithWhereWithoutClientInput,
-      _i1.PrismaUnion<_i2.AcheterUpdateWithoutClientInput,
-          _i2.AcheterUncheckedUpdateWithoutClientInput>>? update;
+      _i2.AcheterCreateWithoutClientInput,
+      _i1.PrismaUnion<
+          Iterable<_i2.AcheterCreateWithoutClientInput>,
+          _i1.PrismaUnion<_i2.AcheterUncheckedCreateWithoutClientInput,
+              Iterable<_i2.AcheterUncheckedCreateWithoutClientInput>>>>? create;
+
+  final _i1.PrismaUnion<_i2.AcheterCreateOrConnectWithoutClientInput,
+      Iterable<_i2.AcheterCreateOrConnectWithoutClientInput>>? connectOrCreate;
+
+  final _i1.PrismaUnion<_i2.AcheterUpsertWithWhereUniqueWithoutClientInput,
+      Iterable<_i2.AcheterUpsertWithWhereUniqueWithoutClientInput>>? upsert;
+
+  final _i2.AcheterCreateManyClientInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? set;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? disconnect;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? delete;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? connect;
+
+  final _i1.PrismaUnion<_i2.AcheterUpdateWithWhereUniqueWithoutClientInput,
+      Iterable<_i2.AcheterUpdateWithWhereUniqueWithoutClientInput>>? update;
+
+  final _i1.PrismaUnion<_i2.AcheterUpdateManyWithWhereWithoutClientInput,
+      Iterable<_i2.AcheterUpdateManyWithWhereWithoutClientInput>>? updateMany;
+
+  final _i1.PrismaUnion<_i2.AcheterScalarWhereInput,
+      Iterable<_i2.AcheterScalarWhereInput>>? deleteMany;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
         'upsert': upsert,
+        'createMany': createMany,
+        'set': set,
         'disconnect': disconnect,
         'delete': delete,
         'connect': connect,
         'update': update,
+        'updateMany': updateMany,
+        'deleteMany': deleteMany,
       };
 }
 
@@ -4896,7 +5286,7 @@ class ClientUncheckedUpdateInput
   final _i1.PrismaUnion<String, _i2.StringFieldUpdateOperationsInput>?
       adresseClient;
 
-  final _i2.AcheterUncheckedUpdateOneWithoutClientNestedInput? acheter;
+  final _i2.AcheterUncheckedUpdateManyWithoutClientNestedInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6050,25 +6440,85 @@ class AcheterCreateOrConnectWithoutProduitInput
       };
 }
 
-class AcheterCreateNestedOneWithoutProduitInput
+class AcheterCreateManyProduitInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterCreateNestedOneWithoutProduitInput({
+  const AcheterCreateManyProduitInput({
+    this.idAchat,
+    required this.date,
+    required this.quantiteAchete,
+    required this.montantAchat,
+    required this.clientId,
+  });
+
+  final int? idAchat;
+
+  final DateTime date;
+
+  final int quantiteAchete;
+
+  final int montantAchat;
+
+  final int clientId;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id_achat': idAchat,
+        'date': date,
+        'quantite_achete': quantiteAchete,
+        'montant_achat': montantAchat,
+        'client_id': clientId,
+      };
+}
+
+class AcheterCreateManyProduitInputEnvelope
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterCreateManyProduitInputEnvelope({
+    required this.data,
+    this.skipDuplicates,
+  });
+
+  final _i1.PrismaUnion<_i2.AcheterCreateManyProduitInput,
+      Iterable<_i2.AcheterCreateManyProduitInput>> data;
+
+  final bool? skipDuplicates;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'data': data,
+        'skipDuplicates': skipDuplicates,
+      };
+}
+
+class AcheterCreateNestedManyWithoutProduitInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterCreateNestedManyWithoutProduitInput({
     this.create,
     this.connectOrCreate,
+    this.createMany,
     this.connect,
   });
 
-  final _i1.PrismaUnion<_i2.AcheterCreateWithoutProduitInput,
-      _i2.AcheterUncheckedCreateWithoutProduitInput>? create;
+  final _i1.PrismaUnion<
+          _i2.AcheterCreateWithoutProduitInput,
+          _i1.PrismaUnion<
+              Iterable<_i2.AcheterCreateWithoutProduitInput>,
+              _i1.PrismaUnion<_i2.AcheterUncheckedCreateWithoutProduitInput,
+                  Iterable<_i2.AcheterUncheckedCreateWithoutProduitInput>>>>?
+      create;
 
-  final _i2.AcheterCreateOrConnectWithoutProduitInput? connectOrCreate;
+  final _i1.PrismaUnion<_i2.AcheterCreateOrConnectWithoutProduitInput,
+      Iterable<_i2.AcheterCreateOrConnectWithoutProduitInput>>? connectOrCreate;
 
-  final _i2.AcheterWhereUniqueInput? connect;
+  final _i2.AcheterCreateManyProduitInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? connect;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
+        'createMany': createMany,
         'connect': connect,
       };
 }
@@ -6097,7 +6547,7 @@ class ProduitCreateWithoutGroupeInput
 
   final _i2.MagasinCreateNestedOneWithoutProduitInput magasin;
 
-  final _i2.AcheterCreateNestedOneWithoutProduitInput? acheter;
+  final _i2.AcheterCreateNestedManyWithoutProduitInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6111,25 +6561,36 @@ class ProduitCreateWithoutGroupeInput
       };
 }
 
-class AcheterUncheckedCreateNestedOneWithoutProduitInput
+class AcheterUncheckedCreateNestedManyWithoutProduitInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterUncheckedCreateNestedOneWithoutProduitInput({
+  const AcheterUncheckedCreateNestedManyWithoutProduitInput({
     this.create,
     this.connectOrCreate,
+    this.createMany,
     this.connect,
   });
 
-  final _i1.PrismaUnion<_i2.AcheterCreateWithoutProduitInput,
-      _i2.AcheterUncheckedCreateWithoutProduitInput>? create;
+  final _i1.PrismaUnion<
+          _i2.AcheterCreateWithoutProduitInput,
+          _i1.PrismaUnion<
+              Iterable<_i2.AcheterCreateWithoutProduitInput>,
+              _i1.PrismaUnion<_i2.AcheterUncheckedCreateWithoutProduitInput,
+                  Iterable<_i2.AcheterUncheckedCreateWithoutProduitInput>>>>?
+      create;
 
-  final _i2.AcheterCreateOrConnectWithoutProduitInput? connectOrCreate;
+  final _i1.PrismaUnion<_i2.AcheterCreateOrConnectWithoutProduitInput,
+      Iterable<_i2.AcheterCreateOrConnectWithoutProduitInput>>? connectOrCreate;
 
-  final _i2.AcheterWhereUniqueInput? connect;
+  final _i2.AcheterCreateManyProduitInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? connect;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
+        'createMany': createMany,
         'connect': connect,
       };
 }
@@ -6161,7 +6622,7 @@ class ProduitUncheckedCreateWithoutGroupeInput
 
   final int magasinId;
 
-  final _i2.AcheterUncheckedCreateNestedOneWithoutProduitInput? acheter;
+  final _i2.AcheterUncheckedCreateNestedManyWithoutProduitInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6562,13 +7023,15 @@ class AcheterUncheckedUpdateWithoutProduitInput
       };
 }
 
-class AcheterUpsertWithoutProduitInput
+class AcheterUpsertWithWhereUniqueWithoutProduitInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterUpsertWithoutProduitInput({
+  const AcheterUpsertWithWhereUniqueWithoutProduitInput({
+    required this.where,
     required this.update,
     required this.create,
-    this.where,
   });
+
+  final _i2.AcheterWhereUniqueInput where;
 
   final _i1.PrismaUnion<_i2.AcheterUpdateWithoutProduitInput,
       _i2.AcheterUncheckedUpdateWithoutProduitInput> update;
@@ -6576,24 +7039,22 @@ class AcheterUpsertWithoutProduitInput
   final _i1.PrismaUnion<_i2.AcheterCreateWithoutProduitInput,
       _i2.AcheterUncheckedCreateWithoutProduitInput> create;
 
-  final _i2.AcheterWhereInput? where;
-
   @override
   Map<String, dynamic> toJson() => {
+        'where': where,
         'update': update,
         'create': create,
-        'where': where,
       };
 }
 
-class AcheterUpdateToOneWithWhereWithoutProduitInput
+class AcheterUpdateWithWhereUniqueWithoutProduitInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterUpdateToOneWithWhereWithoutProduitInput({
-    this.where,
+  const AcheterUpdateWithWhereUniqueWithoutProduitInput({
+    required this.where,
     required this.data,
   });
 
-  final _i2.AcheterWhereInput? where;
+  final _i2.AcheterWhereUniqueInput where;
 
   final _i1.PrismaUnion<_i2.AcheterUpdateWithoutProduitInput,
       _i2.AcheterUncheckedUpdateWithoutProduitInput> data;
@@ -6605,45 +7066,121 @@ class AcheterUpdateToOneWithWhereWithoutProduitInput
       };
 }
 
-class AcheterUpdateOneWithoutProduitNestedInput
+class AcheterUncheckedUpdateManyWithoutProduitInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterUpdateOneWithoutProduitNestedInput({
+  const AcheterUncheckedUpdateManyWithoutProduitInput({
+    this.idAchat,
+    this.date,
+    this.quantiteAchete,
+    this.montantAchat,
+    this.clientId,
+  });
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? idAchat;
+
+  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? date;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? quantiteAchete;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? montantAchat;
+
+  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? clientId;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'id_achat': idAchat,
+        'date': date,
+        'quantite_achete': quantiteAchete,
+        'montant_achat': montantAchat,
+        'client_id': clientId,
+      };
+}
+
+class AcheterUpdateManyWithWhereWithoutProduitInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterUpdateManyWithWhereWithoutProduitInput({
+    required this.where,
+    required this.data,
+  });
+
+  final _i2.AcheterScalarWhereInput where;
+
+  final _i1.PrismaUnion<_i2.AcheterUpdateManyMutationInput,
+      _i2.AcheterUncheckedUpdateManyWithoutProduitInput> data;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        'where': where,
+        'data': data,
+      };
+}
+
+class AcheterUpdateManyWithoutProduitNestedInput
+    implements _i1.JsonConvertible<Map<String, dynamic>> {
+  const AcheterUpdateManyWithoutProduitNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
+    this.createMany,
+    this.set,
     this.disconnect,
     this.delete,
     this.connect,
     this.update,
+    this.updateMany,
+    this.deleteMany,
   });
 
-  final _i1.PrismaUnion<_i2.AcheterCreateWithoutProduitInput,
-      _i2.AcheterUncheckedCreateWithoutProduitInput>? create;
-
-  final _i2.AcheterCreateOrConnectWithoutProduitInput? connectOrCreate;
-
-  final _i2.AcheterUpsertWithoutProduitInput? upsert;
-
-  final _i1.PrismaUnion<bool, _i2.AcheterWhereInput>? disconnect;
-
-  final _i1.PrismaUnion<bool, _i2.AcheterWhereInput>? delete;
-
-  final _i2.AcheterWhereUniqueInput? connect;
-
   final _i1.PrismaUnion<
-      _i2.AcheterUpdateToOneWithWhereWithoutProduitInput,
-      _i1.PrismaUnion<_i2.AcheterUpdateWithoutProduitInput,
-          _i2.AcheterUncheckedUpdateWithoutProduitInput>>? update;
+          _i2.AcheterCreateWithoutProduitInput,
+          _i1.PrismaUnion<
+              Iterable<_i2.AcheterCreateWithoutProduitInput>,
+              _i1.PrismaUnion<_i2.AcheterUncheckedCreateWithoutProduitInput,
+                  Iterable<_i2.AcheterUncheckedCreateWithoutProduitInput>>>>?
+      create;
+
+  final _i1.PrismaUnion<_i2.AcheterCreateOrConnectWithoutProduitInput,
+      Iterable<_i2.AcheterCreateOrConnectWithoutProduitInput>>? connectOrCreate;
+
+  final _i1.PrismaUnion<_i2.AcheterUpsertWithWhereUniqueWithoutProduitInput,
+      Iterable<_i2.AcheterUpsertWithWhereUniqueWithoutProduitInput>>? upsert;
+
+  final _i2.AcheterCreateManyProduitInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? set;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? disconnect;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? delete;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? connect;
+
+  final _i1.PrismaUnion<_i2.AcheterUpdateWithWhereUniqueWithoutProduitInput,
+      Iterable<_i2.AcheterUpdateWithWhereUniqueWithoutProduitInput>>? update;
+
+  final _i1.PrismaUnion<_i2.AcheterUpdateManyWithWhereWithoutProduitInput,
+      Iterable<_i2.AcheterUpdateManyWithWhereWithoutProduitInput>>? updateMany;
+
+  final _i1.PrismaUnion<_i2.AcheterScalarWhereInput,
+      Iterable<_i2.AcheterScalarWhereInput>>? deleteMany;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
         'upsert': upsert,
+        'createMany': createMany,
+        'set': set,
         'disconnect': disconnect,
         'delete': delete,
         'connect': connect,
         'update': update,
+        'updateMany': updateMany,
+        'deleteMany': deleteMany,
       };
 }
 
@@ -6672,7 +7209,7 @@ class ProduitUpdateWithoutGroupeInput
 
   final _i2.MagasinUpdateOneRequiredWithoutProduitNestedInput? magasin;
 
-  final _i2.AcheterUpdateOneWithoutProduitNestedInput? acheter;
+  final _i2.AcheterUpdateManyWithoutProduitNestedInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -6686,45 +7223,72 @@ class ProduitUpdateWithoutGroupeInput
       };
 }
 
-class AcheterUncheckedUpdateOneWithoutProduitNestedInput
+class AcheterUncheckedUpdateManyWithoutProduitNestedInput
     implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterUncheckedUpdateOneWithoutProduitNestedInput({
+  const AcheterUncheckedUpdateManyWithoutProduitNestedInput({
     this.create,
     this.connectOrCreate,
     this.upsert,
+    this.createMany,
+    this.set,
     this.disconnect,
     this.delete,
     this.connect,
     this.update,
+    this.updateMany,
+    this.deleteMany,
   });
 
-  final _i1.PrismaUnion<_i2.AcheterCreateWithoutProduitInput,
-      _i2.AcheterUncheckedCreateWithoutProduitInput>? create;
-
-  final _i2.AcheterCreateOrConnectWithoutProduitInput? connectOrCreate;
-
-  final _i2.AcheterUpsertWithoutProduitInput? upsert;
-
-  final _i1.PrismaUnion<bool, _i2.AcheterWhereInput>? disconnect;
-
-  final _i1.PrismaUnion<bool, _i2.AcheterWhereInput>? delete;
-
-  final _i2.AcheterWhereUniqueInput? connect;
-
   final _i1.PrismaUnion<
-      _i2.AcheterUpdateToOneWithWhereWithoutProduitInput,
-      _i1.PrismaUnion<_i2.AcheterUpdateWithoutProduitInput,
-          _i2.AcheterUncheckedUpdateWithoutProduitInput>>? update;
+          _i2.AcheterCreateWithoutProduitInput,
+          _i1.PrismaUnion<
+              Iterable<_i2.AcheterCreateWithoutProduitInput>,
+              _i1.PrismaUnion<_i2.AcheterUncheckedCreateWithoutProduitInput,
+                  Iterable<_i2.AcheterUncheckedCreateWithoutProduitInput>>>>?
+      create;
+
+  final _i1.PrismaUnion<_i2.AcheterCreateOrConnectWithoutProduitInput,
+      Iterable<_i2.AcheterCreateOrConnectWithoutProduitInput>>? connectOrCreate;
+
+  final _i1.PrismaUnion<_i2.AcheterUpsertWithWhereUniqueWithoutProduitInput,
+      Iterable<_i2.AcheterUpsertWithWhereUniqueWithoutProduitInput>>? upsert;
+
+  final _i2.AcheterCreateManyProduitInputEnvelope? createMany;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? set;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? disconnect;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? delete;
+
+  final _i1.PrismaUnion<_i2.AcheterWhereUniqueInput,
+      Iterable<_i2.AcheterWhereUniqueInput>>? connect;
+
+  final _i1.PrismaUnion<_i2.AcheterUpdateWithWhereUniqueWithoutProduitInput,
+      Iterable<_i2.AcheterUpdateWithWhereUniqueWithoutProduitInput>>? update;
+
+  final _i1.PrismaUnion<_i2.AcheterUpdateManyWithWhereWithoutProduitInput,
+      Iterable<_i2.AcheterUpdateManyWithWhereWithoutProduitInput>>? updateMany;
+
+  final _i1.PrismaUnion<_i2.AcheterScalarWhereInput,
+      Iterable<_i2.AcheterScalarWhereInput>>? deleteMany;
 
   @override
   Map<String, dynamic> toJson() => {
         'create': create,
         'connectOrCreate': connectOrCreate,
         'upsert': upsert,
+        'createMany': createMany,
+        'set': set,
         'disconnect': disconnect,
         'delete': delete,
         'connect': connect,
         'update': update,
+        'updateMany': updateMany,
+        'deleteMany': deleteMany,
       };
 }
 
@@ -6756,7 +7320,7 @@ class ProduitUncheckedUpdateWithoutGroupeInput
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? magasinId;
 
-  final _i2.AcheterUncheckedUpdateOneWithoutProduitNestedInput? acheter;
+  final _i2.AcheterUncheckedUpdateManyWithoutProduitNestedInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -7749,7 +8313,7 @@ class ProduitCreateWithoutFabricantInput
 
   final _i2.MagasinCreateNestedOneWithoutProduitInput magasin;
 
-  final _i2.AcheterCreateNestedOneWithoutProduitInput? acheter;
+  final _i2.AcheterCreateNestedManyWithoutProduitInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -7790,7 +8354,7 @@ class ProduitUncheckedCreateWithoutFabricantInput
 
   final int magasinId;
 
-  final _i2.AcheterUncheckedCreateNestedOneWithoutProduitInput? acheter;
+  final _i2.AcheterUncheckedCreateNestedManyWithoutProduitInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -8034,7 +8598,7 @@ class ProduitUpdateWithoutFabricantInput
 
   final _i2.MagasinUpdateOneRequiredWithoutProduitNestedInput? magasin;
 
-  final _i2.AcheterUpdateOneWithoutProduitNestedInput? acheter;
+  final _i2.AcheterUpdateManyWithoutProduitNestedInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -8076,7 +8640,7 @@ class ProduitUncheckedUpdateWithoutFabricantInput
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? magasinId;
 
-  final _i2.AcheterUncheckedUpdateOneWithoutProduitNestedInput? acheter;
+  final _i2.AcheterUncheckedUpdateManyWithoutProduitNestedInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -8978,7 +9542,7 @@ class ProduitCreateWithoutMagasinInput
 
   final _i2.FabricantCreateNestedOneWithoutProduitInput fabricant;
 
-  final _i2.AcheterCreateNestedOneWithoutProduitInput? acheter;
+  final _i2.AcheterCreateNestedManyWithoutProduitInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -9019,7 +9583,7 @@ class ProduitUncheckedCreateWithoutMagasinInput
 
   final int fabricantId;
 
-  final _i2.AcheterUncheckedCreateNestedOneWithoutProduitInput? acheter;
+  final _i2.AcheterUncheckedCreateNestedManyWithoutProduitInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -9446,7 +10010,7 @@ class ProduitUpdateWithoutMagasinInput
 
   final _i2.FabricantUpdateOneRequiredWithoutProduitNestedInput? fabricant;
 
-  final _i2.AcheterUpdateOneWithoutProduitNestedInput? acheter;
+  final _i2.AcheterUpdateManyWithoutProduitNestedInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -9488,7 +10052,7 @@ class ProduitUncheckedUpdateWithoutMagasinInput
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? fabricantId;
 
-  final _i2.AcheterUncheckedUpdateOneWithoutProduitNestedInput? acheter;
+  final _i2.AcheterUncheckedUpdateManyWithoutProduitNestedInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -14232,7 +14796,7 @@ class ProduitCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.MagasinCreateNestedOneWithoutProduitInput magasin;
 
-  final _i2.AcheterCreateNestedOneWithoutProduitInput? acheter;
+  final _i2.AcheterCreateNestedManyWithoutProduitInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -14277,7 +14841,7 @@ class ProduitUncheckedCreateInput
 
   final int magasinId;
 
-  final _i2.AcheterUncheckedCreateNestedOneWithoutProduitInput? acheter;
+  final _i2.AcheterUncheckedCreateNestedManyWithoutProduitInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -14362,7 +14926,7 @@ class ProduitUpdateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
 
   final _i2.MagasinUpdateOneRequiredWithoutProduitNestedInput? magasin;
 
-  final _i2.AcheterUpdateOneWithoutProduitNestedInput? acheter;
+  final _i2.AcheterUpdateManyWithoutProduitNestedInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -14408,7 +14972,7 @@ class ProduitUncheckedUpdateInput
 
   final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? magasinId;
 
-  final _i2.AcheterUncheckedUpdateOneWithoutProduitNestedInput? acheter;
+  final _i2.AcheterUncheckedUpdateManyWithoutProduitNestedInput? acheter;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -15447,26 +16011,6 @@ class AggregateProduitSelect
       };
 }
 
-enum AcheterScalar<T> implements _i1.PrismaEnum, _i1.Reference<T> {
-  idAchat<int>('id_achat', 'Acheter'),
-  date<DateTime>('date', 'Acheter'),
-  quantiteAchete<int>('quantite_achete', 'Acheter'),
-  montantAchat<int>('montant_achat', 'Acheter'),
-  clientId<int>('client_id', 'Acheter'),
-  produitId<int>('produit_id', 'Acheter');
-
-  const AcheterScalar(
-    this.name,
-    this.model,
-  );
-
-  @override
-  final String name;
-
-  @override
-  final String model;
-}
-
 class AcheterCreateInput implements _i1.JsonConvertible<Map<String, dynamic>> {
   const AcheterCreateInput({
     required this.date,
@@ -15624,28 +16168,6 @@ class AcheterUncheckedUpdateInput
         'montant_achat': montantAchat,
         'client_id': clientId,
         'produit_id': produitId,
-      };
-}
-
-class AcheterUpdateManyMutationInput
-    implements _i1.JsonConvertible<Map<String, dynamic>> {
-  const AcheterUpdateManyMutationInput({
-    this.date,
-    this.quantiteAchete,
-    this.montantAchat,
-  });
-
-  final _i1.PrismaUnion<DateTime, _i2.DateTimeFieldUpdateOperationsInput>? date;
-
-  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? quantiteAchete;
-
-  final _i1.PrismaUnion<int, _i2.IntFieldUpdateOperationsInput>? montantAchat;
-
-  @override
-  Map<String, dynamic> toJson() => {
-        'date': date,
-        'quantite_achete': quantiteAchete,
-        'montant_achat': montantAchat,
       };
 }
 

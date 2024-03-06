@@ -34,13 +34,9 @@ Future<void> generateMagasin(int count) async {
 }
 
 Future<Ville?> findVille(PrismaClient client) async {
-  final expectVilleId = Random().nextInt(90);
-  final ville = await client.ville.findFirst(
-      where: VilleWhereInput(idVille: PrismaUnion.$2(expectVilleId)));
-  if (ville != null) {
-    return ville;
-  }
-  return null;
+  final villeQuery = await client.ville.findMany();
+  final villes = villeQuery.toList();
+  return villes[Random().nextInt(villes.length)];
 }
 
 Future<int?> findMagasin(int magasinId, PrismaClient client) async {

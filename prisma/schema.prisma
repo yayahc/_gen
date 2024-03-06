@@ -18,8 +18,8 @@ model Client {
   nom_client String
   prenom_client String
   adresse_client String
-  acheter Acheter?
-}
+  acheter Acheter[]
+  }
 
 model Groupe {
   id_groupe Int @id @default(autoincrement())
@@ -79,7 +79,7 @@ model Produit {
   fabricant_id Int 
   magasin Magasin @relation(fields: [magasin_id], references: [id_magasin])
   magasin_id Int 
-  acheter Acheter?
+  acheter Acheter[]
 }
 
 model Acheter {
@@ -88,7 +88,7 @@ model Acheter {
   quantite_achete Int
   montant_achat Int
   client Client @relation(fields: [client_id], references: [id_client])
-  client_id Int @unique
+  client_id Int 
   produit Produit @relation(fields: [produit_id], references: [id_produit])
-  produit_id Int @unique
+  produit_id Int
 }

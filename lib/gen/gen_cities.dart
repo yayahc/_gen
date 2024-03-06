@@ -2,15 +2,14 @@ import 'package:orm/orm.dart';
 import '../generated/prisma/client.dart';
 import '../generated/prisma/prisma.dart';
 import 'config.dart';
+import 'gen_regions.dart';
 
 Future<void> generateCities() async {
-  final client = await getPrismaClient();
-  await _generate(client);
-  client.$disconnect();
+  await _generate();
 }
 
-Future<void> generateManyCitie(
-    String region, List<String> value, PrismaClient client) async {
+Future<void> generateManyCitie(String region, List<String> value) async {
+  final client = await getPrismaClient();
   final regionId = await findRegionId(region, client);
   final villes = value
       .map((e) => VilleCreateInput(
@@ -25,6 +24,7 @@ Future<void> generateManyCitie(
       return VilleCreateManyInput(nomVille: e.nomVille, regionId: regionId);
     })));
   }
+  client.$disconnect();
 }
 
 Future<int?> findRegionId(String regionName, PrismaClient client) async {
@@ -36,13 +36,12 @@ Future<int?> findRegionId(String regionName, PrismaClient client) async {
   return null;
 }
 
-Future<void> _generate(PrismaClient client) async {
+Future<void> _generate() async {
   const Map<String, List<String>> rg = regionsWithCities;
   rg.forEach((key, value) async {
-    // await generateRegion(key);
-    await generateManyCitie(key, value, client);
+    await generateRegion(key);
+    await generateManyCitie(key, value);
   });
-  client.$disconnect();
 }
 
 const Map<String, List<String>> regionsWithCities = {
@@ -78,6 +77,6 @@ const Map<String, List<String>> regionsWithCities = {
   "Woroba": ["Séguéla", "Mankono", "Kani", "Kouibly", "Ouaninou"]
 };
 
-// Future<void> main(List<String> args) async {
-//   await generateCities();
-// }
+Future<void> main(List<String> args) async {
+  await generateCities();
+}
