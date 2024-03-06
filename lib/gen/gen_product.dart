@@ -5,47 +5,45 @@ import '../generated/prisma/prisma.dart';
 import 'config.dart';
 
 Future<void> generateProduct() async {
-  final List<Produit> products = [];
-
-  productNames.map((e) async {
+  final List<Produit> produits = <Produit>[];
+  for (var i = 0; i < productNames.length; i++) {
     final code = Random().nextInt(10000);
     final poids = Random().nextDouble() * 256;
     final groupe = await fetchGroupe();
     final fabricant = await fetchFabricant();
     final magasin = await fetchMagasin();
-    final product = Produit(
-        nomProduit: e,
+    final pt = Produit(
+        nomProduit: productNames[i],
         code: code.toString(),
         poids: poids.ceilToDouble(),
         pv: "Unknown",
         groupe: groupe,
         fabricant: fabricant,
         magasin: magasin);
-
-    products.add(product);
-  });
+    produits.add(pt);
+  }
 
   final client = await getPrismaClient();
-  await client.produit.createMany(data: PrismaUnion.$2(products.map((e) {
+  await client.produit.createMany(data: PrismaUnion.$2(produits.map((e) {
     return ProduitCreateManyInput(
         nomProduit: e.nomProduit!,
         code: e.code!,
         poids: e.poids!,
         pv: e.pv!,
-        groupeId: e.groupeId!,
-        fabricantId: e.fabricantId!,
-        magasinId: e.magasinId!);
+        groupeId: e.groupe!.idGroupe!,
+        fabricantId: e.fabricant!.idFabricant!,
+        magasinId: e.magasin!.idMagasin!);
   })));
   client.$disconnect();
 }
 
 Future<Magasin> fetchMagasin() async {
   final client = await getPrismaClient();
-
   final magasinQuery = await client.magasin.findMany();
-  final magasin = magasinQuery.toList();
+  final magasins = magasinQuery.toList();
   client.$disconnect();
-  return magasin[Random().nextInt(magasin.length)];
+  final magasin = magasins[Random().nextInt(magasins.length)];
+  return magasin;
 }
 
 Future<Fabricant> fetchFabricant() async {
@@ -69,7 +67,7 @@ Future<Groupe> fetchGroupe() async {
 }
 
 Future<void> main(List<String> args) async {
-  await fetchMagasin();
+  await generateProduct();
 }
 
 const List<String> productNames = [
