@@ -95,5 +95,5 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
 scripts:
-  prisma-push: "npx prisma db push"
+  prisma-push: "npx prisma db push --schema=lib/gen/prisma/schema.prisma"
   prisma-gen: "npx prisma generate --schema=./lib/gen/prisma/schema.prisma"

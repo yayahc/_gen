@@ -2,6 +2,7 @@
 /// we send a get request to https://randomuser.me/api/'
 /// we exept to get json response that contain fake user (only one per request)
 
+import 'package:app/gen/library/models/user_model.dart';
 import 'package:orm/orm.dart';
 import 'config.dart';
 import 'generated/prisma/model.dart';
@@ -18,15 +19,13 @@ Future<void> generateUsers(int? ct) async {
     users.add(user);
   }
 
-  await client.user.createMany(data: PrismaUnion.$2(users.map((e) {
-    final user_ = User.fromJson(e);
-    return UserCreateManyInput(
-        firstName: user_.firstName!,
-        lastName: user_.lastName!,
-        birthday: user_.birthCity!,
-        gender: user_.gender!,
-        identityCode: user_.identityCode!,
-        birthCity: user_.birthCity!);
+  await client.client.createMany(data: PrismaUnion.$2(users.map((e) {
+    final user_ = UserModel.fromJson2(e);
+    return ClientCreateManyInput(
+      nomClient: user_.firstName,
+      prenomClient: user_.lastName,
+      adresseClient: user_.location,
+    );
   })));
 
   await client.$disconnect();

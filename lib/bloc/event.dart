@@ -1,4 +1,4 @@
-import '../gen/gen_lib/gen.dart';
+import '../gen/library/gen.dart';
 
 class GenEvent {}
 

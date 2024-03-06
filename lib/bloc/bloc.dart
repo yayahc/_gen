@@ -5,7 +5,7 @@ import 'package:app/helper/config_helper.dart';
 import 'package:app/helper/gen_user_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../gen/gen_lib/gen.dart';
+import '../gen/library/gen.dart';
 import 'package:go_router/go_router.dart';
 import '../router.dart';
 

@@ -3,7 +3,7 @@
 
 generator client {
   provider = "dart run orm"
-  output = "../lib/generated/prisma"
+  output = "../library/generated/prisma"
 }
 
 datasource db {
