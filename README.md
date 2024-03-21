@@ -1,1 +1,1 @@
-Deskop app to expose [gen]() scripts
+Deskop app to expose [gen](https://github.com/yayahc/_gen) scripts
